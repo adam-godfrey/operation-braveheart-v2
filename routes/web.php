@@ -15,7 +15,7 @@ Route::get('/', 'IndexController@index')->name('home.index');
 
 Route::prefix('contact')->group(function () {
     Route::get('/', 'ContactController@index')->name('contact.index');
-    Route::post('/', 'ContactController@send')->name('contact.send');
+    Route::post('submit', 'ContactController@send')->name('contact.send');
 });
 
 Route::get('/about', 'AboutController@index')->name('about.index');
