@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url({{ asset('img/rifles.jpg') }})">
+    <header class="masthead" style="background-image: url('')">
 @else
     <header class="masthead">
 @endif
@@ -14,7 +14,7 @@
                 <div class="page-heading">
                     <h1>{{ $page->title }}</h1>
                     @if($page->description)
-                        <span class="subheading">{{ $page->description }}</span>
+                    <span class="subheading">{{ $page->description }}</span>
                     @endif
                 </div>
             </div>
@@ -30,15 +30,14 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
 
             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
-
         </div>
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-
+            <div id="fb-root"></div>
+            <!-- Your embedded video player code -->
+            <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ $video_id }}/" data-width="1000" data-show-text="false"></div>
         </div>
     </div>
 </div>
-<newsletter-form></newsletter-form>
-
 @endsection
