@@ -4,3 +4,20 @@
 .navbar-brand, .nav-item {
     font-family: 'Black Ops One', cursive;
 }
+
+.bg-blue {
+    background-color: #57B8E2;
+    color: #fff;
+    p {
+        font-size: 15px;
+    }
+    .form-control {
+        height: calc(1.5em + 0.75rem + 18px);
+        margin-right: 10px;
+    }
+}
+@media (min-width: 576px) {
+    .bg-blue .form-inline .input-group {
+        width: 80%;
+    }
+}

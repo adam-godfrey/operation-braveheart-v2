@@ -39,5 +39,6 @@
         </div>
     </div>
 </div>
+<newsletter-form></newsletter-form>
 
 @endsection
