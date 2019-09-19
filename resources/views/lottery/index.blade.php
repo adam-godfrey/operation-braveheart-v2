@@ -32,10 +32,12 @@
             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
         </div>
     </div>
-    <div id="fb-root"></div>
-
-
-    <!-- Your embedded video player code -->
-    <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false"></div>
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div id="fb-root"></div>
+            <!-- Your embedded video player code -->
+            <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ $video_id }}/" data-width="1000" data-show-text="false"></div>
+        </div>
+    </div>
 </div>
 @endsection
