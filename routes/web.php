@@ -17,6 +17,10 @@ Route::get('/lottery', 'LotteryController@index')->name('lottery.index');
 Route::get('/memorial-garden', 'MemorialGardenController@index')->name('memorial-garden.index');
 Route::get('/shop', 'ShopController@index')->name('shop.index');
 
+Route::prefix('news')->group(function () {
+    Route::get('/', 'NewsController@index')->name('news.index');
+});
+
 Route::prefix('contact')->group(function () {
     Route::get('/', 'ContactController@index')->name('contact.index');
     Route::post('submit', 'ContactController@send')->name('contact.send');
