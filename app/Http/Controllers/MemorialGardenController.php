@@ -15,7 +15,7 @@ class MemorialGardenController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Memorial Garden',
-                'description' => 'Blah blah blah'
+                'description' => 'We shall not forget the fallen'
             ]
         ];
 

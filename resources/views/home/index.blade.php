@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url({{ asset('img/rifles.jpg') }})">
+    <header class="masthead" style="background-image: url('{{ asset('img/rifles.jpg') }}')">
 @else
     <header class="masthead">
 @endif
@@ -49,12 +49,14 @@
                     Start Bootstrap
 
                     on
-                    October 31, 2017 · <span class="reading-time" title="Estimated read time">
-
-   4 mins  read </span>
+                    October 31, 2017 · <span class="reading-time" title="Estimated read time">4 mins  read </span>
 
                 </p>
             </article>
+            <p class="text-center">
+                <a href="{{ route('about.index') }}" class="btn btn-outline-primary">Read More</a>
+                <a href="{{ route('news.index') }}" class="btn btn-outline-primary">Latest News</a>
+            </p>
         </div>
     </div>
 </div>

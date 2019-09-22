@@ -9,6 +9,7 @@ Vue.component('contact-form', require('./components/ContactForm.vue').default);
 
 Vue.component('newsletter-form', require('./components/Newsletter.vue').default);
 
+Vue.component('call-to-action', require('./components/CallToAction.vue').default);
 
 const app = new Vue({
     el: '#app'

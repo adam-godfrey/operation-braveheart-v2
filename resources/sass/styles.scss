@@ -2,11 +2,11 @@
 @import "clean-blog.scss";
 
 .navbar-brand, .nav-item {
-    font-family: 'Black Ops One', cursive;
+    font-family: 'Poiret One', cursive;
 }
 
 .bg-blue {
-    background-color: #57B8E2;
+    background-color: #007bff;
     color: #fff;
     p {
         font-size: 15px;
@@ -16,6 +16,71 @@
         margin-right: 10px;
     }
 }
+.cta {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    &:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+}
+.cta-lottery {
+    height: 300px;
+    &:before {
+        background-image: url('../img/lottery-balls.webp');
+    }
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.cta-memorial {
+    background: #000000;
+    padding: 50px;
+    &:before {
+        opacity: 0.6;
+        background-image: url('../img/lone-soldier.webp');
+    }
+    h3 {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        font-weight:600;
+    } 
+    p {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        font-family: 'Satisfy', cursive;
+        color: #fff;
+        margin-bottom: 0;
+    }
+}
+
+.jumbotron a {
+    color: $white;
+}
+
+.fun {
+    padding:30px 0;
+    background-color: #ffef01;
+}
+
 @media (min-width: 576px) {
     .bg-blue .form-inline .input-group {
         width: 80%;

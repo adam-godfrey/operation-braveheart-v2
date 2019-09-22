@@ -15,7 +15,7 @@ class ContactController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Contact Us',
-                'description' => 'Blah blah blah'
+                'description' => 'Have a question?'
             ]
         ];
 
