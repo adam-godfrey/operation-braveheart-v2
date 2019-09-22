@@ -31,12 +31,17 @@
  
 <script>
 export default {
+  props: ['test'],
   data() {
     return {
       fields: {},
       errors: {},
     }
   },
+  mounted () {
+        // Do something useful with the data in the template
+        console.log(this.test)
+    },
   methods: {
     submit() {
       this.errors = {};

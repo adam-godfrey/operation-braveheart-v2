@@ -1,7 +1,7 @@
 body {
   font-size: 20px;
   color: #212529;
-  font-family: "Lora", "Times New Roman", serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 p {
@@ -218,6 +218,8 @@ header.masthead .site-heading {
 
 header.masthead .page-heading h1,
 header.masthead .site-heading h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
   font-size: 50px;
   margin-top: 0;
 }
@@ -422,5 +424,112 @@ footer .copyright {
 .btn-lg {
   font-size: 16px;
   padding: 25px 35px;
+}
+
+.btn-outline-primary {
+  color: #0085A1;
+  background-color: #fff;
+  border-color: #0085A1;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  color: #00657b !important;
+  background-color: #fff;
+  border-color: #00657b !important;
+}
+
+.navbar-brand,
+.nav-item {
+  font-family: "Poiret One", cursive;
+}
+
+.bg-blue {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.bg-blue p {
+  font-size: 15px;
+}
+
+.bg-blue .form-control {
+  height: calc(1.5em + 0.75rem + 18px);
+  margin-right: 10px;
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.cta:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  background-size: cover;
+}
+
+.cta-lottery {
+  height: 300px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.cta-lottery:before {
+  background-image: url(/images/lottery-balls.webp?caa0a0016155063dc901342a5020ef76);
+}
+
+.cta-memorial {
+  background: #000000;
+  padding: 50px;
+}
+
+.cta-memorial:before {
+  opacity: 0.6;
+  background-image: url(/images/lone-soldier.webp?642c9a514a48e47e6e0f353c890e45ed);
+}
+
+.cta-memorial h3 {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+
+.cta-memorial p {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  font-family: "Satisfy", cursive;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.jumbotron a {
+  color: #fff;
+}
+
+.fun {
+  padding: 30px 0;
+  background-color: #ffef01;
+}
+
+@media (min-width: 576px) {
+  .bg-blue .form-inline .input-group {
+    width: 80%;
+  }
 }
 

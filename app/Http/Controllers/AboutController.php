@@ -15,7 +15,7 @@ class AboutController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'About Us',
-                'description' => 'Blah blah blah'
+                'description' => 'What we do'
             ]
         ];
 

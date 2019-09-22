@@ -15,7 +15,7 @@ class NewsController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'News',
-                'description' => 'Blah blah blah'
+                'description' => 'What\'s going on at ' . \Config::get('app.name')
             ]
         ];
 

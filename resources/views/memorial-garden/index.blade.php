@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('img/lottery.webp') }}'), radial-gradient(#fff,#fff);">
+    <header class="masthead" style="background-image: url('')">
 @else
     <header class="masthead">
 @endif
@@ -25,13 +25,6 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <div id="fb-root"></div>
-            <!-- Your embedded video player code -->
-            <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ $video_id }}/" data-width="1000" data-show-text="false"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
 
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
@@ -39,25 +32,15 @@
             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
         </div>
     </div>
-    
     <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="col-lg-5 col-md-7 mx-auto">
             <call-to-action 
-                url="{{ route('lottery.index') }}" 
-                class="cta cta-lottery">
+                url="{{ route('contact.index') }}" 
+                class="cta cta-memorial"
+                html="<h3>Want a fallen Hero remembered?</h3><p>If you would like someone remembered in the memorial garden, please get in
+                contact</p>">
             </call-to-action>
         </div>
     </div>
 </div>
-<div class="container-fluid fun">
-    <div class="row">
-        <div class="col mx-auto text-center">
-            <img src="{{ asset('img/fun.webp') }}">
-        </div>
-    </div>
-</div>
 @endsection
-
-@push('scripts')
-<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
-@endpush

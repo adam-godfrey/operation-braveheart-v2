@@ -15,7 +15,7 @@ class LotteryController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Lottery',
-                'description' => 'Blah blah blah'
+                'description' => 'Have you won this month\'s lottery?'
             ],
             'video_id' => '10153231379946729'
         ];

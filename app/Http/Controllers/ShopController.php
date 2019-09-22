@@ -15,7 +15,7 @@ class ShopController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Operation Braveheart Shop',
-                'description' => 'Blah blah blah'
+                'description' => 'The heart of ' . \Config::get('app.name')
             ]
         ];
 
