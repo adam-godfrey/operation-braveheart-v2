@@ -19,6 +19,7 @@ Route::get('/shop', 'ShopController@index')->name('shop.index');
 
 Route::prefix('news')->group(function () {
     Route::get('/', 'NewsController@index')->name('news.index');
+    Route::get('/{id}', 'NewsController@show')->name('news.show');
 });
 
 Route::prefix('contact')->group(function () {
