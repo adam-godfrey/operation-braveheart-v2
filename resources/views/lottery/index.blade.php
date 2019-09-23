@@ -30,6 +30,40 @@
             <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ $video_id }}/" data-width="1000" data-show-text="false"></div>
         </div>
     </div>
+    <div class="row mt-3">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->first->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->second->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->third->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
