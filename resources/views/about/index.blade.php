@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('')">
+    <header class="masthead" style="background-image: url('{{ asset('img/daniel-coffey-memorial.webp') }}')">
 @else
     <header class="masthead">
 @endif
@@ -33,8 +33,6 @@
         </div>
     </div>
     <div id="fb-root"></div>
-
-
     <!-- Your embedded video player code -->
     <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/10153231379946729/" data-width="500" data-show-text="false"></div>
 </div>
