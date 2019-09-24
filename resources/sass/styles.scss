@@ -47,6 +47,22 @@
     margin-bottom: 20px;
 }
 
+.lottery-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    max-height: 228px;
+}
+
 .cta-memorial {
     background: #000000;
     padding: 50px;
