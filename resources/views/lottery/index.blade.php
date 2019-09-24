@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <img class="card-img-top" src="#" alt="Card image cap">
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->first->winner }}</h6>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <img class="card-img-top" src="#" alt="Card image cap">
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->second->winner }}</h6>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col">
                     <div class="card">
-                        <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                        <img class="card-img-top" src="#" alt="Card image cap">
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->third->winner }}</h6>
