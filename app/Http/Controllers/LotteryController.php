@@ -21,14 +21,17 @@ class LotteryController extends Controller
             'lottery' => (object) [
                 'prize' => (object) [
                     'first' => (object) [
+                        'number' => '56',
                         'prize' => '50',
                         'winner' => 'Not me'
                     ],
                     'second' => (object) [
+                        'number' => '95',
                         'prize' => '30',
                         'winner' => 'Not me'
                     ],
                     'third' => (object) [
+                        'number' => '62',
                         'prize' => '20',
                         'winner' => 'Not me'
                     ]
