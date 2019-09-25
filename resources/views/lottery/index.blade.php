@@ -33,7 +33,7 @@
     <div class="row mt-3">
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
-            <h2 class="text-center">This month's winning numbers are...</h2>
+            <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
             <div class="row">
                 <div class="col">
                     <div class="card">
