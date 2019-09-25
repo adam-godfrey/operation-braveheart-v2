@@ -36,7 +36,7 @@
             <h2 class="text-center">This month's winning numbers are...</h2>
             <div class="row">
                 <div class="col">
-                    <div class="card">
+                    <div class="card lottery">
                         <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
                         <div class="card-body text-center">
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card lottery">
                         <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
                         <div class="card-body text-center">
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card">
+                    <div class="card lottery">
                         <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
                         <div class="card-body text-center">
