@@ -10,10 +10,6 @@ export default {
         'url',
         'html'
     ],
-    mounted () {
-        // Do something useful with the data in the template
-        console.log(this.url)
-    },
     methods: {
         go: function() {
             window.location.href = this.url;    
