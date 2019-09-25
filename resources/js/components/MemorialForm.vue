@@ -1,13 +1,29 @@
 <template>
     <form @submit.prevent="submit">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Contact Name</label>
+                    <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact">
+                    <div v-if="errors && errors.contact" class="text-danger">{{ errors.contact[0] }}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="Email Address" id="email" v-model="fields.email">
+                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
+                </div>
+            </div>
+        </div>
         <div id="plaque">
             <div class="form-row">
                 <div class="col">
-                    <input type="text" class="form-control text-right" placeholder="Title" id="title" v-model="fields.title">
-                    <div v-if="errors && errors.title" class="text-danger">{{ errors.title[0] }}</div>
+                    <input type="text" class="form-control text-right" placeholder="Rank" id="rank" v-model="fields.rank">
+                    <div v-if="errors && errors.rank" class="text-danger">{{ errors.rank[0] }}</div>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Name" id="name" v-model="fields.name">
+                    <input type="text" class="form-control" placeholder="Loved One's Name" id="name" v-model="fields.name">
                     <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
                 </div>
             </div>
