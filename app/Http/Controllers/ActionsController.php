@@ -16,10 +16,10 @@ class ActionsController extends Controller
     }
     public function getAddresses(Request $request)
     {
-        $url = $request->has('house') ? 'https://api.getAddress.io/find/' . $request->postcode . '/' . $request->house : 'https://api.getAddress.io/find/' . $request->postcode;
+        $url = $request->has('house') ? 'https://api.getAddress.io/find/' . $request->input('postcode') . '/' . $request->house : 'https://api.getAddress.io/find/' . $request->input('postcode');
 
-        $result = $this->client->get($url . '?api-key=vwukZY5maUminZ7pjdx86Q21331', []);
+        $response = $this->client->get($url . '?api-key=' . \Config::get('custom.getaddress_api_key') . '&expand=true', []);
 
-        return $result;
+        return $response->getBody()->getContents();
     }
 }
