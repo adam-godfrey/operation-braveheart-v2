@@ -25,6 +25,6 @@
         }
     });
 </script>
-
+@include('layouts.partials.analytics')
 </body>
 </html>

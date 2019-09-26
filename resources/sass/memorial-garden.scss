@@ -1,0 +1,90 @@
+.cta-memorial {
+    background: #000000;
+    padding: 50px;
+    &:before {
+        opacity: 0.6;
+        background-image: url('../images/lone-soldier.webp');
+    }
+    h3 {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        color: #fff;
+        font-family: 'Open Sans', sans-serif;
+        font-weight:600;
+    }
+    p {
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        font-family: 'Satisfy', cursive;
+        color: #fff;
+        margin-bottom: 0;
+    }
+}
+
+#plaque {
+    position: relative;
+    padding: 30px 100px 20px;
+    background-image: url('../images/metallic-effect.webp');
+    margin-bottom: 15px;
+    .form-group {
+        margin-bottom: 0;
+    }
+    .form-control {
+        background: transparent;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: "Times New Roman", Times, serif;
+    }
+    .screw {
+        position: absolute;
+        background-image: url('../images/screw.webp');
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.6;
+        width: 30px;
+        height: 30px;
+        &.top {
+            top:5px;
+        }
+        &.bottom {
+            bottom: 5px;
+        }
+        &.left {
+            left: 5px;
+        }
+        &.right {
+            right: 5px;
+        }
+    }
+}
+
+#carousel-1 {
+    .img-fluid {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+}
+#address-list {
+    margin-top:10px;
+    max-width: 100%;
+    z-index:2;
+    background: $white;
+    position: absolute;
+    top: 0;
+    border: 1px solid $primary;
+    div {
+        padding: 5px 15px;
+        &:first-child {
+            padding-top: 5px
+        }
+        &:hover {
+            background-color: $secondary;
+            color: $white;
+        }
+        font-size: 90%;
+        cursor:pointer;
+    }
+}

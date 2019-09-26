@@ -1,28 +1,63 @@
 <template>
     <form @submit.prevent="submit">
         <div class="row mb-4">
-            <div class="col">
+            <div class="col-sm-12">
                 <div class="form-group floating-label-form-group controls">
                     <label>Contact Name</label>
                     <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact">
                     <div v-if="errors && errors.contact" class="text-danger">{{ errors.contact[0] }}</div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-12">
                 <div class="form-group floating-label-form-group controls">
                     <label>Contact Name</label>
                     <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
                     <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-sm-12">
                 <div class="form-group floating-label-form-group controls">
                     <label>Email Address</label>
                     <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
                     <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
                 </div>
             </div>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>House Name / Number</label>
+                            <input type="text" class="form-control" placeholder="House Name / Number" id="house" v-model="fields.house">
+                            <div v-if="errors && errors.house" class="text-danger">{{ errors.house[0] }}</div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Postcode</label>
+                            <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
+                            <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-auto pt-3 pr-4">
+                        <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" v-show="toggle">
+                <div id="address-list">
+                    <div v-for="item in items" :data-address="item.address" v-on:click="populate">{{ item.address }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder="Address" id="address" v-model="fields.address">
+                    <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
+                </div>
+            </div>
         </div>
+        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
         <div id="plaque">
             <div class="form-row">
                 <div class="col">
@@ -56,6 +91,10 @@
                 <input type="text" class="form-control text-center" placeholder="Message" id="message" v-model="fields.message">
                 <div v-if="errors && errors.message" class="text-danger">{{ errors.message[0] }}</div>
             </div>
+            <div class="screw top left"></div>
+            <div class="screw top right"></div>
+            <div class="screw bottom left"></div>
+            <div class="screw bottom right"></div>
         </div>
         <div id="success"></div>
         <div class="form-group">
@@ -66,23 +105,53 @@
  
 <script>
 export default {
-  data() {
-    return {
-      fields: {},
-      errors: {},
-    }
-  },
-  methods: {
-    submit() {
-      this.errors = {};
-      axios.post('/memorial-garden/send-request', this.fields).then(response => {
-        alert('Message sent!');
-      }).catch(error => {
-        if (error.response.status === 422) {
-          this.errors = error.response.data.errors || {};
+    data: function() {
+        return {
+            fields: {
+                house: '',
+                postcode: '',
+            },
+            errors: {},
+            items: [],
+            toggle: false
         }
-      });
     },
-  },
+    methods: {
+        submit: function() {
+            this.errors = {};
+            axios.post('/memorial-garden/send-request', this.fields).then(response => {
+                alert('Message sent!');
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors || {};
+                }
+            });
+        },
+        lookup: function(e) {
+            e.preventDefault();
+
+            this.errors = {};
+            var $this = this;
+
+            axios.post('/postcode-lookup', {house: this.fields.house, postcode: this.fields.postcode}).then(response => {
+                response.data.addresses.forEach(function (item) {
+                    $this.items.push({
+                        address: item.formatted_address.filter(function(el) { return el; }).join(', ')
+                    });
+                });
+
+                this.toggle = true;
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors || {};
+                }
+            });
+        },
+        populate: function(event) {
+            this.fields.address = event.target.dataset.address;
+            this.items = [];
+            this.toggle = false;
+        }
+    },
 }
 </script>

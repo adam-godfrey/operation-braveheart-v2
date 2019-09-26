@@ -32,3 +32,5 @@ Route::prefix('memorial-garden')->group(function () {
     Route::post('send-request', 'MemorialGardenController@send')->name('memorial-garden.send');
 });
 
+Route::post('postcode-lookup', 'ActionsController@getAddresses');
+
