@@ -6,7 +6,7 @@
 }
 
 .bg-blue {
-    background-color: #007bff;
+    background-color: $primary;
     color: #fff;
     p {
         font-size: 15px;
@@ -15,6 +15,10 @@
         height: calc(1.5em + 0.75rem + 18px);
         margin-right: 10px;
     }
+}
+
+.card.lottery {
+    border: 0;
 }
 .cta {
     position: relative;
