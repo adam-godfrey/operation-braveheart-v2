@@ -29,6 +29,25 @@
             <div class="col">
                 <div class="row">
                     <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group floating-label-form-group controls">
+                                    <label>Postcode</label>
+                                    <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
+                                    <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
+                                    <div id="address-list">
+                                        <ul>
+                                            <li v-for="item in items" :data-address="item.message" v-on:click="populate">{{ item.message }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto pt-3 pr-4">
+                                <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <div class="form-group floating-label-form-group controls">
                             <label>House</label>
                             <input type="text" class="form-control" placeholder="House" id="house" v-model="fields.house">
@@ -54,18 +73,6 @@
                             <label>County</label>
                             <input type="text" class="form-control" placeholder="County" id="county" v-model="fields.county">
                             <div v-if="errors && errors.county" class="text-danger">{{ errors.county[0] }}</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col ml-3">
-                            <div class="form-group floating-label-form-group controls">
-                                <label>Postcode</label>
-                                <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
-                                <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-auto pt-4 pr-4">
-                            <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
                         </div>
                     </div>
                 </div>
@@ -116,14 +123,17 @@
  
 <script>
 export default {
-    data() {
+    data: function() {
         return {
-            fields: {},
+            fields: {
+                address: ''
+            },
             errors: {},
+            items: [],
         }
     },
     methods: {
-        submit() {
+        submit: function() {
             this.errors = {};
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
                 alert('Message sent!');
@@ -133,15 +143,25 @@ export default {
                 }
             });
         },
-        lookup() {
+        lookup: function(e) {
+            e.preventDefault();
+
             this.errors = {};
             axios.post('/postcode-lookup', this.fields.postcode).then(response => {
-                alert('Message sent!');
+                for (var i = 0; i < response.data.length; i++) {
+                    this.items.push({
+                        message: response.data[i].message
+                    });
+                }
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
                 }
             });
+        },
+        populate: function(event) {
+            this.fields.address = event.target.dataset.address;
+            this.items = [];
         }
     },
 }

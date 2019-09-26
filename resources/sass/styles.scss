@@ -124,6 +124,14 @@
     background-color: #ffef01;
 }
 
+#address-list {
+    width:100%;
+    z-index:2;
+    background: $white;
+    position: absolute;
+    top: 75px;
+}
+
 @media (min-width: 576px) {
     .bg-blue .form-inline .input-group {
         width: 80%;
