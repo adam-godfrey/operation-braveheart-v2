@@ -1,82 +1,74 @@
 <template>
     <form @submit.prevent="submit">
-        <div class="form-row mb-4">
-            <div class="col">
+        <div class="row mb-4">
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Contact Name</label>
+                    <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact">
+                    <div v-if="errors && errors.contact" class="text-danger">{{ errors.contact[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Contact Name</label>
+                    <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
+                    <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
+                    <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col">
                         <div class="form-group floating-label-form-group controls">
-                            <label>Contact Name</label>
-                            <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact">
-                            <div v-if="errors && errors.contact" class="text-danger">{{ errors.contact[0] }}</div>
+                            <label>Postcode</label>
+                            <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
+                            <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
+
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>Contact Name</label>
-                            <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
-                            <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>Email Address</label>
-                            <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
-                            <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
-                        </div>
+                    <div class="col-sm-auto pt-3 pr-4">
+                        <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col">
-                                <div class="form-group floating-label-form-group controls">
-                                    <label>Postcode</label>
-                                    <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
-                                    <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
-                                    <div id="address-list">
-                                        <ul>
-                                            <li v-for="item in items" :data-address="item.message" v-on:click="populate">{{ item.message }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-auto pt-3 pr-4">
-                                <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>House</label>
-                            <input type="text" class="form-control" placeholder="House" id="house" v-model="fields.house">
-                            <div v-if="errors && errors.house" class="text-danger">{{ errors.house[0] }}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Address" id="address" v-model="fields.address">
-                            <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>Address2</label>
-                            <input type="text" class="form-control" placeholder="Address2" id="address2" v-model="fields.address2">
-                            <div v-if="errors && errors.address2" class="text-danger">{{ errors.address2[0] }}</div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="form-group floating-label-form-group controls">
-                            <label>County</label>
-                            <input type="text" class="form-control" placeholder="County" id="county" v-model="fields.county">
-                            <div v-if="errors && errors.county" class="text-danger">{{ errors.county[0] }}</div>
-                        </div>
-                    </div>
+            <div class="col-sm-12" v-show="toggle">
+                <div id="address-list">
+                    <div v-for="item in items" :data-address="item.message" v-on:click="populate">{{ item.message }}</div>
                 </div>
-
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>House Name / Number</label>
+                    <input type="text" class="form-control" placeholder="House Name / Number" id="house" v-model="fields.house">
+                    <div v-if="errors && errors.house" class="text-danger">{{ errors.house[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder="Address" id="address" v-model="fields.address">
+                    <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>Address</label>
+                    <input type="text" class="form-control" placeholder="Address" id="address2" v-model="fields.address2">
+                    <div v-if="errors && errors.address2" class="text-danger">{{ errors.address2[0] }}</div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group floating-label-form-group controls">
+                    <label>County</label>
+                    <input type="text" class="form-control" placeholder="County" id="county" v-model="fields.county">
+                    <div v-if="errors && errors.county" class="text-danger">{{ errors.county[0] }}</div>
+                </div>
             </div>
         </div>
         <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
@@ -130,6 +122,7 @@ export default {
             },
             errors: {},
             items: [],
+            toggle: false
         }
     },
     methods: {
@@ -153,6 +146,7 @@ export default {
                         message: response.data[i].message
                     });
                 }
+                this.toggle = true;
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
@@ -162,6 +156,7 @@ export default {
         populate: function(event) {
             this.fields.address = event.target.dataset.address;
             this.items = [];
+            this.toggle = false;
         }
     },
 }
