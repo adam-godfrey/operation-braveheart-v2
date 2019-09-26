@@ -35,10 +35,9 @@
     <div class="row">
         <div class="col-lg-5 col-md-7 mx-auto">
             <call-to-action 
-                url="{{ route('contact.index') }}" 
+                url="{{ route('memorial-garden.add') }}"
                 class="cta cta-memorial"
-                html="<h3>Want a fallen Hero remembered?</h3><p>If you would like someone remembered in the memorial garden, please get in
-                contact</p>">
+                html="<h3>Want a fallen Hero remembered?</h3><p>If you would like someone remembered in the memorial garden, please go here and complete the form</p>">
             </call-to-action>
         </div>
     </div>
