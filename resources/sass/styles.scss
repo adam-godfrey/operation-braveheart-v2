@@ -67,54 +67,6 @@
     max-height: 228px;
 }
 
-.cta-memorial {
-    background: #000000;
-    padding: 50px;
-    &:before {
-        opacity: 0.6;
-        background-image: url('../img/lone-soldier.webp');
-    }
-    h3 {
-        text-align: center;
-        z-index: 2;
-        position: relative;
-        color: #fff;
-        font-family: 'Open Sans', sans-serif;
-        font-weight:600;
-    } 
-    p {
-        text-align: center;
-        z-index: 2;
-        position: relative;
-        font-family: 'Satisfy', cursive;
-        color: #fff;
-        margin-bottom: 0;
-    }
-}
-
-#plaque {
-    padding: 30px 100px 20px;
-    background-image: url('../img/metallic-effect.webp');
-    margin-bottom: 15px;
-    .form-group {
-        margin-bottom: 0;
-    }
-    .form-control {
-        background: transparent;
-        text-transform: uppercase;
-        font-weight: bold;
-        font-family: "Times New Roman", Times, serif;
-    }
-}
-
-#carousel-1 {
-    .img-fluid {
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-    }
-}
-
 .jumbotron a {
     color: $white;
 }
@@ -122,14 +74,6 @@
 .fun {
     padding:30px 0;
     background-color: #ffef01;
-}
-
-#address-list {
-    width:100%;
-    z-index:2;
-    background: $white;
-    position: absolute;
-    top: 75px;
 }
 
 @media (min-width: 576px) {
