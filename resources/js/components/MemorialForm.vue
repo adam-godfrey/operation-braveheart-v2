@@ -10,8 +10,15 @@
             </div>
             <div class="col">
                 <div class="form-group floating-label-form-group controls">
+                    <label>Contact Name</label>
+                    <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
+                    <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group floating-label-form-group controls">
                     <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="Email Address" id="email" v-model="fields.email">
+                    <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
                     <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
                 </div>
             </div>

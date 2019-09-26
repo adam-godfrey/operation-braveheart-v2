@@ -31,3 +31,4 @@ Route::prefix('memorial-garden')->group(function () {
     Route::get('/add-rememberance', 'MemorialGardenController@add')->name('memorial-garden.add');
     Route::post('send-request', 'MemorialGardenController@send')->name('memorial-garden.send');
 });
+
