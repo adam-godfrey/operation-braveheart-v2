@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="col-sm-auto pt-4 pr-4">
-                            <button type="submit" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
+                            <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
                         </div>
                     </div>
                 </div>
@@ -116,23 +116,33 @@
  
 <script>
 export default {
-  data() {
-    return {
-      fields: {},
-      errors: {},
-    }
-  },
-  methods: {
-    submit() {
-      this.errors = {};
-      axios.post('/memorial-garden/send-request', this.fields).then(response => {
-        alert('Message sent!');
-      }).catch(error => {
-        if (error.response.status === 422) {
-          this.errors = error.response.data.errors || {};
+    data() {
+        return {
+            fields: {},
+            errors: {},
         }
-      });
     },
-  },
+    methods: {
+        submit() {
+            this.errors = {};
+            axios.post('/memorial-garden/send-request', this.fields).then(response => {
+                alert('Message sent!');
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors || {};
+                }
+            });
+        },
+        lookup() {
+            this.errors = {};
+            axios.post('/postcode-lookup', this.fields.postcode).then(response => {
+                alert('Message sent!');
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors || {};
+                }
+            });
+        }
+    },
 }
 </script>
