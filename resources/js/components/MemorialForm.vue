@@ -140,7 +140,7 @@ export default {
             e.preventDefault();
 
             this.errors = {};
-            axios.post('/postcode-lookup', this.fields.postcode).then(response => {
+            axios.post('/postcode-lookup', {house: this.fields.house, postcode: this.fields.postcode}).then(response => {
                 for (var i = 0; i < response.data.length; i++) {
                     this.items.push({
                         message: response.data[i].message
