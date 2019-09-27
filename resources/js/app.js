@@ -16,7 +16,11 @@ Vue.component('newsletter-form', require('./components/Newsletter.vue').default)
 
 Vue.component('call-to-action', require('./components/CallToAction.vue').default);
 
-Vue.component('memorial-form', require('./components/MemorialForm.vue').default);
+// Vue.component('memorial-form', require('./components/MemorialForm.vue').default);
+
+Vue.component('memorial-form', require('./components/MemorialSubmitForm.vue').default);
+
+// Vue.component('memorial-form', require('./components/MemorialForm.vue').default);
 
 Vue.component('carousel', require('./components/Carousel.vue').default);
 
