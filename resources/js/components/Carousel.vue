@@ -19,7 +19,7 @@
                         class="d-block img-fluid w-100"
                         width="1024"
                         height="300"
-                        src="/img/memorial-garden-7.webp"
+                        src="/images/memorial-garden-7.webp"
                         alt="image slot"
                     >
                 </template>
@@ -30,7 +30,7 @@
                         class="d-block img-fluid w-100"
                         width="1024"
                         height="300"
-                        src="/img/memorial-garden-8.webp"
+                        src="/images/memorial-garden-8.webp"
                         alt="image slot"
                     >
                 </template>
@@ -41,7 +41,7 @@
                         class="d-block img-fluid w-100"
                         width="1024"
                         height="300"
-                        src="/img/memorial-garden-9.webp"
+                        src="/images/memorial-garden-9.webp"
                         alt="image slot"
                     >
                 </template>
@@ -52,7 +52,7 @@
                         class="d-block img-fluid w-100"
                         width="1024"
                         height="300"
-                        src="/img/memorial-garden-11.webp"
+                        src="/images/memorial-garden-11.webp"
                         alt="image slot"
                     >
                 </template>
@@ -63,7 +63,7 @@
                         class="d-block img-fluid w-100"
                         width="1024"
                         height="300"
-                        src="/img/memorial-garden-12.webp"
+                        src="/images/memorial-garden-12.webp"
                         alt="image slot"
                     >
                 </template>

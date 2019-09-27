@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('img/lottery.webp') }}'), radial-gradient(#fff,#fff);">
+    <header class="masthead" style="background-image: url('{{ asset('images/lottery.webp') }}'), radial-gradient(#fff,#fff);">
 @else
     <header class="masthead">
 @endif
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('img/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
@@ -91,7 +91,7 @@
 <div class="container-fluid fun">
     <div class="row">
         <div class="col mx-auto text-center">
-            <img src="{{ asset('img/fun.webp') }}">
+            <img src="{{ asset('images/fun.webp') }}">
         </div>
     </div>
 </div>
