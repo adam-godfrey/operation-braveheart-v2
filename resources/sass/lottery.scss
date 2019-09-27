@@ -1,0 +1,37 @@
+.card.lottery {
+    border: 0;
+}
+.cta-lottery {
+    height: 300px;
+    &:before {
+        background-image: url('/../images/lottery-balls.webp');
+    }
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.lottery-number {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 50px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    max-height: 228px;
+}
+
+.jumbotron a {
+    color: $white;
+}
+
+.fun {
+    padding:30px 0;
+    background-color: #ffef01;
+}
+}
