@@ -15,6 +15,15 @@
                             <label>Contact Name</label>
                             <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
                             <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
+<<<<<<< HEAD:resources/js/components/MemorialSubmitForm.vue
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
+                            <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
+=======
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -25,6 +34,34 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group floating-label-form-group controls">
+                                    <label>House Name / Number</label>
+                                    <input type="text" class="form-control" placeholder="House Name / Number" id="house" v-model="fields.house">
+                                    <div v-if="errors && errors.house" class="text-danger">{{ errors.house[0] }}</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group floating-label-form-group controls">
+                                    <label>Postcode</label>
+                                    <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
+                                    <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-auto pt-3 pr-4">
+                                <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress">Find Address</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" v-show="toggle">
+                        <div id="address-list">
+                            <div v-for="item in items" :data-address="item.address" v-on:click="populate">{{ item.address }}</div>
+>>>>>>> master:resources/js/components/MemorialForm.vue
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <div class="form-group floating-label-form-group controls">
                             <label>Address</label>
                             <input type="text" class="form-control" placeholder="Address" id="address" v-model="fields.address">
@@ -32,7 +69,10 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD:resources/js/components/MemorialSubmitForm.vue
                 <AddressLookup v-on:populateAddress="getAddress"></AddressLookup>
+=======
+>>>>>>> master:resources/js/components/MemorialForm.vue
             </div>
         </div>
         <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
