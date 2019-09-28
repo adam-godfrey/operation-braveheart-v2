@@ -51,11 +51,11 @@
             </div>
             <div class="form-row">
                 <div class="col">
-                    <input type="text" class="form-control text-right" placeholder="DOB" id="dob" v-model="fields.dob">
+                    <date-picker classname="form-control text-right" name="fields.dob" placeholder="DOB"></date-picker>
                     <div v-if="errors && errors.dob" class="text-danger">{{ errors.dob[0] }}</div>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="DOD" id="dod" v-model="fields.dod">
+                    <date-picker classname="form-control" name="fields.dod" placeholder="DOD"></date-picker>
                     <div v-if="errors && errors.dod" class="text-danger">{{ errors.dod[0] }}</div>
                 </div>
             </div>
@@ -82,6 +82,7 @@
 </template>
 <script>
 import AddressLookup from './AddressLookup.vue'
+import DatePicker from './DatePicker.vue';
 export default {
     data: function() {
         return {
@@ -93,7 +94,8 @@ export default {
     },
     name: 'about',
     components: {
-        AddressLookup
+        AddressLookup,
+        DatePicker
     },
     methods: {
         getAddress: function(value) {

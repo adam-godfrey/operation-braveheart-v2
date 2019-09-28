@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
@@ -57,7 +57,46 @@
                 </div>
                 <div class="col">
                     <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball.png') }}" alt="Card image cap">
+                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
+                        <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->third->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+            <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
+            <div class="row">
+                <div class="col">
+                    <div class="card lottery">
+                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
+                        <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->first->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card lottery">
+                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
+                        <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->second->winner }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card lottery">
+                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
                         <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
                         <div class="card-body text-center">
                             <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
@@ -83,8 +122,15 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <call-to-action 
                 url="{{ route('lottery.index') }}" 
-                class="cta cta-lottery">
+                class="cta cta-lottery"
+                html="<span>JOIN TODAY</span>">
             </call-to-action>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
         </div>
     </div>
 </div>
