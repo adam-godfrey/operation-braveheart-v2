@@ -2,12 +2,25 @@
     border: 0;
 }
 .cta-lottery {
+    background: $white;
     height: 300px;
     &:before {
+        opacity: 0.6;
         background-image: url('/../images/lottery-balls.webp');
     }
-    margin-top: 30px;
     margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+        font-size: 75px;
+        text-align: center;
+        z-index: 2;
+        position: relative;
+        color: #333333;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 800;
+    }
 }
 
 .lottery-number {
@@ -33,5 +46,4 @@
 .fun {
     padding:30px 0;
     background-color: #ffef01;
-}
 }

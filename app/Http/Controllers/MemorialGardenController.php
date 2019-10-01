@@ -16,7 +16,7 @@ class MemorialGardenController extends Controller
             'page' => (object) [
                 'title' => 'Memorial Garden',
                 'description' => 'We shall not forget the fallen',
-                'banner' => 'img/operation-braveheart-memorial-garden.webp'
+                'banner' => 'images/operation-braveheart-memorial-garden.webp'
             ]
         ];
 
@@ -29,7 +29,7 @@ class MemorialGardenController extends Controller
             'page' => (object) [
                 'title' => 'Memorial Garden',
                 'description' => 'We shall not forget the fallen',
-                'banner' => 'img/operation-braveheart-memorial-garden.webp'
+                'banner' => 'images/operation-braveheart-memorial-garden.webp'
             ]
         ];
 
@@ -38,6 +38,11 @@ class MemorialGardenController extends Controller
 
     public function send(Request $request)
     {
-        return response()->json(null, 200);
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+        return response()->json($request->all(), 200);
     }
 }

@@ -8,6 +8,7 @@ p {
   line-height: 1.5;
   margin: 30px 0;
 }
+
 p a {
   text-decoration: underline;
 }
@@ -26,7 +27,9 @@ a {
   color: #212529;
   transition: all 0.2s;
 }
-a:focus, a:hover {
+
+a:focus,
+a:hover {
   color: #0085A1;
 }
 
@@ -85,10 +88,12 @@ img::-moz-selection {
   background-color: white;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 #mainNav .navbar-brand {
   font-weight: 800;
   color: #343a40;
 }
+
 #mainNav .navbar-toggler {
   font-size: 12px;
   font-weight: 800;
@@ -96,32 +101,41 @@ img::-moz-selection {
   text-transform: uppercase;
   color: #343a40;
 }
+
 #mainNav .navbar-nav > li.nav-item > a {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
+
 @media only screen and (min-width: 992px) {
   #mainNav {
     border-bottom: 1px solid transparent;
     background: transparent;
   }
+
   #mainNav .navbar-brand {
     padding: 10px 20px;
     color: #fff;
   }
-  #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+
+  #mainNav .navbar-brand:focus,
+  #mainNav .navbar-brand:hover {
     color: rgba(255, 255, 255, 0.8);
   }
+
   #mainNav .navbar-nav > li.nav-item > a {
     padding: 10px 20px;
     color: #fff;
   }
-  #mainNav .navbar-nav > li.nav-item > a:focus, #mainNav .navbar-nav > li.nav-item > a:hover {
+
+  #mainNav .navbar-nav > li.nav-item > a:focus,
+  #mainNav .navbar-nav > li.nav-item > a:hover {
     color: rgba(255, 255, 255, 0.8);
   }
 }
+
 @media only screen and (min-width: 992px) {
   #mainNav {
     transition: background-color 0.2s;
@@ -129,6 +143,7 @@ img::-moz-selection {
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
   }
+
   #mainNav.is-fixed {
     /* when the user scrolls down, we hide the header right above the viewport */
     position: fixed;
@@ -137,18 +152,25 @@ img::-moz-selection {
     border-bottom: 1px solid white;
     background-color: rgba(255, 255, 255, 0.9);
   }
+
   #mainNav.is-fixed .navbar-brand {
     color: #212529;
   }
-  #mainNav.is-fixed .navbar-brand:focus, #mainNav.is-fixed .navbar-brand:hover {
+
+  #mainNav.is-fixed .navbar-brand:focus,
+  #mainNav.is-fixed .navbar-brand:hover {
     color: #0085A1;
   }
+
   #mainNav.is-fixed .navbar-nav > li.nav-item > a {
     color: #212529;
   }
-  #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {
+
+  #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus,
+  #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {
     color: #0085A1;
   }
+
   #mainNav.is-visible {
     /* if the user changes the scrolling direction, we show the header */
     transform: translate3d(0, 100%, 0);
@@ -163,6 +185,7 @@ header.masthead {
   position: relative;
   background-size: cover;
 }
+
 header.masthead .overlay {
   position: absolute;
   top: 0;
@@ -172,23 +195,27 @@ header.masthead .overlay {
   background-color: #212529;
   opacity: 0.5;
 }
+
 header.masthead .page-heading,
 header.masthead .post-heading,
 header.masthead .site-heading {
   padding: 200px 0 150px;
   color: white;
 }
+
 @media only screen and (min-width: 768px) {
   header.masthead .page-heading,
-header.masthead .post-heading,
-header.masthead .site-heading {
+  header.masthead .post-heading,
+  header.masthead .site-heading {
     padding: 200px 0;
   }
 }
+
 header.masthead .page-heading,
 header.masthead .site-heading {
   text-align: center;
 }
+
 header.masthead .page-heading h1,
 header.masthead .site-heading h1 {
   font-family: "Roboto", sans-serif;
@@ -196,6 +223,7 @@ header.masthead .site-heading h1 {
   font-size: 50px;
   margin-top: 0;
 }
+
 header.masthead .page-heading .subheading,
 header.masthead .site-heading .subheading {
   font-size: 24px;
@@ -205,39 +233,47 @@ header.masthead .site-heading .subheading {
   margin: 10px 0 0;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 @media only screen and (min-width: 768px) {
   header.masthead .page-heading h1,
-header.masthead .site-heading h1 {
+  header.masthead .site-heading h1 {
     font-size: 80px;
   }
 }
+
 header.masthead .post-heading h1 {
   font-size: 35px;
 }
+
 header.masthead .post-heading .meta,
 header.masthead .post-heading .subheading {
   line-height: 1.1;
   display: block;
 }
+
 header.masthead .post-heading .subheading {
   font-size: 24px;
   font-weight: 600;
   margin: 10px 0 30px;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 header.masthead .post-heading .meta {
   font-size: 20px;
   font-weight: 300;
   font-style: italic;
   font-family: "Lora", "Times New Roman", serif;
 }
+
 header.masthead .post-heading .meta a {
   color: #fff;
 }
+
 @media only screen and (min-width: 768px) {
   header.masthead .post-heading h1 {
     font-size: 55px;
   }
+
   header.masthead .post-heading .subheading {
     font-size: 30px;
   }
@@ -246,33 +282,42 @@ header.masthead .post-heading .meta a {
 .post-preview > a {
   color: #212529;
 }
-.post-preview > a:focus, .post-preview > a:hover {
+
+.post-preview > a:focus,
+.post-preview > a:hover {
   text-decoration: none;
   color: #0085A1;
 }
+
 .post-preview > a > .post-title {
   font-size: 30px;
   margin-top: 30px;
   margin-bottom: 10px;
 }
+
 .post-preview > a > .post-subtitle {
   font-weight: 300;
   margin: 0 0 10px;
 }
+
 .post-preview > .post-meta {
   font-size: 18px;
   font-style: italic;
   margin-top: 0;
   color: #868e96;
 }
+
 .post-preview > .post-meta > a {
   text-decoration: none;
   color: #212529;
 }
-.post-preview > .post-meta > a:focus, .post-preview > .post-meta > a:hover {
+
+.post-preview > .post-meta > a:focus,
+.post-preview > .post-meta > a:hover {
   text-decoration: underline;
   color: #0085A1;
 }
+
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
     font-size: 36px;
@@ -286,6 +331,7 @@ header.masthead .post-heading .meta a {
   padding-bottom: 0.5em;
   border-bottom: 1px solid #dee2e6;
 }
+
 .floating-label-form-group input,
 .floating-label-form-group textarea {
   font-size: 1.5em;
@@ -299,11 +345,13 @@ header.masthead .post-heading .meta a {
   box-shadow: none !important;
   font-family: "Lora", "Times New Roman", serif;
 }
+
 .floating-label-form-group input::-webkit-input-placeholder,
 .floating-label-form-group textarea::-webkit-input-placeholder {
   color: #868e96;
   font-family: "Lora", "Times New Roman", serif;
 }
+
 .floating-label-form-group label {
   font-size: 0.85em;
   line-height: 1.764705882em;
@@ -317,6 +365,7 @@ header.masthead .post-heading .meta a {
   vertical-align: baseline;
   opacity: 0;
 }
+
 .floating-label-form-group .help-block {
   margin: 15px 0;
 }
@@ -337,10 +386,12 @@ form .form-group:first-child .floating-label-form-group {
 footer {
   padding: 50px 0 65px;
 }
+
 footer .list-inline {
   margin: 0;
   padding: 0;
 }
+
 footer .copyright {
   font-size: 14px;
   margin-bottom: 0;
@@ -351,10 +402,12 @@ footer .copyright {
   background: #000000;
   padding: 50px;
 }
+
 .cta-memorial:before {
   opacity: 0.6;
   background-image: url("/../images/lone-soldier.webp");
 }
+
 .cta-memorial h3 {
   text-align: center;
   z-index: 2;
@@ -363,6 +416,7 @@ footer .copyright {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
 }
+
 .cta-memorial p {
   text-align: center;
   z-index: 2;
@@ -378,15 +432,18 @@ footer .copyright {
   background-image: url("/../images/metallic-effect.webp");
   margin-bottom: 15px;
 }
+
 #plaque .form-group {
   margin-bottom: 0;
 }
+
 #plaque .form-control {
   background: transparent;
   text-transform: uppercase;
   font-weight: bold;
   font-family: "Times New Roman", Times, serif;
 }
+
 #plaque .screw {
   position: absolute;
   background-image: url("/../images/screw.webp");
@@ -396,15 +453,19 @@ footer .copyright {
   width: 30px;
   height: 30px;
 }
+
 #plaque .screw.top {
   top: 5px;
 }
+
 #plaque .screw.bottom {
   bottom: 5px;
 }
+
 #plaque .screw.left {
   left: 5px;
 }
+
 #plaque .screw.right {
   right: 5px;
 }
@@ -425,17 +486,73 @@ footer .copyright {
   top: 0;
   border: 1px solid #0085A1;
 }
+
 #address-list div {
   padding: 5px 15px;
   font-size: 90%;
   cursor: pointer;
 }
+
 #address-list div:first-child {
   padding-top: 5px;
 }
+
 #address-list div:hover {
   background-color: #868e96;
   color: #fff;
+}
+
+.card.lottery {
+  border: 0;
+}
+
+.cta-lottery {
+  background: #fff;
+  height: 300px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-lottery:before {
+  opacity: 0.6;
+  background-image: url("/../images/lottery-balls.webp");
+}
+
+.cta-lottery span {
+  font-size: 75px;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  color: #333333;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 800;
+}
+
+.lottery-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 50px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  max-height: 228px;
+}
+
+.jumbotron a {
+  color: #fff;
+}
+
+.fun {
+  padding: 30px 0;
+  background-color: #ffef01;
 }
 
 .btn {
@@ -452,7 +569,10 @@ footer .copyright {
   background-color: #0085A1;
   border-color: #0085A1;
 }
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
   color: #fff;
   background-color: #00657b !important;
   border-color: #00657b !important;
@@ -468,13 +588,17 @@ footer .copyright {
   background-color: #fff;
   border-color: #0085A1;
 }
-.btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
   color: #00657b !important;
   background-color: #fff;
   border-color: #00657b !important;
 }
 
-.navbar-brand, .nav-item {
+.navbar-brand,
+.nav-item {
   font-family: "Poiret One", cursive;
 }
 
@@ -482,9 +606,11 @@ footer .copyright {
   background-color: #0085A1;
   color: #fff;
 }
+
 .bg-blue p {
   font-size: 15px;
 }
+
 .bg-blue .form-control {
   height: calc(1.5em + 0.75rem + 18px);
   margin-right: 10px;
@@ -495,6 +621,7 @@ footer .copyright {
   overflow: hidden;
   cursor: pointer;
 }
+
 .cta:before {
   content: " ";
   display: block;
@@ -515,3 +642,4 @@ footer .copyright {
     width: 80%;
   }
 }
+
