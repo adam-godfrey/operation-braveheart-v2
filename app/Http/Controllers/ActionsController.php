@@ -16,7 +16,7 @@ class ActionsController extends Controller
     }
     public function getAddresses(Request $request)
     {
-        $url = $request->has('house') ? 'https://api.getAddress.io/find/' . $request->input('postcode') . '/' . $request->house : 'https://api.getAddress.io/find/' . $request->input('postcode');
+        $url = 'https://api.getAddress.io/find/' . $request->input('postcode');
 
         $response = $this->client->get($url . '?api-key=' . \Config::get('custom.getaddress_api_key') . '&expand=true', []);
 
