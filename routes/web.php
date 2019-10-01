@@ -34,3 +34,10 @@ Route::prefix('memorial-garden')->group(function () {
 
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
+Route::prefix('admin')->namespace('Admin')->group(function () {
+	Route::name('admin.')->group(function () {
+	    Route::resource('lottery', 'LotteryController');
+	    Route::resource('news', 'NewsController');
+	});
+    
+});

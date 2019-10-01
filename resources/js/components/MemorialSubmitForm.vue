@@ -96,9 +96,15 @@
                 <div v-if="errors && errors.location" class="text-danger">{{ errors.location[0] }}</div>
             </div>
             <div class="form-group">
+<<<<<<< Updated upstream
                 <input type="text" class="form-control text-center" :maxlength="maxCharacters" placeholder="Message" id="message" v-model="fields.message">
                 <div v-if="errors && errors.message" class="text-danger">{{ errors.message[0] }}</div>
                 <p class="remaining text-center">You have {{charactersRemaining}} characters remaining.</p>
+=======
+                <input type="text" class="form-control text-center" placeholder="Message" id="message" v-model="fields.message" :maxlength="maxCharacters">
+                <div v-if="errors && errors.message" class="text-danger">{{ errors.message[0] }}</div>
+                <span class="remaining">You have {{charactersRemaining}} characters remaining</span>
+>>>>>>> Stashed changes
             </div>
             <div class="screw bottom left"></div>
             <div class="screw bottom right"></div>
@@ -116,6 +122,7 @@ export default {
     data: function() {
         return {
             fields: {
+<<<<<<< Updated upstream
                 address1: '',
                 address2: '',
                 address3: '',
@@ -125,6 +132,13 @@ export default {
             },
             errors: {},
             maxCharacters: 100,
+=======
+                address: '',
+                message: ''
+            },
+            errors: {},
+            maxCharacters: 50
+>>>>>>> Stashed changes
         }
     },
     name: 'about',
@@ -152,8 +166,13 @@ export default {
         },
     },
     computed: {
+<<<<<<< Updated upstream
         charactersRemaining: function () {
             return this.maxCharacters - this.fields.message.length;
+=======
+        charactersRemaining: function(){
+            return this.maxCharacters - this.fields.message.length
+>>>>>>> Stashed changes
         }
     }
 }
