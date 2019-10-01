@@ -26,9 +26,37 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group floating-label-form-group controls">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Address" id="address" v-model="fields.address">
-                            <div v-if="errors && errors.address" class="text-danger">{{ errors.address[0] }}</div>
+                            <label>First Address Line</label>
+                            <input type="text" class="form-control" placeholder="First Address Line" id="address" v-model="fields.address1">
+                            <div v-if="errors && errors.address1" class="text-danger">{{ errors.address1[0] }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Second Address Line</label>
+                            <input type="text" class="form-control" placeholder="Second Address Line" id="address2" v-model="fields.address2">
+                            <div v-if="errors && errors.address2" class="text-danger">{{ errors.address2[0] }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Third Address Line</label>
+                            <input type="text" class="form-control" placeholder="Third Address Line" id="address3" v-model="fields.address3">
+                            <div v-if="errors && errors.address3" class="text-danger">{{ errors.address3[0] }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>Town</label>
+                            <input type="text" class="form-control" placeholder="Town" id="town" v-model="fields.town">
+                            <div v-if="errors && errors.town" class="text-danger">{{ errors.town[0] }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group floating-label-form-group controls">
+                            <label>County</label>
+                            <input type="text" class="form-control" placeholder="County" id="address" v-model="fields.county">
+                            <div v-if="errors && errors.county" class="text-danger">{{ errors.county[0] }}</div>
                         </div>
                     </div>
                 </div>
@@ -68,8 +96,9 @@
                 <div v-if="errors && errors.location" class="text-danger">{{ errors.location[0] }}</div>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control text-center" placeholder="Message" id="message" v-model="fields.message">
+                <input type="text" class="form-control text-center" :maxlength="maxCharacters" placeholder="Message" id="message" v-model="fields.message">
                 <div v-if="errors && errors.message" class="text-danger">{{ errors.message[0] }}</div>
+                <p class="remaining text-center">You have {{charactersRemaining}} characters remaining.</p>
             </div>
             <div class="screw bottom left"></div>
             <div class="screw bottom right"></div>
@@ -86,9 +115,15 @@ export default {
     data: function() {
         return {
             fields: {
-                address: ''
+                address1: '',
+                address2: '',
+                address3: '',
+                town: '',
+                county: '',
+                message: ''
             },
             errors: {},
+            maxCharacters: 100,
         }
     },
     name: 'about',
@@ -97,8 +132,11 @@ export default {
     },
     methods: {
         getAddress: function(value) {
-            console.log(value);
-            this.fields.address = value
+            this.fields.address1 = value.address1
+            this.fields.address2 = value.address2
+            this.fields.address3 = value.address3
+            this.fields.town = value.town
+            this.fields.county = value.county
         },
         submit: function() {
             this.errors = {};
@@ -110,6 +148,11 @@ export default {
                 }
             });
         },
+    },
+    computed: {
+        charactersRemaining: function () {
+            return this.maxCharacters - this.fields.message.length;
+        }
     }
 }
 </script>
