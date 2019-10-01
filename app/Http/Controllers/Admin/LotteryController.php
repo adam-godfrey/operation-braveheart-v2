@@ -14,7 +14,7 @@ class LotteryController extends Controller
      */
     public function index()
     {
-        //
+        return View('admin.lottery.index');
     }
 
     /**
