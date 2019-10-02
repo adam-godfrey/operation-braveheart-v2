@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rules\Postcode
 
 class MemorialGardenController extends Controller
 {
@@ -42,6 +43,7 @@ class MemorialGardenController extends Controller
             'name' => 'required|string',
             'email' => 'required|email',
             'message' => 'required',
+            'postcode' => ['required', new Postcode]
         ]);
         return response()->json($request->all(), 200);
     }
