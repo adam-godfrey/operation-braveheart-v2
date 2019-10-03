@@ -41,4 +41,16 @@ class LotteryController extends Controller
 
         return View('lottery.index')->with($data);
     }
+
+    public function payment()
+    {
+        $data =  [
+            'page' => (object) [
+                'title' => 'Lottery',
+                'description' => 'Have you won this month\'s lottery?'
+            ],
+        ];
+
+        return View('lottery.payment')->with($data);
+    }
 }
