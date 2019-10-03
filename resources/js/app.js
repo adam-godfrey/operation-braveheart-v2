@@ -16,11 +16,15 @@ Vue.component('newsletter-form', require('./components/Newsletter.vue').default)
 
 Vue.component('call-to-action', require('./components/CallToAction.vue').default);
 
-Vue.component('memorial-form', require('./components/MemorialSubmitForm.vue').default);
+Vue.component('memorial-form', require('./components/MemorialContactForm.vue').default);
 
 Vue.component('carousel', require('./components/Carousel.vue').default);
 
 Vue.component('date-picker', require('./components/DatePicker.vue').default);
+
+Vue.component('payment-form', require('./components/StripePaymentForm.vue').default);
+
+Vue.component('plaque-form', require('./components/MemorialPlaqueForm.vue').default);
 
 const app = new Vue({
     el: '#app'

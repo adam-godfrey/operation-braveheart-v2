@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rules\Postcode
+use App\Rules\Postcode;
 
 class MemorialGardenController extends Controller
 {
@@ -40,10 +40,20 @@ class MemorialGardenController extends Controller
     public function send(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string',
+            'contact' => 'required|string',
             'email' => 'required|email',
-            'message' => 'required',
-            'postcode' => ['required', new Postcode]
+            'address1' => 'required',
+            'town' => 'required',
+            'county' => 'required',
+            'postcode' => ['required', new Postcode],
+            'rank' => 'required|string',
+            'name' => 'required',
+            'dob' => 'required|string',
+            'dod' => 'required',
+            'regiment' => 'required|string',
+            'location' => 'required|string',
+            'message' => 'required|sring',
+            
         ]);
         return response()->json($request->all(), 200);
     }
