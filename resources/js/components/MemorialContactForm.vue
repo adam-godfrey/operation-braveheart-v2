@@ -46,7 +46,7 @@ export default {
             maxCharacters: 100,
         }
     },
-    name: 'MemorialSubmitForm',
+    name: 'MemorialContactForm',
     components: {
         AddressForm,
     },

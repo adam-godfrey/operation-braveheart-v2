@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col">
                     <label class="uk-form-label" for="Card Number">
-                          Card Number
+                        Card Number
                     </label>
                 </div>
                 <div class="col-md-4">
