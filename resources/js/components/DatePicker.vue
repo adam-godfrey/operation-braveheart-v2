@@ -23,7 +23,6 @@
 	    	Datepicker
 	  	},
 	  	mounted: function() {
-	  		console.log(this.className);
 	  	}
 	}
 </script>

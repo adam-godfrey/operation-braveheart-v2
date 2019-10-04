@@ -1900,6 +1900,23 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AddressLookup: _AddressLookup_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  watch: {
+    'fields.address1': function fieldsAddress1(newVal, oldVal) {
+      this.$root.$emit('address1Change', this.fields.address1);
+    },
+    'fields.address2': function fieldsAddress2(newVal, oldVal) {
+      this.$root.$emit('address2Change', this.fields.address2);
+    },
+    'fields.address3': function fieldsAddress3(newVal, oldVal) {
+      this.$root.$emit('address3Change', this.fields.address3);
+    },
+    'fields.town': function fieldsTown(newVal, oldVal) {
+      this.$root.$emit('townChange', this.fields.town);
+    },
+    'fields.county': function fieldsCounty(newVal, oldVal) {
+      this.$root.$emit('countyChange', this.fields.county);
+    }
+  },
   methods: {
     getAddress: function getAddress(value) {
       this.fields.address1 = value.address1;
@@ -1907,21 +1924,7 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.address3 = value.address3;
       this.fields.town = value.town;
       this.fields.county = value.county;
-    },
-    address1Change: function address1Change() {
-      this.$root.$emit('address1Change', this.fields.address1);
-    },
-    address2Change: function address2Change() {
-      this.$root.$emit('address2Change', this.fields.address2);
-    },
-    address3Change: function address3Change() {
-      this.$root.$emit('address3Change', this.fields.address3);
-    },
-    townChange: function townChange() {
-      this.$root.$emit('townChange', this.fields.town);
-    },
-    countyChange: function countyChange() {
-      this.$root.$emit('countyChange', this.fields.county);
+      this.$root.$emit('postcodeChange', value.postcode);
     }
   },
   mounted: function mounted() {
@@ -1965,53 +1968,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       address: '',
+      selected: {},
       fields: {
         postcode: ''
       },
       errors: {},
       items: [],
-      addresses: [],
-      toggle: false
+      toggle: false,
+      spin: false
     };
   },
   name: 'AddressLookup',
   methods: {
     // Define the method that emits data to the parent as the first parameter to `$emit()`.
     // This is referenced in the <template> call in the parent. The second parameter is the payload.
-    emitToParent: function emitToParent(event, i) {
-      this.address = event.target.dataset.address;
-      this.$emit('populateAddress', this.addresses[i]);
-      this.items = [];
-      this.addresses = [];
-      this.toggle = false;
+    emitToParent: function emitToParent(event) {
+      var parsedObj = JSON.parse(event.target.value);
+      this.selected = {
+        address1: parsedObj[0],
+        address2: parsedObj[1],
+        address3: parsedObj[2],
+        town: parsedObj[3],
+        county: parsedObj[4]
+      };
+      this.$emit('populateAddress', this.selected);
     },
     lookup: function lookup(e) {
       var _this = this;
 
       e.preventDefault();
       this.errors = {};
+      this.items = [];
+      this.spin = true;
       var $this = this;
       axios.post('/postcode-lookup', {
-        house: this.fields.house,
         postcode: this.fields.postcode
       }).then(function (response) {
         response.data.addresses.forEach(function (item) {
           $this.items.push({
+            formatted: JSON.stringify(item.formatted_address),
             address: item.formatted_address.filter(function (el) {
               return el;
             }).join(', ')
-          });
-          var parsedobj = JSON.parse(JSON.stringify(item.formatted_address));
-          $this.addresses.push({
-            address1: parsedobj[0],
-            address2: parsedobj[1],
-            address3: parsedobj[2],
-            town: parsedobj[3],
-            county: parsedobj[4]
           });
         });
         _this.toggle = true;
@@ -2020,6 +2026,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.errors = error.response.data.errors || {};
         }
       });
+      this.spin = false;
     }
   }
 });
@@ -2202,9 +2209,7 @@ __webpack_require__.r(__webpack_exports__);
       errors: {}
     };
   },
-  mounted: function mounted() {
-    // Do something useful with the data in the template
-    console.log(this.test);
+  mounted: function mounted() {// Do something useful with the data in the template
   },
   methods: {
     submit: function submit() {
@@ -2251,9 +2256,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  mounted: function mounted() {
-    console.log(this.className);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -2301,6 +2304,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressForm.vue */ "./resources/js/components/AddressForm.vue");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2334,16 +2339,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
+    var _fields;
+
     return {
-      fields: {
-        rank: '',
-        name: '',
-        dob: '',
-        dod: '',
-        regiment: '',
-        location: '',
-        message: ''
-      },
+      fields: (_fields = {
+        address1: ''
+      }, _defineProperty(_fields, "address1", ''), _defineProperty(_fields, "address1", ''), _defineProperty(_fields, "town", ''), _defineProperty(_fields, "county", ''), _defineProperty(_fields, "postcode", ''), _defineProperty(_fields, "rank", ''), _defineProperty(_fields, "name", ''), _defineProperty(_fields, "dob", ''), _defineProperty(_fields, "dod", ''), _defineProperty(_fields, "regiment", ''), _defineProperty(_fields, "location", ''), _defineProperty(_fields, "message", ''), _fields),
       errors: {},
       maxCharacters: 100
     };
@@ -2358,8 +2359,6 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('checkFormsValid', function () {
       _this.errors = {};
       axios.post('/memorial-garden/send-request', _this.fields).then(function (response) {
-        console.log(response.data);
-
         _this.$root.$emit('validated');
       })["catch"](function (error) {
         if (error.response.status === 422) {
@@ -2368,7 +2367,25 @@ __webpack_require__.r(__webpack_exports__);
           _this.$root.$emit('errors', _this.errors);
         }
       });
-    }), this.$root.$on('rankChange', function (rank) {
+    }), this.$root.$on('address1Change', function (address1) {
+      _this.fields.address1 = address1;
+    });
+    this.$root.$on('address12Change', function (address2) {
+      _this.fields.address2 = address2;
+    });
+    this.$root.$on('address3Change', function (address3) {
+      _this.fields.address3 = address3;
+    });
+    this.$root.$on('townChange', function (town) {
+      _this.fields.town = town;
+    });
+    this.$root.$on('countyChange', function (county) {
+      _this.fields.county = county;
+    });
+    this.$root.$on('postcodeChange', function (postcode) {
+      _this.fields.postcode = postcode;
+    });
+    this.$root.$on('rankChange', function (rank) {
       _this.fields.rank = rank;
     });
     this.$root.$on('nameChange', function (name) {
@@ -2653,8 +2670,6 @@ __webpack_require__.r(__webpack_exports__);
 
     this.setUpStripe();
     this.$root.$on('validated', function () {
-      console.log('dfgdg');
-
       _this.submitFormToCreateToken();
     });
   },
@@ -52318,7 +52333,6 @@ var render = function() {
                 },
                 domProps: { value: _vm.fields.address1 },
                 on: {
-                  change: _vm.address1Change,
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -52361,7 +52375,6 @@ var render = function() {
                 },
                 domProps: { value: _vm.fields.address2 },
                 on: {
-                  change: _vm.address2Change,
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -52404,7 +52417,6 @@ var render = function() {
                 },
                 domProps: { value: _vm.fields.address3 },
                 on: {
-                  change: _vm.address3Change,
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -52443,7 +52455,6 @@ var render = function() {
                 attrs: { type: "text", placeholder: "Town", id: "town" },
                 domProps: { value: _vm.fields.town },
                 on: {
-                  change: _vm.townChange,
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -52482,7 +52493,6 @@ var render = function() {
                 attrs: { type: "text", placeholder: "County", id: "address" },
                 domProps: { value: _vm.fields.county },
                 on: {
-                  change: _vm.countyChange,
                   input: function($event) {
                     if ($event.target.composing) {
                       return
@@ -52577,7 +52587,20 @@ var render = function() {
             attrs: { id: "findAddress" },
             on: { click: _vm.lookup }
           },
-          [_vm._v("Find Address")]
+          [
+            _c("i", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.spin,
+                  expression: "spin"
+                }
+              ],
+              staticClass: "fas fa-spinner fa-pulse"
+            }),
+            _vm._v("Find Address")
+          ]
         )
       ])
     ]),
@@ -52596,25 +52619,55 @@ var render = function() {
         staticClass: "col-sm-12"
       },
       [
-        _c(
-          "div",
-          { attrs: { id: "address-list" } },
-          _vm._l(_vm.items, function(item, i) {
-            return _c(
-              "div",
-              {
-                attrs: { "data-address": item.address },
-                on: {
-                  click: function($event) {
-                    return _vm.emitToParent($event, i)
-                  }
+        _c("div", { staticClass: "select-container" }, [
+          _c("span", { staticClass: "select-arrow fa fa-chevron-down" }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.address,
+                  expression: "address"
                 }
-              },
-              [_vm._v(_vm._s(item.address))]
-            )
-          }),
-          0
-        )
+              ],
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.address = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.emitToParent($event)
+                  }
+                ]
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("Please select an address")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.items, function(item) {
+                return _c("option", { domProps: { value: item.formatted } }, [
+                  _vm._v(_vm._s(item.address))
+                ])
+              })
+            ],
+            2
+          )
+        ])
       ]
     )
   ])
@@ -68436,14 +68489,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*!*************************************************!*\
   !*** ./resources/js/components/AddressForm.vue ***!
   \*************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddressForm_vue_vue_type_template_id_00905c86___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressForm.vue?vue&type=template&id=00905c86& */ "./resources/js/components/AddressForm.vue?vue&type=template&id=00905c86&");
 /* harmony import */ var _AddressForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddressForm.vue?vue&type=script&lang=js& */ "./resources/js/components/AddressForm.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _AddressForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _AddressForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -68473,7 +68527,7 @@ component.options.__file = "resources/js/components/AddressForm.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/AddressForm.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

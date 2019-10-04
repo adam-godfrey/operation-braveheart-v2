@@ -87,7 +87,6 @@
         mounted() {
             this.setUpStripe();
             this.$root.$on('validated', () => {
-                console.log('dfgdg');
                 this.submitFormToCreateToken();
             })
         },

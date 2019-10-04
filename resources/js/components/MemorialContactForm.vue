@@ -34,6 +34,12 @@ export default {
     data: function() {
         return {
             fields: {
+                address1: '',
+                address1: '',
+                address1: '',
+                town: '',
+                county: '',
+                postcode: '',
                 rank: '',
                 name: '',
                 dob: '',
@@ -54,7 +60,6 @@ export default {
         this.$root.$on('checkFormsValid', () => {
             this.errors = {};
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
-                console.log(response.data);
                 this.$root.$emit('validated')
             }).catch(error => {
                 if (error.response.status === 422) {
@@ -63,6 +68,24 @@ export default {
                 }
             });
         }),
+        this.$root.$on('address1Change', address1 => {
+            this.fields.address1 = address1;
+        });
+        this.$root.$on('address12Change', address2 => {
+            this.fields.address2 = address2;
+        });
+        this.$root.$on('address3Change', address3 => {
+            this.fields.address3 = address3;
+        });
+        this.$root.$on('townChange', town => {
+            this.fields.town = town;
+        });
+        this.$root.$on('countyChange', county => {
+            this.fields.county = county;
+        });
+        this.$root.$on('postcodeChange', postcode => {
+            this.fields.postcode = postcode;
+        });
         this.$root.$on('rankChange', rank => {
             this.fields.rank = rank;
         });
