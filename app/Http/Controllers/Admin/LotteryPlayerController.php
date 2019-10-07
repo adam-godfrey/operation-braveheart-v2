@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 
-class LotteryController extends Controller
+class LotteryPlayerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class LotteryController extends Controller
      */
     public function index()
     {
-        return View('admin.lottery.index');
+        return View('admin.lottery.players.index');
     }
 
     /**
@@ -25,9 +25,8 @@ class LotteryController extends Controller
      */
     public function create()
     {
-        //
+        return View('admin.lottery.players.add');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -82,5 +81,37 @@ class LotteryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getPlayers(Request $request)
+    {
+        if ( $request->input('showdata') ) {
+            return User::orderBy('created_at', 'desc')->get();
+            
+        }
+        $columns = ['name', 'email', 'created_at'];
+        $length = $request->input('length');
+        $column = $request->input('column'); 
+        $search_input = $request->input('search');
+        $query = User::select('name', 'email', 'created_at'); //->orderBy($columns[$column]);
+
+        if ($search_input) {
+            $query->where(function($query) use ($search_input) {
+                $query->where('name', 'like', '%' . $search_input . '%')
+                ->orWhere('email', 'like', '%' . $search_input . '%')
+                ->orWhere('created_at', 'like', '%' . $search_input . '%');
+            });
+        }
+
+        $users = $query->paginate($length);
+
+        return ['data' => $users];
+    }
+
+    public function deletePlayer(User $user) {
+        if($user) {
+            $user->delete();
+        }
+        return 'user deleted';
     }
 }

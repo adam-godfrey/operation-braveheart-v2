@@ -16,7 +16,9 @@ Vue.component('admin-sidebar', require('./components/AdminSidebar.vue').default)
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('lottery-players', require('./components/LotteryPlayers.vue').default);
+Vue.component('lottery-players', require('./components/LotteryPlayersTable.vue').default);
+
+Vue.component('lottery-player', require('./components/LotteryPlayerForm.vue').default);
 
 Vue.component('news-admin', require('./components/NewsAdmin.vue').default);
 

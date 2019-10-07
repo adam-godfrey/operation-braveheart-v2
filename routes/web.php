@@ -44,7 +44,13 @@ Route::prefix('lottery')->group(function () {
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
-    Route::get('lottery/players', 'LotteryController@getPlayers');
+
+    // /admin/members
+    Route::group(['prefix' => 'lottery'], function() {
+        Route::get('players/get', 'LotteryPlayerController@getPlayers');
+        Route::resource('players', 'LotteryPlayerController');
+    });
+    
     Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
 
     Route::get('news/articles', 'NewsController@getNewsArticles');

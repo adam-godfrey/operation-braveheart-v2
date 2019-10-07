@@ -17,7 +17,9 @@ class LotteryPlayers extends Migration
             $table->integer('id')->autoIncrement();
             $table->string('name')->nullable();
             $table->string('telephone')->nullable();
-            $table->text('lottery_number')->nullable();
+            $table->string('email')->nullable();
+            $table->integer('lottery_number')->nullable();
+            $table->enum('draw_type', ['UK', 'Local']);
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
         });

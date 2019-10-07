@@ -1856,31 +1856,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      text: "\n        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry\n        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor\n        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon\n        tempor, sunt aliqua put a bird on it squid single-origin coffee nulla\n        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore\n        wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher\n        vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic\n        synth nesciunt you probably haven't heard of them accusamus labore VHS.\n      "
+      items: [{
+        text: 'Lottery',
+        html: "<h6 class=\"collapse-header\">Lottery Players:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players/create\">Add New</a>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players\">View All</a>"
+      }, {
+        text: 'News',
+        html: "<h6 class=\"collapse-header\">Custom Components:</h6>\n                        <a class=\"collapse-item\" href=\"buttons.html\">Add New</a>\n                        <a class=\"collapse-item\" href=\"cards.html\">View All</a>"
+      }],
+      isActive: null
     };
+  },
+  methods: {
+    toggleItem: function toggleItem(index) {
+      this.isActive = this.isActive === index ? null : index;
+    }
   }
 });
 
@@ -1919,15 +1911,112 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      colour: 'blue',
+      type: '',
+      number: ''
+    };
+  },
+  methods: {
+    changeType: function changeType() {
+      this.colour = this.type === 'UK' ? 'blue' : 'green';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -2022,22 +2111,28 @@ __webpack_require__.r(__webpack_exports__);
     var sortOrders = {};
     var columns = [{
       label: 'Name',
-      name: 'name'
+      name: 'name',
+      'width': 'col-md-2'
     }, {
       label: 'Telephone',
-      name: 'telephone'
+      name: 'telephone',
+      'width': 'col-md-2'
     }, {
       label: 'Email',
-      name: 'email'
+      name: 'email',
+      'width': 'col-md-2'
     }, {
       label: 'Lottery Number',
-      name: 'lottery_number'
+      name: 'lottery_number',
+      'width': 'col-md-2'
     }, {
       label: 'Draw Type',
-      name: 'type'
+      name: 'type',
+      'width': 'col-md-1'
     }, {
       label: 'Date Added',
-      name: 'created_at'
+      name: 'created_at',
+      'width': 'col-md-2'
     }];
     columns.forEach(function (column) {
       sortOrders[column.name] = -1;
@@ -2099,7 +2194,7 @@ __webpack_require__.r(__webpack_exports__);
     getUsers: function getUsers() {
       var _this2 = this;
 
-      axios.get('/admin/lottery/players/', {
+      axios.get('/admin/lottery/players/get', {
         params: this.tableShow
       }).then(function (response) {
         console.log('The data: ', response.data);
@@ -54871,171 +54966,39 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { role: "tablist" } },
-    [
-      _c(
-        "b-card",
-        { staticClass: "mb-1", attrs: { "no-body": "" } },
+    _vm._l(_vm.items, function(item, index) {
+      return _c(
+        "li",
+        {
+          staticClass: "nav-item",
+          on: {
+            click: function($event) {
+              return _vm.toggleItem(index)
+            }
+          }
+        },
         [
-          _c(
-            "b-card-header",
-            {
-              staticClass: "p-1",
-              attrs: { "header-tag": "header", role: "tab" }
-            },
-            [
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-toggle",
-                      rawName: "v-b-toggle.accordion-1",
-                      modifiers: { "accordion-1": true }
-                    }
-                  ],
-                  attrs: { block: "", href: "#", variant: "info" }
-                },
-                [_vm._v("Accordion 1")]
-              )
-            ],
-            1
-          ),
+          _c("a", { staticClass: "nav-link collapsed", attrs: { href: "#" } }, [
+            _c("i", { staticClass: "fas fa-fw fa-folder" }),
+            _vm._v(" "),
+            _c("span", [_vm._v(_vm._s(item.text))])
+          ]),
           _vm._v(" "),
-          _c(
-            "b-collapse",
-            {
-              attrs: {
-                id: "accordion-1",
-                accordion: "my-accordion",
-                role: "tabpanel"
-              }
-            },
-            [
-              _c(
-                "b-card-body",
-                [
-                  _c("b-card-text", [
-                    _vm._v("I start opened because "),
-                    _c("code", [_vm._v("visible")]),
-                    _vm._v(" is "),
-                    _c("code", [_vm._v("true")])
-                  ]),
-                  _vm._v(" "),
-                  _c("b-card-text", [_vm._v(_vm._s(_vm.text))])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        { staticClass: "mb-1", attrs: { "no-body": "" } },
-        [
-          _c(
-            "b-card-header",
-            {
-              staticClass: "p-1",
-              attrs: { "header-tag": "header", role: "tab" }
-            },
-            [
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-toggle",
-                      rawName: "v-b-toggle.accordion-2",
-                      modifiers: { "accordion-2": true }
-                    }
-                  ],
-                  attrs: { block: "", href: "#", variant: "info" }
-                },
-                [_vm._v("Accordion 2")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            {
-              attrs: {
-                id: "accordion-2",
-                accordion: "my-accordion",
-                role: "tabpanel"
-              }
-            },
-            [
-              _c(
-                "b-card-body",
-                [_c("b-card-text", [_vm._v(_vm._s(_vm.text))])],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-card",
-        { staticClass: "mb-1", attrs: { "no-body": "" } },
-        [
-          _c(
-            "b-card-header",
-            {
-              staticClass: "p-1",
-              attrs: { "header-tag": "header", role: "tab" }
-            },
-            [
-              _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-toggle",
-                      rawName: "v-b-toggle.accordion-3",
-                      modifiers: { "accordion-3": true }
-                    }
-                  ],
-                  attrs: { block: "", href: "#", variant: "info" }
-                },
-                [_vm._v("Accordion 3")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            {
-              attrs: {
-                id: "accordion-3",
-                accordion: "my-accordion",
-                role: "tabpanel"
-              }
-            },
-            [
-              _c(
-                "b-card-body",
-                [_c("b-card-text", [_vm._v(_vm._s(_vm.text))])],
-                1
-              )
-            ],
-            1
-          )
+          _c("transition", { attrs: { name: "slide" } }, [
+            _vm.isActive === index
+              ? _c("div", { staticClass: "item-active" }, [
+                  _c("div", {
+                    staticClass: "bg-white py-2 rounded",
+                    domProps: { innerHTML: _vm._s(item.html) }
+                  })
+                ])
+              : _vm._e()
+          ])
         ],
         1
       )
-    ],
-    1
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -55092,10 +55055,273 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group row" }, [
+          _c(
+            "label",
+            {
+              staticClass: "col-sm-3 col-form-label",
+              attrs: { for: "inputNumber" }
+            },
+            [_vm._v("Lottery Number")]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-9" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.number,
+                  expression: "number"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                id: "inputNumber",
+                placeholder: "Lottery Number",
+                maxlength: "2"
+              },
+              domProps: { value: _vm.number },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.number = $event.target.value
+                }
+              }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("fieldset", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("legend", { staticClass: "col-form-label col-sm-3 pt-0" }, [
+              _vm._v("Draw Type")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-9" }, [
+              _c("div", { staticClass: "form-check" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.type,
+                      expression: "type"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: {
+                    type: "radio",
+                    name: "gridRadios",
+                    id: "gridRadios1",
+                    value: "UK",
+                    checked: ""
+                  },
+                  domProps: { checked: _vm._q(_vm.type, "UK") },
+                  on: {
+                    change: [
+                      function($event) {
+                        _vm.type = "UK"
+                      },
+                      _vm.changeType
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "form-check-label badge badge-pill badge-primary ",
+                    attrs: { for: "gridRadios1" }
+                  },
+                  [_vm._v("\n\t\t\t   \t\t\t\t\tUK\n\t\t\t  \t\t\t\t")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-check" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.type,
+                      expression: "type"
+                    }
+                  ],
+                  staticClass: "form-check-input",
+                  attrs: {
+                    type: "radio",
+                    name: "gridRadios",
+                    id: "gridRadios2",
+                    value: "Local"
+                  },
+                  domProps: { checked: _vm._q(_vm.type, "Local") },
+                  on: {
+                    change: [
+                      function($event) {
+                        _vm.type = "Local"
+                      },
+                      _vm.changeType
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  {
+                    staticClass:
+                      "form-check-label badge badge-pill badge-success",
+                    attrs: { for: "gridRadios2" }
+                  },
+                  [_vm._v("\n\t\t\t\t\t\t    \tLocal\n\t\t\t\t\t\t  \t")]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(3)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 ml-4" }, [
+        _c("div", { staticClass: "form-group row" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("div", { staticClass: "lottery-number", class: _vm.colour }, [
+              _c("div", { staticClass: "box" }, [
+                _vm._v(
+                  "\n\t\t\t\t\t        " +
+                    _vm._s(_vm.number) +
+                    "\n\t\t\t\t\t    "
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-sm-3 col-form-label", attrs: { for: "inputName" } },
+        [_vm._v("Name")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "email", id: "inputName", placeholder: "Name" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-sm-3 col-form-label",
+          attrs: { for: "inputEmail" }
+        },
+        [_vm._v("Email")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "email", id: "inputEmail", placeholder: "Email" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-sm-3 col-form-label",
+          attrs: { for: "inputTelephone" }
+        },
+        [_vm._v("Telephone")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-9" }, [
+        _c("input", {
+          staticClass: "form-control",
+          attrs: {
+            type: "telephone",
+            id: "inputTelephone",
+            placeholder: "Telephone"
+          }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c("div", { staticClass: "col-sm-9" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Create Player")]
+        )
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a& ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -55188,81 +55414,97 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("table", { staticClass: "table table-bordered table-responsive" }, [
-      _c("thead", [
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-bordered" }, [
+        _c("thead", [
+          _c(
+            "tr",
+            { staticClass: "row" },
+            [
+              _vm._l(_vm.columns, function(column) {
+                return _c(
+                  "th",
+                  {
+                    key: column.name,
+                    class: column.width,
+                    staticStyle: { cursor: "pointer" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sortBy(column.name)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "span",
+                      {
+                        class:
+                          _vm.sortKey === column.name
+                            ? _vm.sortOrders[column.name] > 0
+                              ? "sorting_asc"
+                              : "sorting_desc"
+                            : "sorting"
+                      },
+                      [_vm._v(_vm._s(column.label))]
+                    )
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c("th", { staticClass: "col-md-1" }, [_vm._v("Action")])
+            ],
+            2
+          )
+        ]),
+        _vm._v(" "),
         _c(
-          "tr",
-          [
-            _vm._l(_vm.columns, function(column) {
-              return _c(
-                "th",
-                {
-                  key: column.name,
-                  staticStyle: { width: "40%", cursor: "pointer" },
-                  on: {
-                    click: function($event) {
-                      return _vm.sortBy(column.name)
+          "tbody",
+          _vm._l(_vm.paginatedUsers, function(user) {
+            return _c("tr", { key: user.id, staticClass: "row" }, [
+              _c("td", { staticClass: "col-md-2" }, [
+                _vm._v(_vm._s(user.name))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-2" }, [
+                _vm._v(_vm._s(user.telephone))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-2" }, [
+                _vm._v(_vm._s(user.email))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-2" }, [
+                _vm._v(_vm._s(user.lottery_number))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-1" }, [
+                _vm._v(_vm._s(user.type))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-2" }, [
+                _vm._v(_vm._s(user.created_at))
+              ]),
+              _vm._v(" "),
+              _c("td", { staticClass: "col-md-1" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-danger btn-sm",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteUser(user.id)
+                      }
                     }
-                  }
-                },
-                [
-                  _c(
-                    "span",
-                    {
-                      class:
-                        _vm.sortKey === column.name
-                          ? _vm.sortOrders[column.name] > 0
-                            ? "sorting_asc"
-                            : "sorting_desc"
-                          : "sorting"
-                    },
-                    [_vm._v(_vm._s(column.label))]
-                  )
-                ]
-              )
-            }),
-            _vm._v(" "),
-            _c("th", [_vm._v("Action")])
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.paginatedUsers, function(user) {
-          return _c("tr", { key: user.id }, [
-            _c("td", [_vm._v(_vm._s(user.name))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.telephone))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.email))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.lottery_number))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.type))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(user.created_at))]),
-            _vm._v(" "),
-            _c("td", [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-danger btn-sm",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteUser(user.id)
-                    }
-                  }
-                },
-                [_vm._v("Remove")]
-              )
+                  },
+                  [_vm._v("Remove")]
+                )
+              ])
             ])
-          ])
-        }),
-        0
-      )
+          }),
+          0
+        )
+      ])
     ]),
     _vm._v(" "),
     _c("div", [
@@ -67843,7 +68085,8 @@ window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_2___default.a;
 window.Fire = new Vue();
 Vue.component('admin-sidebar', __webpack_require__(/*! ./components/AdminSidebar.vue */ "./resources/js/components/AdminSidebar.vue")["default"]);
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue"));
-Vue.component('lottery-players', __webpack_require__(/*! ./components/LotteryPlayers.vue */ "./resources/js/components/LotteryPlayers.vue")["default"]);
+Vue.component('lottery-players', __webpack_require__(/*! ./components/LotteryPlayersTable.vue */ "./resources/js/components/LotteryPlayersTable.vue")["default"]);
+Vue.component('lottery-player', __webpack_require__(/*! ./components/LotteryPlayerForm.vue */ "./resources/js/components/LotteryPlayerForm.vue")["default"]);
 Vue.component('news-admin', __webpack_require__(/*! ./components/NewsAdmin.vue */ "./resources/js/components/NewsAdmin.vue")["default"]);
 var app = new Vue({
   el: '#app'
@@ -68021,17 +68264,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/LotteryPlayers.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/components/LotteryPlayers.vue ***!
-  \****************************************************/
+/***/ "./resources/js/components/LotteryPlayerForm.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/LotteryPlayerForm.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LotteryPlayers.vue?vue&type=template&id=76d29cd4& */ "./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4&");
-/* harmony import */ var _LotteryPlayers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LotteryPlayers.vue?vue&type=script&lang=js& */ "./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js&");
+/* harmony import */ var _LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LotteryPlayerForm.vue?vue&type=template&id=a885d4da& */ "./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da&");
+/* harmony import */ var _LotteryPlayerForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LotteryPlayerForm.vue?vue&type=script&lang=js& */ "./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -68041,9 +68284,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _LotteryPlayers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _LotteryPlayerForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -68053,38 +68296,107 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/LotteryPlayers.vue"
+component.options.__file = "resources/js/components/LotteryPlayerForm.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayers.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayers.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayers_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayerForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayerForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayerForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayerForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayers.vue?vue&type=template&id=76d29cd4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayers.vue?vue&type=template&id=76d29cd4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayerForm.vue?vue&type=template&id=a885d4da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayerForm.vue?vue&type=template&id=a885d4da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayers_vue_vue_type_template_id_76d29cd4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayerForm_vue_vue_type_template_id_a885d4da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryPlayersTable.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/LotteryPlayersTable.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LotteryPlayersTable.vue?vue&type=template&id=3b63928a& */ "./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a&");
+/* harmony import */ var _LotteryPlayersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LotteryPlayersTable.vue?vue&type=script&lang=js& */ "./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LotteryPlayersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/LotteryPlayersTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayersTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayersTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayersTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryPlayersTable.vue?vue&type=template&id=3b63928a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryPlayersTable.vue?vue&type=template&id=3b63928a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryPlayersTable_vue_vue_type_template_id_3b63928a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
