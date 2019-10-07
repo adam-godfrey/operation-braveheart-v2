@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\News;
 
 class NewsController extends Controller
 {
@@ -14,7 +15,14 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return View('admin.news.index');
+        $news = News::select('title', 'subtitle', 'content')
+            ->get();
+
+        $data = [
+            'news' => $news
+        ];
+
+        return View('admin.news.index')->with($data);
     }
 
     /**
@@ -81,5 +89,31 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getNewsArticles(Request $request)
+    {
+        if ( $request->input('showdata') ) {
+            return News::orderBy('created_at', 'desc')->get();
+            
+        }
+
+        $columns = ['title', 'subtitle', 'created_at'];
+        $length = $request->input('length');
+        $column = $request->input('column'); 
+        $search_input = $request->input('search');
+        $query = UsNewser::select('title', 'subtitle', 'created_at'); //->orderBy($columns[$column]);
+
+        if ($search_input) {
+            $query->where(function($query) use ($search_input) {
+                $query->where('title', 'like', '%' . $search_input . '%')
+                ->orWhere('subtitle', 'like', '%' . $search_input . '%')
+                ->orWhere('created_at', 'like', '%' . $search_input . '%');
+            });
+        }
+
+        $news = $query->paginate($length);
+
+        return ['data' => $news];
     }
 }

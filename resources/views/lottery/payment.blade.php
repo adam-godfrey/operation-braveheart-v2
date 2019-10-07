@@ -27,9 +27,6 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
         </div>
-        <div class="col-lg-5 col-md-8 mx-auto">
-            <payment-form></payment-form>
-        </div>
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
         </div>

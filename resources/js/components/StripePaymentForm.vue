@@ -1,5 +1,6 @@
 <template>
-    <form class="uk-padding">
+    <form id="payment-form" ref="form" action="/checkout" method="POST" class="uk-padding">
+        <input type="hidden" name="_token" :value="csrf">
         <div class="uk-margin uk-text-center">
             <p class="stripeError" v-if="stripeError">
                 {{stripeError}}
@@ -53,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary btn-block" @click.prevent="okToSend()">
+        <button class="btn btn-primary btn-block" @click.prevent="submitFormToCreateToken()">
             Pay Now £{{ cost }}
         </button>
     </form>
@@ -63,6 +64,7 @@
     export default {
         data() {
             return {
+                csrf: document.head.querySelector('meta[name="csrf-token"]').content,
                 card: {
                     cvc: '',
                     number: '',
@@ -73,6 +75,7 @@
                 cardExpiry: '',
                 cardCvc: '',
                 stripe: null,
+                tokenId: '',
 
                 // errors
                 stripeError: '',
@@ -172,11 +175,27 @@
                         this.stripeError = result.error.message;
                     } else {
                         const token = result.token.id
-                        alert('Thanks for donating.')
+
+                        this.stripeTokenHandler(token);
+                        console.log(token);
                         //send the token to your server
                         //clear the inputs
                     }
                 })
+            },
+
+            stripeTokenHandler(token) {
+                // Insert the token ID into the form so it gets submitted to the server
+
+                // var form = document.getElementById('payment-form');
+                var hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'stripeToken');
+                hiddenInput.setAttribute('value', token);
+                this.$el.appendChild(hiddenInput);
+
+                // Submit the form
+                this.$el.submit();
             },
 
             clearElementsInputs() {
@@ -196,7 +215,7 @@
                 this.clearCardErrors()
             },
             okToSend: function() {
-                this.$root.$emit('checkFormsValid')
+                //this.$root.$emit('checkFormsValid')
             }
         }
     }

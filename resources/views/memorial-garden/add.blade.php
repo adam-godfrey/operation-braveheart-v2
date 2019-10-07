@@ -53,6 +53,21 @@
     </div>
     <div class="row">
         <div class="col-lg-5 col-md-8 mx-auto">
+            @if (session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <payment-form cost="16.00"></payment-form>
         </div>
     </div>

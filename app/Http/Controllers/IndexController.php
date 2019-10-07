@@ -16,7 +16,7 @@ class IndexController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Operation Braveheart',
-                'description' => 'Blah blah blah'
+                'description' => 'Swift and Bold'
             ]
         ];
 
