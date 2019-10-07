@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.2",
+        "sweetalert2": "^8.18.0",
+        "v-datatable-light": "^0.8.0",
         "vuejs-datepicker": "^1.6.2"
     }
 }

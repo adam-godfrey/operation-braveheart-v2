@@ -3,6 +3,11 @@
 
 @import "~bootstrap/scss/bootstrap";
 
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
 // Import Custom SB Admin 2 Mixins and Components
 @import "admin/mixins.scss";
 @import "admin/global.scss";
@@ -17,3 +22,6 @@
 @import "admin/login.scss";
 @import "admin/error.scss";
 @import "admin/footer.scss";
+
+// Page Styles
+@import "admin/styles.scss"

@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Cartalyst\Stripe\Exception\CardErrorException;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,9 +44,42 @@ Route::prefix('lottery')->group(function () {
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
 Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::get('lottery/players', 'LotteryController@getPlayers');
+    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+
+    Route::get('news/articles', 'NewsController@getNewsArticles');
+    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+
 	Route::name('admin.')->group(function () {
 	    Route::resource('lottery', 'LotteryController');
 	    Route::resource('news', 'NewsController');
 	});
-    
+});
+
+Route::post('/checkout', function(Request $request) {
+    // dd($request->all());
+    // validation
+    try {
+
+        Stripe::setApiKey(env('STRIPE_API_SECRET'));
+
+        $charge = Stripe::charges()->create([
+            'amount' => 16.00,
+            'currency' => 'GBP',
+            'source' => $request->stripeToken,
+            'description' => 'Description goes here',
+            'receipt_email' => $request->email,
+            'metadata' => [
+                'data1' => 'metadata 1',
+                'data2' => 'metadata 2',
+                'data3' => 'metadata 3',
+            ],
+        ]);
+        // save this info to your database
+        // SUCCESSFUL
+        return back()->with('success_message', 'Thank you! Your payment has been accepted.');
+    } catch (CardErrorException $e) {
+        // save info to database for failed
+        return back()->withErrors('Error! ' . $e->getMessage());
+    }
 });

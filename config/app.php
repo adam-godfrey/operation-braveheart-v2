@@ -140,6 +140,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -197,5 +198,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => 'Carbon\Carbon',
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
     ],
 ];

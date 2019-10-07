@@ -29,7 +29,7 @@ class MemorialGardenController extends Controller
         $data =  [
             'page' => (object) [
                 'title' => 'Memorial Garden',
-                'description' => 'We shall not forget the fallen',
+                'description' => 'Remember Me',
                 'banner' => 'images/operation-braveheart-memorial-garden.webp'
             ]
         ];
