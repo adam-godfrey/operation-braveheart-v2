@@ -23,7 +23,7 @@
 				<div class="form-group row">
 					<label for="inputNumber" class="col-sm-3 col-form-label">Lottery Number</label>
 					<div class="col-sm-9">
-						<input type="text" class="form-control" id="inputNumber" placeholder="Lottery Number" v-model="number" maxlength="2">
+						<custom-select v-bind:options="test" @changed="getNumber"></custom-select>
 					</div>
 				</div>
 				<fieldset class="form-group">
@@ -31,7 +31,7 @@
 						<legend class="col-form-label col-sm-3 pt-0">Draw Type</legend>
 						<div class="col-sm-9">
 							<div class="form-check">
-				  				<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="UK" v-model="type" v-on:change="changeType" checked>
+				  				<input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="UK" v-model="type" v-on:change="changeType">
 				  				<label class="form-check-label badge badge-pill badge-primary " for="gridRadios1">
 				   					UK
 				  				</label>
@@ -68,18 +68,34 @@
 	</form>
 </template>
 <script>
+import CustomSelect from './CustomSelect.vue'
 export default {
+	props: {
+		numbers: {
+			type: Array
+		}
+	},
     data () {
         return {
-        	colour: 'blue',
-        	type: '',
+        	colour: 'green',
+        	type: 'Local',
         	number: '',
+        	test: this.numbers,
         }
+    },
+    components: {
+        CustomSelect
     },
     methods: {
         changeType() {
         	this.colour = this.type === 'UK' ? 'blue' : 'green';
+        },
+        getNumber(value) {
+        	this.number = value;
         }
+    },
+    mounted() {
+
     }
 };
 </script>

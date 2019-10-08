@@ -83,4 +83,11 @@ class LotteryController extends Controller
     {
         //
     }
+
+    public function getAvailableNumbers()
+    {
+        return ['numbers' => [
+            1,2,3,4,5,6,7,11,12,13,14
+        ]];
+    }
 }

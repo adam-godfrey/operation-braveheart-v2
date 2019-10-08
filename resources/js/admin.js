@@ -22,6 +22,8 @@ Vue.component('lottery-player', require('./components/LotteryPlayerForm.vue').de
 
 Vue.component('news-admin', require('./components/NewsAdmin.vue').default);
 
+Vue.component('custom-select', require('./components/CustomSelect.vue').default);
+
 const app = new Vue({
     el: '#app'
 });

@@ -25,7 +25,13 @@ class LotteryPlayerController extends Controller
      */
     public function create()
     {
-        return View('admin.lottery.players.add');
+        $data =  [
+            'numbers' => implode(',', [
+                1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
+            ])
+        ];
+
+        return View('admin.lottery.players.add')->with($data);
     }
     /**
      * Store a newly created resource in storage.

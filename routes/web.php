@@ -48,6 +48,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     // /admin/members
     Route::group(['prefix' => 'lottery'], function() {
         Route::get('players/get', 'LotteryPlayerController@getPlayers');
+        Route::get('available-numbers', 'LotteryController@getAvailableNumbers');
         Route::resource('players', 'LotteryPlayerController');
     });
     
