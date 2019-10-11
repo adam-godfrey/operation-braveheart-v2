@@ -40,8 +40,6 @@ class MemorialGardenController extends Controller
 
     public function send(Request $request)
     {
-        dd($request);
-
         $this->validate($request, [
             'contact' => 'required|string',
             'email' => 'required|email',
@@ -58,7 +56,6 @@ class MemorialGardenController extends Controller
             'location' => 'required|string',
             'message' => 'required|sring',   
         ]);
-
 
         return response()->json($request->all(), 200);
     }

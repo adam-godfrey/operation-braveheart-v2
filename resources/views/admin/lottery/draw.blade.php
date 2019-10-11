@@ -6,13 +6,7 @@
 
 <div class="row">
 	<div class="col-md-6 mx-auto">
-		<lottery-results colour="blue" draw_type="UK"></lottery-results>
+		<lottery-results colour="{{ $color }}" draw_type="{{ $draw_type }}"></lottery-results>
 	</div>
 </div>
-<div class="row">
-	<div class="col-md-6 mx-auto">
-		<lottery-results colour="green" draw_type="Local"></lottery-results>
-	</div>
-</div>
-
 @endsection

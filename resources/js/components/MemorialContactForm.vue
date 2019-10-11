@@ -69,7 +69,6 @@ export default {
             this.fields.name = name;
         });
         this.$root.$on('dobChange', dob => {
-            consoe.log(dob)
             this.fields.dob = dob;
         });
         this.$root.$on('dodChange', dod => {

@@ -32,9 +32,19 @@ class LotteryController extends Controller
         return View('admin.lottery.index')->with(['settings' => $data]);
     }
 
-    public function draw()
+    public function draw($draw)
     {
-        $data = [];
+        $uk = [
+            'draw_type' => 'UK',
+            'color' => 'blue'
+        ];
+
+        $local = [
+            'draw_type' => 'Local',
+            'color' => 'green'
+        ];
+
+        $data = ${$draw};
 
         return View('admin.lottery.draw')->with($data);
     }

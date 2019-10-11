@@ -54,7 +54,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::group(['prefix' => 'lottery'], function() {
 
         Route::get('/', 'LotteryController@index');
-        Route::get('/draw', 'LotteryController@draw');
+        Route::get('/draw/{draw}', 'LotteryController@draw');
         Route::post('get-winner', 'LotteryController@getWinner');
         Route::put('additional-numbers', 'LotteryController@additionalNumbers');
         Route::put('update-total-winners', 'LotteryController@totalWinners');

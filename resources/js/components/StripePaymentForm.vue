@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary btn-block" @click.prevent="submitFormToCreateToken()">
+        <button class="btn btn-primary btn-block" @click.prevent="okToSend()">
             Pay Now £{{ cost }}
         </button>
     </form>
@@ -213,7 +213,7 @@
                 this.clearCardErrors()
             },
             okToSend: function() {
-                //this.$root.$emit('checkFormsValid')
+                this.$root.$emit('checkFormsValid')
             }
         }
     }
