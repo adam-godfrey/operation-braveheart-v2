@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\Admin\LotteryBall;
+use App\Models\Admin\LotterySetting;
+use App\Http\Traits\LotteryTrait;
 
 class LotteryController extends Controller
 {
+    use LotteryTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,79 +19,52 @@ class LotteryController extends Controller
      */
     public function index()
     {
-        return View('admin.lottery.index');
+        $lotterySetting = LotterySetting::all();
+
+        $data = [];
+
+        foreach($lotterySetting as $setting) {
+            $data[$setting->key] = $setting->value;
+        }
+
+        $data['draw_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $data['draw_date'])->format('d M Y');
+
+        return View('admin.lottery.index')->with(['settings' => $data]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function draw()
     {
-        //
+        $data = [];
+
+        return View('admin.lottery.draw')->with($data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function additionalNumbers(Request $request)
     {
-        //
+        $key = strtolower($request->input('type')) . '_ball_count';
+
+        $lotterySetting = LotterySetting::where('key', $key)
+            ->update(['value' => $request->input('new_total')]);
+
+        return response()->json($lotterySetting, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function totalWinners(Request $request)
     {
-        //
+        $lotterySetting = LotterySetting::where('key', 'uk_winners')
+            ->update(['value' => $request->input('uk_total')]);
+
+        $lotterySetting = LotterySetting::where('key', 'local_winners')
+            ->update(['value' => $request->input('local_total')]);
+
+        return response()->json($lotterySetting, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function updateDrawDate(Request $request)
     {
-        //
-    }
+        $lotterySetting = LotterySetting::where('key', 'draw_date')
+            ->update(['value' => $request->input('draw_date')]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function getAvailableNumbers()
-    {
-        return ['numbers' => [
-            1,2,3,4,5,6,7,11,12,13,14
-        ]];
+        return response()->json($lotterySetting, 200);
     }
 }

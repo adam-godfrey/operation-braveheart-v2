@@ -54,7 +54,6 @@ export default {
         this.$root.$on('checkFormsValid', () => {
             this.errors = {};
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
-                console.log(response.data);
                 this.$root.$emit('validated')
             }).catch(error => {
                 if (error.response.status === 422) {
@@ -70,6 +69,7 @@ export default {
             this.fields.name = name;
         });
         this.$root.$on('dobChange', dob => {
+            consoe.log(dob)
             this.fields.dob = dob;
         });
         this.$root.$on('dodChange', dod => {

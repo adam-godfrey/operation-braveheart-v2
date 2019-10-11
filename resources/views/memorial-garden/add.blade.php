@@ -32,18 +32,6 @@
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <carousel></carousel>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
             <memorial-form></memorial-form>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
             <plaque-form></plaque-form>
@@ -68,7 +56,7 @@
                     </ul>
                 </div>
             @endif
-            <payment-form cost="16.00"></payment-form>
+            <!-- <payment-form cost="16.00"></payment-form> -->
         </div>
     </div>
 

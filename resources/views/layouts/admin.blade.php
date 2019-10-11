@@ -3,6 +3,7 @@
 @include('layouts.admin-partials.head')
 <body id="page-top">
 <div id="app">
+	<vue-snotify></vue-snotify>
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 		@include('layouts.admin-partials.sidebar')

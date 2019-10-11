@@ -7,22 +7,42 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
 
-import swal from 'sweetalert2';
-window.swal = swal;
+import Snotify, { SnotifyPosition } from 'vue-snotify';
+import "vue-snotify/styles/material.css";
 
-window.Fire = new Vue();
+const options = {
+  	toast: {
+    	position: SnotifyPosition.rightTop
+  	}
+}
 
-Vue.component('admin-sidebar', require('./components/AdminSidebar.vue').default);
+Vue.use(Snotify, {
+  	toast: {
+    	position: SnotifyPosition.rightTop
+  	}
+})
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+ 
+Vue.use(VueSweetalert2, {
+  	confirmButtonColor: '#41b882',
+  	cancelButtonColor: '#ff7674'
+});
 
-Vue.component('lottery-players', require('./components/LotteryPlayersTable.vue').default);
+Vue.component('admin-sidebar', require('./components/admin/Sidebar.vue').default);
 
-Vue.component('lottery-player', require('./components/LotteryPlayerForm.vue').default);
+Vue.component('lottery-results', require('./components/admin/LotteryResults.vue').default);
 
-Vue.component('news-admin', require('./components/NewsAdmin.vue').default);
+Vue.component('lottery-players', require('./components/admin/LotteryPlayersTable.vue').default);
 
-Vue.component('custom-select', require('./components/CustomSelect.vue').default);
+Vue.component('lottery-player', require('./components/admin/LotteryPlayerForm.vue').default);
+
+Vue.component('news-admin', require('./components/admin/News.vue').default);
+
+Vue.component('custom-select', require('./components/admin/CustomSelect.vue').default);
+
+Vue.component('lottery-settings', require('./components/admin/LotterySettings.vue').default);
 
 const app = new Vue({
     el: '#app'

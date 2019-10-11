@@ -227,5 +227,29 @@
         font-size: 40px;
         font-weight: bold;
     }
-
 }
+
+.btn {
+    border-radius: 0;
+}
+
+.negative-margin {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.swal2-actions {
+    .btn {
+        min-width: 80px;
+        &:first-child {
+            margin-right: 10px;
+        }
+    }
+}
+
+.vdp-datepicker {
+    input {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+} 

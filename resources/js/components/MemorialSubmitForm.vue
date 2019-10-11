@@ -142,7 +142,6 @@ export default {
         submit: function() {
             this.errors = {};
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
-                console.log(response.data)
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};

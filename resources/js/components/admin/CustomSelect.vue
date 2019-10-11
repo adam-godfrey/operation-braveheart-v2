@@ -10,12 +10,14 @@ export default {
     props: { 
         options: {
             type: Array
+        },
+        selected: {
+            type: Number,
         }
     },
     data () {
         return {
             test: this.options,
-            selected: '',
             lotteryNumber: ''
         }
     },
@@ -26,9 +28,11 @@ export default {
     methods: {
 
     },
+    created(){
+        this.lotteryNumber = this.selected ? this.selected : '';
+    },
     watch:{
         'lotteryNumber': function () {
-            console.log(this.lotteryNumber);
             this.$emit('changed', this.lotteryNumber)
         }
     },

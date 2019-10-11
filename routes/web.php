@@ -15,6 +15,12 @@ use Cartalyst\Stripe\Exception\CardErrorException;
 |
 */
 
+Auth::routes();
+
+// Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('/', 'IndexController@index')->name('home.index');
 Route::get('/about', 'AboutController@index')->name('about.index');
 
@@ -43,24 +49,31 @@ Route::prefix('lottery')->group(function () {
 
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
-Route::prefix('admin')->namespace('Admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
 
-    // /admin/members
     Route::group(['prefix' => 'lottery'], function() {
+
+        Route::get('/', 'LotteryController@index');
+        Route::get('/draw', 'LotteryController@draw');
+        Route::post('get-winner', 'LotteryController@getWinner');
+        Route::put('additional-numbers', 'LotteryController@additionalNumbers');
+        Route::put('update-total-winners', 'LotteryController@totalWinners');
+        Route::put('update-draw-date', 'LotteryController@updateDrawDate');
+
         Route::get('players/get', 'LotteryPlayerController@getPlayers');
-        Route::get('available-numbers', 'LotteryController@getAvailableNumbers');
+        Route::post('available-numbers', 'LotteryPlayerController@getAvailableNumbers');
+        
         Route::resource('players', 'LotteryPlayerController');
     });
-    
+
     Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
 
     Route::get('news/articles', 'NewsController@getNewsArticles');
     Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
 
-	Route::name('admin.')->group(function () {
-	    Route::resource('lottery', 'LotteryController');
-	    Route::resource('news', 'NewsController');
-	});
+    Route::name('admin.')->group(function () {
+        Route::resource('news', 'NewsController');
+    });
 });
 
 Route::post('/checkout', function(Request $request) {

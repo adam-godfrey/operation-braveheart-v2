@@ -90,7 +90,6 @@
         mounted() {
             this.setUpStripe();
             this.$root.$on('validated', () => {
-                console.log('dfgdg');
                 this.submitFormToCreateToken();
             })
         },
@@ -177,7 +176,6 @@
                         const token = result.token.id
 
                         this.stripeTokenHandler(token);
-                        console.log(token);
                         //send the token to your server
                         //clear the inputs
                     }

@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\Admin\LotteryPlayer;
+use App\Models\Admin\LotteryBall;
+use App\Http\Traits\LotteryTrait;
+use App\Rules\Telephone;
 
 class LotteryPlayerController extends Controller
 {
+    use LotteryTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +33,7 @@ class LotteryPlayerController extends Controller
     public function create()
     {
         $data =  [
-            'numbers' => implode(',', [
-                1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16
-            ])
+            
         ];
 
         return View('admin.lottery.players.add')->with($data);
@@ -41,7 +46,32 @@ class LotteryPlayerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => ['required', new Telephone],
+            'lottery_number' => 'required',
+            'draw_type' => 'required',            
+        ]);
+
+        $lotteryPlayer = new LotteryPlayer();
+
+        $lotteryPlayer->name = $request->name;
+        $lotteryPlayer->email = $request->email;
+        $lotteryPlayer->telephone = $request->telephone;
+        $lotteryPlayer->draw_type = $request->draw_type;
+
+        $lotteryPlayer->save();
+
+        $lotteryBall = LotteryBall::where('lottery_number', $request->lottery_number)
+            ->where('draw_type', $request->draw_type)
+            ->first();
+
+        $lotteryBall->player_id = $lotteryPlayer->id;
+
+        $lotteryBall->save();
+
+        return response()->json($request->all(), 200);
     }
 
     /**
@@ -52,7 +82,7 @@ class LotteryPlayerController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -63,7 +93,13 @@ class LotteryPlayerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $player = LotteryPlayer::where('id', $id)->first();
+
+        $data =  [
+            'player' => $player
+        ];
+
+        return View('admin.lottery.players.edit')->with($data);
     }
 
     /**
@@ -75,7 +111,33 @@ class LotteryPlayerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => 'required',
+            'lottery_number' => 'required',
+            'draw_type' => 'required',
+        ]);
+
+        $lotteryPlayer = LotteryPlayer::where('id', $request->id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'telephone' => $request->telephone,
+                'draw_type' => $request->draw_type,
+            ]);
+
+        $lotteryBall = LotteryBall::where('player_id', $request->id)
+            ->update(['player_id' => null]);
+
+        $lotteryBall = LotteryBall::where('lottery_number', $request->lottery_number)
+            ->where('draw_type', $request->draw_type)
+            ->first();
+
+        $lotteryBall->player_id = $request->id;
+        $lotteryBall->save();
+
+        return response()->json($request->all(), 200);
     }
 
     /**
@@ -92,14 +154,14 @@ class LotteryPlayerController extends Controller
     public function getPlayers(Request $request)
     {
         if ( $request->input('showdata') ) {
-            return User::orderBy('created_at', 'desc')->get();
+            return LotteryPlayer::orderBy('created_at', 'desc')->get();
             
         }
         $columns = ['name', 'email', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); 
         $search_input = $request->input('search');
-        $query = User::select('name', 'email', 'created_at'); //->orderBy($columns[$column]);
+        $query = LotteryPlayer::select('name', 'email', 'created_at'); //->orderBy($columns[$column]);
 
         if ($search_input) {
             $query->where(function($query) use ($search_input) {
@@ -114,9 +176,9 @@ class LotteryPlayerController extends Controller
         return ['data' => $users];
     }
 
-    public function deletePlayer(User $user) {
-        if($user) {
-            $user->delete();
+    public function deletePlayer(LotteryPlayer $player) {
+        if($player) {
+            $player->delete();
         }
         return 'user deleted';
     }

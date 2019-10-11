@@ -22,8 +22,19 @@ export default {
         return {
             items: [
                 { 
+                    text: 'Memorial Garden',
+                    html: `<h6 class="collapse-header">Lottery:</h6>
+                        <a class="collapse-item" href="/admin/lottery">Dashboard</a>
+                        <h6 class="collapse-header">Lottery Players:</h6>
+                        <a class="collapse-item" href="/admin/lottery/players/create">Add New</a>
+                        <a class="collapse-item" href="/admin/lottery/players">View All</a>`
+                },
+                { 
                     text: 'Lottery',
-                    html: `<h6 class="collapse-header">Lottery Players:</h6>
+                    html: `<h6 class="collapse-header">Lottery:</h6>
+                        <a class="collapse-item" href="/admin/lottery">Settings</a>
+                        <a class="collapse-item" href="/admin/lottery/draw">Draw Numbers</a>
+                        <h6 class="collapse-header">Lottery Players:</h6>
                         <a class="collapse-item" href="/admin/lottery/players/create">Add New</a>
                         <a class="collapse-item" href="/admin/lottery/players">View All</a>`
                 },
