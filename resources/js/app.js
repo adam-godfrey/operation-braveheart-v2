@@ -20,8 +20,6 @@ Vue.component('memorial-form', require('./components/MemorialContactForm.vue').d
 
 Vue.component('carousel', require('./components/Carousel.vue').default);
 
-Vue.component('date-picker', require('./components/DatePicker.vue').default);
-
 Vue.component('payment-form', require('./components/StripePaymentForm.vue').default);
 
 Vue.component('plaque-form', require('./components/MemorialPlaqueForm.vue').default);

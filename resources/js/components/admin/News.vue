@@ -157,12 +157,10 @@ export default {
         getNews() {
             axios.get('/admin/news/aticles/', {params: this.tableShow})
                 .then(response => {
-                    console.log('The data: ', response.data)
                     this.News = response.data;
                     this.pagination.total = this.News.length;
                 })
                 .catch(errors => {
-                    console.log(errors);
                 });
         },
         paginate(array, length, pageNumber) {

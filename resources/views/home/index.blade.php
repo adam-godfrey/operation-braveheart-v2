@@ -26,11 +26,16 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <h1>Welcome to {{ Config::get('app.name') }}</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
+            <p>This website is the online voice of forces support organisation Operation Braveheart of Cullompton, Devon.</p>
 
-            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
+            <p>It is now quite hard to remember the many things that took place all those early years ago as I set out on the long journey of fundraising to where I and we are today, with a beautiful dedicated Armed Forces Memorial Garden to all of our forces who have given the ultimate sacrifice in wars and conflicts since the end of Word War 2.</p>
+
+            <p>A steep learning curve ensued from doing those little things that mean a lot like organising Prize draws, holding discos and even a dinner dance to start this huge project going.</p>
+
+            <p>Among the things that will always be remembered as fundraising events got under our belts, and you may wonder why I just wrote under OUR belts because this was something I was to learn was that with all of my own good intentions I just could not complete such a mammoth task of forces support just on my own.</p>
+
+            <p>One of the events I will just highlight here which grew from just a few wild thoughts was the formation of Operation Braveheart’s very own charity football team. From fundraising matches back in the early years of 2008 to 2010 this football team quickly became an official football club which is known now as BRAVEHEARTS FC and is run under its own steam headed up by Niki Lush and his team. No longer a charity team but now league clubs that play in Devon and Somerset leagues.</p>
 
             <p class="text-center"><a href="{{ route('about.index') }}" class="btn btn-outline-primary">About Us</a></p>
         </div>

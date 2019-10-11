@@ -40,7 +40,6 @@ export default {
   },
   mounted () {
         // Do something useful with the data in the template
-        console.log(this.test)
     },
   methods: {
     submit() {

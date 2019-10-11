@@ -15,5 +15,5 @@
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 	<link rel="canonical" href="">
-	<script src="https://js.stripe.com/v3/"></script>
+	<!-- <script src="https://js.stripe.com/v3/"></script> -->
 </head>

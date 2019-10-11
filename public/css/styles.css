@@ -516,6 +516,10 @@ footer .copyright {
   border: 0;
 }
 
+.card.lottery .card-title {
+  font-weight: bold;
+}
+
 .cta-lottery {
   background: #fff;
   height: 300px;

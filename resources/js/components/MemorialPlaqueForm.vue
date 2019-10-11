@@ -14,11 +14,11 @@
         </div>
         <div class="form-row">
             <div class="col">
-                <date-picker @selected="dobChange" classname="form-control text-right" name="fields.dob" placeholder="DOB" v-model="fields.dod"></date-picker>
+                <datepicker @selected="dobChange" input-class="form-control text-right" name="fields.dob" placeholder="DOB" v-model="fields.dob"></datepicker>
                 <div v-if="errors && errors.dob" class="text-danger text-right small">{{ errors.dob[0] }}</div>
             </div>
             <div class="col">
-                <date-picker @selected="dodChange" classname="form-control" name="fields.dod" placeholder="DOD" v-model="fields.dod"></date-picker>
+                <datepicker @selected="dodChange" input-class="form-control" name="fields.dod" placeholder="D0D" v-model="fields.dod"></datepicker>
                 <div v-if="errors && errors.dod" class="text-danger small">{{ errors.dod[0] }}</div>
             </div>
         </div>
@@ -40,20 +40,22 @@
     </div>
 </template>
 <script>
-import DatePicker from './DatePicker.vue';
+import Datepicker from 'vuejs-datepicker';
 export default {
     data: function() {
         return {
             fields: {
-                message: ''
+                message: '',
             },
+            dobFormatted: '',
+            dodFormatted: '',
             errors: {},
             maxCharacters: 35,
         }
     },
     name: 'MemorialPlaqueForm',
     components: {
-        DatePicker
+        Datepicker
     },
     mounted() {
         this.$root.$on('errors', errors => {
@@ -68,10 +70,14 @@ export default {
             this.$root.$emit('nameChange', this.fields.name);
         },
         dobChange: function() {
-            this.$root.$emit('dobChange', this.fields.dob);
+            this.$nextTick(() => {
+                this.$root.$emit('dobChange', this.fields.dob.getFullYear() + '-' + ("0" + (this.fields.dob.getMonth()+1)).slice(-2) + '-' + ("0" + this.fields.dob.getDate()).slice(-2))
+            });
         },
         dodChange: function() {
-            this.$root.$emit('dodChange', this.fields.dod);
+            this.$nextTick(() => {
+                this.$root.$emit('dodChange', this.fields.dod.getFullYear() + '-' + ("0" + (this.fields.dod.getMonth()+1)).slice(-2) + '-' + ("0" + this.fields.dod.getDate()).slice(-2))
+            });
         },
         regimentChange: function() {
             this.$root.$emit('regimentChange', this.fields.regiment);

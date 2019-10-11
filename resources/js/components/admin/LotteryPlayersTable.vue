@@ -18,29 +18,37 @@
 		      	</div>
 		    </div>
 		</div>
-        <table class="table table-bordered table-responsive">
-            <thead>
-                <tr>
-                    <th v-for="column in columns" :key="column.name" @click="sortBy(column.name)"
-                        
-                        style="width: 40%; cursor:pointer;">
-                       <span :class="sortKey === column.name ? (sortOrders[column.name] > 0 ? 'sorting_asc' : 'sorting_desc') : 'sorting'">{{column.label}}</span>
-                    </th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="user in paginatedUsers" :key="user.id">
-                    <td>{{user.name}}</td>
-                    <td>{{user.telephone}}</td>
-                    <td>{{user.email}}</td>
-                    <td>{{user.lottery_number}}</td>
-                    <td>{{user.type}}</td>
-                    <td>{{user.created_at}}</td>
-                    <td><a class="btn btn-danger btn-sm" href="#" @click="deleteUser(user.id)">Remove</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="row">
+                        <th :class="column.width" v-for="column in columns" :key="column.name" @click="sortBy(column.name)"
+                            
+                            style="cursor:pointer;">
+                           <span :class="sortKey === column.name ? (sortOrders[column.name] > 0 ? 'sorting_asc' : 'sorting_desc') : 'sorting'">{{column.label}}</span>
+                        </th>
+                        <th class="col-md-1">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row" v-for="user in paginatedUsers" :key="user.id">
+                        <td class="col-md-2">{{user.name}}</td>
+                        <td class="col-md-2">{{user.telephone}}</td>
+                        <td class="col-md-2">{{user.email}}</td>
+                        <td class="col-md-2">{{user.lottery_number}}</td>
+                        <td class="col-md-1">
+                            <span class="badge badge-pill badge-primary" v-if="user.draw_type === 'UK'">{{user.draw_type}}</span>
+                            <span class="badge badge-pill badge-success" v-else>{{user.draw_type}}</span>
+                        </td>
+                        <td class="col-md-2">{{user.created_at}}</td>
+                        <td class="col-md-1">
+                            <a class="btn btn-primary btn-sm" v-bind:href="'/admin/lottery/players/' + user.id + '/edit'"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger btn-sm" href="#" @click="deleteUser(user.id)"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div>
             <nav class="pagination" v-if="!tableShow.showdata">
                 <span class="page-stats">{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</span>
@@ -80,22 +88,20 @@
 </template>
 
 <script>
+
 export default {
     created() {
         this.getUsers();
-        Fire.$on('reloadUsers', () => {
-            this.getUsers();
-        })
     },
     data() {
         let sortOrders = {};
         let columns = [
-            {label: 'Name', name: 'name' },
-            {label: 'Telephone', name: 'telephone' },
-            {label: 'Email', name: 'email'},
-            {label: 'Lottery Number', name: 'lottery_number'},
-            {label: 'Draw Type', name: 'type'},
-            {label: 'Date Added', name: 'created_at'},
+            {label: 'Name', name: 'name', 'width': 'col-md-2'},
+            {label: 'Telephone', name: 'telephone', 'width': 'col-md-2'},
+            {label: 'Email', name: 'email', 'width': 'col-md-2'},
+            {label: 'Lottery Number', name: 'lottery_number', 'width': 'col-md-2'},
+            {label: 'Draw Type', name: 'type', 'width': 'col-md-1'},
+            {label: 'Date Added', name: 'created_at', 'width': 'col-md-2'},
         ];
         columns.forEach((column) => {
            sortOrders[column.name] = -1;
@@ -122,53 +128,75 @@ export default {
         }
     },
     methods: {
-        // deleteUser(id) {
-        //     axios.delete(`/users/${id}/delete`).then(() => {
-        //         Fire.$emit('reloadUsers')
-        //         swal(
-        //             'Success!',
-        //             'User deleted',
-        //             'success'
-        //         )
-        //     }).catch(() => {
-        //         swal('Failed', 'There was something wrong', 'warning');
-        //     });
-        // },
-        deleteUser(id){
-            swal({
-                title: 'Delete this user?',
+        deleteUser(id) {
+            const swalWithBootstrapButtons = this.$swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: 'Delete this player?',
                 text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        axios.delete(`/users/${id}/delete`).then(()=>{
-                            Fire.$emit('reloadUsers')
-                                swal(
-                                'Deleted!',
-                                'User Deleted.',
-                                'success'
-                                )
-                            Fire.$emit('AfterCreate');
-                        }).catch(()=> {
-                            swal("Failed!", "There was something wronge.", "warning");
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    axios.delete(`/admin/lottery/player/${id}/delete`).then(response => {
+                        this.data = response.data.data;
+
+                        $this.prizes[prize].name = this.data !== null ? this.data.name : 'No Winner';
+                        $this.prizes[prize].telephone = this.data !== null ? this.data.telephone : 'No Winner';
+                    }).catch(error => {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors || {};
+
+                            
+                        }
+                    });
+
+                    axios.delete(`/users/${id}/delete`).then(()=>{
+                        this.getUsers();
+
+                        this.$snotify.success('Player successfully deleted', {
+                            timeout: 2000,
+                            showProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true
                         });
-                    }
-                })
+                    }).catch(()=> {
+                        this.$snotify.error('There was a problem deleting the player', {
+                            timeout: 2000,
+                            showProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true
+                        });
+                    });
+              } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+              ) {
+                    // swalWithBootstrapButtons.fire(
+                    //     'Cancelled',
+                    //     'Your imaginary file is safe :)',
+                    //     'error'
+                    // )
+                }
+            });
         },
         
         getUsers() {
-            axios.get('/admin/lottery/players/', {params: this.tableShow})
+            axios.get('/admin/lottery/players/get', {params: this.tableShow})
                 .then(response => {
-                    console.log('The data: ', response.data)
                     this.users = response.data;
                     this.pagination.total = this.users.length;
                 })
                 .catch(errors => {
-                    console.log(errors);
                 });
         },
         paginate(array, length, pageNumber) {
