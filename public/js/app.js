@@ -2337,7 +2337,6 @@ __webpack_require__.r(__webpack_exports__);
       _this.fields.name = name;
     });
     this.$root.$on('dobChange', function (dob) {
-      consoe.log(dob);
       _this.fields.dob = dob;
     });
     this.$root.$on('dodChange', function (dod) {
@@ -2742,7 +2741,8 @@ __webpack_require__.r(__webpack_exports__);
       this.clearElementsInputs();
       this.clearCardErrors();
     },
-    okToSend: function okToSend() {//this.$root.$emit('checkFormsValid')
+    okToSend: function okToSend() {
+      this.$root.$emit('checkFormsValid');
     }
   }
 });
@@ -53710,7 +53710,7 @@ var render = function() {
           on: {
             click: function($event) {
               $event.preventDefault()
-              return _vm.submitFormToCreateToken()
+              return _vm.okToSend()
             }
           }
         },

@@ -27,14 +27,56 @@ class LotteryController extends Controller
             $data[$setting->key] = $setting->value;
         }
 
-        $data['draw_date'] = \Carbon\Carbon::createFromFormat('Y-m-d', $data['draw_date'])->format('d M Y');
-
         return View('admin.lottery.index')->with(['settings' => $data]);
     }
 
-    public function draw()
+    public function draw($draw)
     {
-        $data = [];
+        $uk = [
+            'draw_type' => 'UK',
+            'color' => 'blue',
+        ];
+
+        $local = [
+            'draw_type' => 'Local',
+            'color' => 'green'
+        ];
+
+        $data = ${$draw};
+
+
+        $lotterySettings = LotterySetting::where('key', 'like', strtolower($draw) . '%')
+            ->get();
+
+        $prizes = $lotterySettings->filter(function($item) {
+            return substr($item->key, -5) === 'prize' && $item->value != null;
+        }); 
+
+        $winners = $lotterySettings->filter(function($item) {
+            return substr($item->key, -7) === 'winners';
+        })->first();
+
+        $i = 0;
+        foreach($prizes->take($winners->value) as $prize) {
+            $i++;
+            $locale = 'en_GB';
+            $nf = new \NumberFormatter($locale, \NumberFormatter::ORDINAL);
+
+            preg_match('~_(.*?)_~', $prize->key, $output);
+
+            $data['settings'][] = (object) [
+                'prize' => $output[1],
+                'abbr' =>  $nf->format($i) . ' Prize',
+                'value' => $prize->value,
+            ];
+        }
+
+        $data['draw_date'] = (new \DateTime(
+            LotterySetting::select('value')
+                ->where('key', 'draw_date')
+                ->first()
+                ->value
+        ))->format('d M Y');
 
         return View('admin.lottery.draw')->with($data);
     }

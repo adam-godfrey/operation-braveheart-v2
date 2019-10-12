@@ -1,100 +1,65 @@
 <template>
-	<form @submit.prevent="submit" class="mb-5">
-		<h2>{{ draw_type }} Lottery Draw</h2>
-		<div class="row">
-			<div class="col-md-3">
-				<div class="card lottery">
-					<div class="lottery-number" :class="colour">
-					   <div class="box">
-					        {{ first }}
-					    </div>
+	<div class="row">
+		<div :class="settings.length === 3 ? 'col-md-6' : 'col-md-7'" class="mx-auto">
+			<form @submit.prevent="submit" class="mb-5">
+				<h3>{{ draw_type }} Lottery Draw - {{ draw_date }}</h3>
+				<div class="row">
+					<div :class="settings.length === 3 ? 'col-md-4' : 'col-md-3'" v-for="(setting, index) in settings">
+						<p class="text-center font-weight-bold">{{setting.abbr}}</p>
+						<div class="card lottery">
+							<div class="lottery-number" :class="colour">
+							   <div class="box">
+							        {{ setting.number }}
+							    </div>
+							</div>
+				            <div class="card-body text-center">
+				                <h5 class="card-title font-weight-bold">&pound;{{ setting.value }}</h5>
+				                <div class="form-group">
+				                	<input type="text" class="form-control" :placeholder="setting.abbr" :maxlength="settings.length === 3 ? '2' : '3'" :data-prize="setting.prize" v-model="setting.number" v-on:blur="getWinner">
+				                </div>
+				            </div>
+						</div>
 					</div>
-		            <div class="card-body text-center">
-		                <h5 class="card-title">&pound;50</h5>
-		                <div class="form-group">
-		                	<input type="text" class="form-control" placeholder="1st Prize" maxlength="2" data-prize="first" v-model="first" v-on:blur="getWinner">
-		                </div>
-		            </div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card lottery">
-					<div class="lottery-number" :class="colour">
-					   <div class="box">
-					        {{ second }}
-					    </div>
+				<table class="table table-striped">
+					<tr>
+						<th>Prize</th>
+						<th>Number</th>
+						<th>Name</th>
+						<th>Telephone</th>
+					</tr>
+					<tr v-for="(setting, index) in settings" :key="index">
+						<td>&pound;{{ setting.value }}</td>
+						<td>{{ setting.number }}</td>
+						<td>{{ prizes[setting.prize].name }}</td>
+						<td>{{ prizes[setting.prize].telephone }}</td>
+					</tr>
+				</table>
+				<div class="form-group row">
+					<div class="col-sm-8">
+						<button type="submit" class="btn btn-primary">
+							Save Results
+						</button>
 					</div>
-		            <div class="card-body text-center">
-		                <h5 class="card-title">&pound;30</h5>
-		                <div class="form-group">
-		                	<input type="text" class="form-control" placeholder="2nd Prize" maxlength="2" data-prize="second" v-model="second" v-on:blur="getWinner">
-		                </div>
-		            </div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card lottery">
-					<div class="lottery-number" :class="colour">
-					   <div class="box">
-					        {{ third }}
-					    </div>
-					</div>
-		            <div class="card-body text-center">
-		                <h5 class="card-title">&pound;20</h5>
-		                <div class="form-group">
-		                	<input type="text" class="form-control" placeholder="3rd Prize" maxlength="2" data-prize="third" v-model="third" v-on:blur="getWinner">
-		                </div>
-		            </div>
-				</div>
-			</div>
+			</form>
 		</div>
-		<table class="table table-striped">
-			<tr>
-				<th>Prize</th>
-				<th>Number</th>
-				<th>Name</th>
-				<th>Telephone</th>
-			</tr>
-			<tr>
-				<td>&pound;50</td>
-				<td>{{ first }}</td>
-				<td>{{ prizes.first.name }}</td>
-				<td>{{ prizes.first.telephone }}</td>
-			</tr>
-			<tr>
-				<td>&pound;30</td>
-				<td>{{ second }}</td>
-				<td>{{ prizes.second.name }}</td>
-				<td>{{ prizes.second.telephone }}</td>
-			</tr>
-			<tr>
-				<td>&pound;20</td>
-				<td>{{ third }}</td>
-				<td>{{ prizes.third.name }}</td>
-				<td>{{ prizes.third.telephone }}</td>
-			</tr>
-		</table>
-		<div class="form-group row">
-			<div class="col-sm-8">
-				<button type="submit" class="btn btn-primary">
-					Save Results
-				</button>
-			</div>
-		</div>
-	</form>
+	</div>
 </template>
 <script>
 
 export default {
-	props: [
-		'colour',
-		'draw_type'
-	],
+	props: {
+    	settings: {
+      		type: Array,
+      		default: () => []
+    	},
+    	colour: String,
+    	draw_type: String,
+    	draw_date: String
+  },
 	data: function() {
 		return {
-			first: '',
-			second: '',
-			third: '',
 			prizes: {
 				first: {
 					name: '',
@@ -107,9 +72,16 @@ export default {
 				third: {
 					name: '',
 					telephone: ''
+				},
+				fourth: {
+					name: '',
+					telephone: ''
 				}
 			}
 		}
+	},
+	mounted() {
+		
 	},
 	methods: {
         getWinner: function(event) {
@@ -165,18 +137,11 @@ export default {
         		}
 		    }));
         },
-        displayNotification(type) {
-			this.$snotify.async('Called with promise', 'Success async', () => new Promise((resolve, reject) => {
-		      	setTimeout(() => resolve({
-			        title: 'Success!!!',
-			        body: 'We got an example success!',
-			        config: {
-			        	timeout: 2000,
-			          	closeOnClick: true
-			        }}, 
-		      	), 2000);
-		    }));
-    	}
     },
+    // computed: {
+    // 	settings: function() {
+    // 		return JSON.parse(this.data);
+    // 	}
+    // }
 };
 </script>

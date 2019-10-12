@@ -56,7 +56,7 @@
                     </ul>
                 </div>
             @endif
-            <!-- <payment-form cost="16.00"></payment-form> -->
+            <payment-form cost="16.00"></payment-form>
         </div>
     </div>
 
