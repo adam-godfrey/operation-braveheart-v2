@@ -2469,50 +2469,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['colour', 'draw_type'],
+  props: {
+    settings: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    colour: String,
+    draw_type: String,
+    draw_date: String
+  },
   data: function data() {
     return {
-      first: '',
-      second: '',
-      third: '',
       prizes: {
         first: {
           name: '',
@@ -2525,10 +2495,15 @@ __webpack_require__.r(__webpack_exports__);
         third: {
           name: '',
           telephone: ''
+        },
+        fourth: {
+          name: '',
+          telephone: ''
         }
       }
     };
   },
+  mounted: function mounted() {},
   methods: {
     getWinner: function getWinner(event) {
       var _this = this;
@@ -2589,24 +2564,13 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       });
-    },
-    displayNotification: function displayNotification(type) {
-      this.$snotify.async('Called with promise', 'Success async', function () {
-        return new Promise(function (resolve, reject) {
-          setTimeout(function () {
-            return resolve({
-              title: 'Success!!!',
-              body: 'We got an example success!',
-              config: {
-                timeout: 2000,
-                closeOnClick: true
-              }
-            });
-          }, 2000);
-        });
-      });
     }
-  }
+  } // computed: {
+  // 	settings: function() {
+  // 		return JSON.parse(this.data);
+  // 	}
+  // }
+
 });
 
 /***/ }),
@@ -56457,197 +56421,136 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      staticClass: "mb-5",
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.submit($event)
-        }
-      }
-    },
-    [
-      _c("h2", [_vm._v(_vm._s(_vm.draw_type) + " Lottery Draw")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("div", { staticClass: "card lottery" }, [
-            _c("div", { staticClass: "lottery-number", class: _vm.colour }, [
-              _c("div", { staticClass: "box" }, [
-                _vm._v(
-                  "\n\t\t\t\t        " + _vm._s(_vm.first) + "\n\t\t\t\t    "
-                )
-              ])
+  return _c("div", { staticClass: "row" }, [
+    _c(
+      "div",
+      {
+        staticClass: "mx-auto",
+        class: _vm.settings.length === 3 ? "col-md-6" : "col-md-7"
+      },
+      [
+        _c(
+          "form",
+          {
+            staticClass: "mb-5",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.submit($event)
+              }
+            }
+          },
+          [
+            _c("h3", [
+              _vm._v(
+                _vm._s(_vm.draw_type) +
+                  " Lottery Draw - " +
+                  _vm._s(_vm.draw_date)
+              )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body text-center" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("£50")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.first,
-                      expression: "first"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "1st Prize",
-                    maxlength: "2",
-                    "data-prize": "first"
+            _c(
+              "div",
+              { staticClass: "row" },
+              _vm._l(_vm.settings, function(setting, index) {
+                return _c(
+                  "div",
+                  {
+                    class: _vm.settings.length === 3 ? "col-md-4" : "col-md-3"
                   },
-                  domProps: { value: _vm.first },
-                  on: {
-                    blur: _vm.getWinner,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.first = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("div", { staticClass: "card lottery" }, [
-            _c("div", { staticClass: "lottery-number", class: _vm.colour }, [
-              _c("div", { staticClass: "box" }, [
-                _vm._v(
-                  "\n\t\t\t\t        " + _vm._s(_vm.second) + "\n\t\t\t\t    "
+                  [
+                    _c("p", { staticClass: "text-center font-weight-bold" }, [
+                      _vm._v(_vm._s(setting.abbr))
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "card lottery" }, [
+                      _c(
+                        "div",
+                        { staticClass: "lottery-number", class: _vm.colour },
+                        [
+                          _c("div", { staticClass: "box" }, [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t        " +
+                                _vm._s(setting.number) +
+                                "\n\t\t\t\t\t\t    "
+                            )
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body text-center" }, [
+                        _c(
+                          "h5",
+                          { staticClass: "card-title font-weight-bold" },
+                          [_vm._v("£" + _vm._s(setting.value))]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: setting.number,
+                                expression: "setting.number"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "text",
+                              placeholder: setting.abbr,
+                              maxlength: _vm.settings.length === 3 ? "2" : "3",
+                              "data-prize": setting.prize
+                            },
+                            domProps: { value: setting.number },
+                            on: {
+                              blur: _vm.getWinner,
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(setting, "number", $event.target.value)
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ])
+                  ]
                 )
-              ])
-            ]),
+              }),
+              0
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body text-center" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("£30")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.second,
-                      expression: "second"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "2nd Prize",
-                    maxlength: "2",
-                    "data-prize": "second"
-                  },
-                  domProps: { value: _vm.second },
-                  on: {
-                    blur: _vm.getWinner,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.second = $event.target.value
-                    }
-                  }
+            _c(
+              "table",
+              { staticClass: "table table-striped" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._l(_vm.settings, function(setting, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v("£" + _vm._s(setting.value))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(setting.number))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.prizes[setting.prize].name))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.prizes[setting.prize].telephone))
+                    ])
+                  ])
                 })
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("div", { staticClass: "card lottery" }, [
-            _c("div", { staticClass: "lottery-number", class: _vm.colour }, [
-              _c("div", { staticClass: "box" }, [
-                _vm._v(
-                  "\n\t\t\t\t        " + _vm._s(_vm.third) + "\n\t\t\t\t    "
-                )
-              ])
-            ]),
+              ],
+              2
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "card-body text-center" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("£20")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.third,
-                      expression: "third"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "3rd Prize",
-                    maxlength: "2",
-                    "data-prize": "third"
-                  },
-                  domProps: { value: _vm.third },
-                  on: {
-                    blur: _vm.getWinner,
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.third = $event.target.value
-                    }
-                  }
-                })
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("table", { staticClass: "table table-striped" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("£50")]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.first))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.first.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.first.telephone))])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("£30")]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.second))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.second.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.second.telephone))])
-        ]),
-        _vm._v(" "),
-        _c("tr", [
-          _c("td", [_vm._v("£20")]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.third))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.third.name))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(_vm.prizes.third.telephone))])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1)
-    ]
-  )
+            _vm._m(1)
+          ]
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -56673,7 +56576,7 @@ var staticRenderFns = [
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("\n\t\t\t\tSave Results\n\t\t\t")]
+          [_vm._v("\n\t\t\t\t\t\tSave Results\n\t\t\t\t\t")]
         )
       ])
     ])

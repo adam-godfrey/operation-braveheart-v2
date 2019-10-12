@@ -221,10 +221,10 @@
 
     .box {
         width: 65px;
-        height: 65px;
+        height: 57px;
         margin: 0 auto;
         text-align: center;
-        font-size: 40px;
+        font-size: 36px;
         font-weight: bold;
     }
 }
@@ -252,4 +252,8 @@
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
-} 
+}
+
+.card.lottery {
+    align-items: center;
+}
