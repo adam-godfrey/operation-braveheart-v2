@@ -200,7 +200,8 @@ export default {
 							        		timeout: 2000,
 							          		closeOnClick: true
 							       	 	}},
-							       	 	this.errors = error.response.data.errors || {}
+							       	 	this.errors = error.response.data.errors || {},
+							       	 	console.log(this.errors)
 						      		), 1000);
 				                }
 				            });

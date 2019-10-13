@@ -29,7 +29,7 @@ export default {
 
     },
     created(){
-        this.lotteryNumber = this.selected ? this.selected : '';
+        this.lotteryNumber = this.selected ? this.selected : 0;
     },
     watch:{
         'lotteryNumber': function () {

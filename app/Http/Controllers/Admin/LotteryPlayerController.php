@@ -48,10 +48,12 @@ class LotteryPlayerController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email',
-            'telephone' => ['required', new Telephone],
-            'lottery_number' => 'required',
+            'email' => 'sometimes|email',
+            'telephone' => ['sometimes', 'nullable', new Telephone],
+            'lottery_number' => 'required|gt:0',
             'draw_type' => 'required',            
+        ],
+            [ 'lottery_number.gt' => 'The :attribute is empty.'
         ]);
 
         $lotteryPlayer = new LotteryPlayer();
@@ -113,13 +115,13 @@ class LotteryPlayerController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email',
-            'telephone' => 'required',
+            'email' => 'sometimes|nullable|email',
+            'telephone' => ['sometimes', 'nullable', new Telephone],
             'lottery_number' => 'required',
             'draw_type' => 'required',
         ]);
 
-        $lotteryPlayer = LotteryPlayer::where('id', $request->id)
+        $lotteryPlayer = LotteryPlayer::where('id', $id)
             ->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -127,14 +129,14 @@ class LotteryPlayerController extends Controller
                 'draw_type' => $request->draw_type,
             ]);
 
-        $lotteryBall = LotteryBall::where('player_id', $request->id)
+        $lotteryBall = LotteryBall::where('player_id', $id)
             ->update(['player_id' => null]);
 
         $lotteryBall = LotteryBall::where('lottery_number', $request->lottery_number)
             ->where('draw_type', $request->draw_type)
             ->first();
 
-        $lotteryBall->player_id = $request->id;
+        $lotteryBall->player_id = $id;
         $lotteryBall->save();
 
         return response()->json($request->all(), 200);
@@ -170,6 +172,9 @@ class LotteryPlayerController extends Controller
                 ->orWhere('created_at', 'like', '%' . $search_input . '%');
             });
         }
+
+        $query->orderBy('lottery_number', 'asc')
+            ->orderBy('draw_type', 'asc');
 
         $users = $query->paginate($length);
 

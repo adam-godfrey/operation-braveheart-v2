@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
         Route::get('/', 'LotteryController@index');
         Route::get('/draw/{draw}', 'LotteryController@draw');
         Route::post('get-winner', 'LotteryController@getWinner');
+        Route::post('draw/save', 'LotteryController@store');
         Route::put('additional-numbers', 'LotteryController@additionalNumbers');
         Route::put('update-total-winners', 'LotteryController@totalWinners');
         Route::put('update-draw-date', 'LotteryController@updateDrawDate');

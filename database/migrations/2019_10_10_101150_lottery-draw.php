@@ -19,6 +19,8 @@ class LotteryDraw extends Migration
             $table->integer('first')->nullable();
             $table->integer('second')->nullable();
             $table->integer('third')->nullable();
+            $table->integer('fourth')->nullable();
+            $table->char('active', 1)->default('1')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

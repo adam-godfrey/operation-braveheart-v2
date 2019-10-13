@@ -9,6 +9,8 @@ Vue.use(BootstrapVue);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
+// Vue.component('navbar', require('./components/Navbar.vue').default);
+
 /* Register our new component: */
 Vue.component('contact-form', require('./components/ContactForm.vue').default);
 
