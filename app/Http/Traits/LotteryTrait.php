@@ -18,6 +18,8 @@ trait LotteryTrait
 	        })
             ->get();
 
+            dd($lotteryBalls->count());
+
         return ['data' => $lotteryBalls->pluck('lottery_number')];
     }
 

@@ -1870,7 +1870,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {},
   created: function created() {
-    this.lotteryNumber = this.selected ? this.selected : '';
+    this.lotteryNumber = this.selected ? this.selected : 0;
   },
   watch: {
     'lotteryNumber': function lotteryNumber() {
@@ -2100,7 +2100,7 @@ __webpack_require__.r(__webpack_exports__);
                           timeout: 2000,
                           closeOnClick: true
                         }
-                      }, _this2.errors = error.response.data.errors || {});
+                      }, _this2.errors = error.response.data.errors || {}, console.log(_this2.errors));
                     }, 1000);
                   }
                 });
@@ -2469,10 +2469,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     settings: {
       type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    winners: {
+      type: Object,
       "default": function _default() {
         return [];
       }
@@ -2483,27 +2491,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      prizes: {
-        first: {
-          name: '',
-          telephone: ''
-        },
-        second: {
-          name: '',
-          telephone: ''
-        },
-        third: {
-          name: '',
-          telephone: ''
-        },
-        fourth: {
-          name: '',
-          telephone: ''
-        }
-      }
+      // prizes: {
+      // 	first: {
+      // 		name: '',
+      // 		telephone: ''
+      // 	},
+      // 	second: {
+      // 		name: '',
+      // 		telephone: ''
+      // 	},
+      // 	third: {
+      // 		name: '',
+      // 		telephone: ''
+      // 	},
+      // 	fourth: {
+      // 		name: '',
+      // 		telephone: ''
+      // 	}
+      // },
+      prizes: this.winners,
+      errors: {}
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    console.log(this.prizes);
+  },
   methods: {
     getWinner: function getWinner(event) {
       var _this = this;
@@ -2535,34 +2547,70 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     submit: function submit() {
-      this.$snotify.async('Saving lottery results', 'Saving', function () {
-        return new Promise(function (resolve, reject) {
-          var test = true;
+      var _this2 = this;
 
-          if (test) {
-            setTimeout(function () {
-              return resolve({
-                title: 'Success!!!',
-                body: 'Lottery results saved!',
-                config: {
-                  timeout: 2000,
-                  closeOnClick: true
+      var swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Save lottery results?',
+        text: this.draw_type,
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(function (result) {
+        if (result.value) {
+          var results = [];
+
+          _this2.settings.forEach(function (item) {
+            results.push({
+              prize: item.prize,
+              winner: item.number
+            });
+          });
+
+          _this2.$snotify.async('Saving lottery results', 'Saving', function () {
+            return new Promise(function (resolve, reject) {
+              axios.post('/admin/lottery/draw/save', {
+                draw_type: _this2.draw_type,
+                draw_date: _this2.draw_date,
+                results: results
+              }).then(function (response) {
+                if (response.status === 200) {
+                  setTimeout(function () {
+                    return resolve({
+                      title: 'Success!!!',
+                      body: 'Lottery results saved!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, window.location.href = '/admin/lottery');
+                  }, 2000);
+                }
+              })["catch"](function (error) {
+                if (error.response.status === 422) {
+                  setTimeout(function () {
+                    return reject({
+                      title: 'Error!!!',
+                      body: 'Lottery failed to save!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, _this2.errors = error.response.data.errors || {}, console.log(_this2.errors));
+                  }, 1000);
                 }
               });
-            }, 2000);
-          } else {
-            setTimeout(function () {
-              return reject({
-                title: 'Error!!!',
-                body: 'Failed to save lottery results!',
-                config: {
-                  timeout: 2000,
-                  closeOnClick: true
-                }
-              });
-            }, 2000);
-          }
-        });
+            });
+          });
+        }
       });
     }
   } // computed: {
@@ -56448,6 +56496,8 @@ var render = function() {
                   _vm._s(_vm.draw_date)
               )
             ]),
+            _vm._v(" "),
+            _c("hr"),
             _vm._v(" "),
             _c(
               "div",

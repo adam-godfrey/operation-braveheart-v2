@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\LotteryBall;
 use App\Models\Admin\LotterySetting;
+use App\Models\Admin\LotteryDraw;
+use App\Models\Admin\LotteryPlayer;
 use App\Http\Traits\LotteryTrait;
+use DateTime;
 
 class LotteryController extends Controller
 {
@@ -44,6 +47,12 @@ class LotteryController extends Controller
 
         $data = ${$draw};
 
+        $draw_date = LotterySetting::select('value')
+                ->where('key', 'draw_date')
+                ->first()
+                ->value;
+
+        $data['draw_date'] = (new DateTime($draw_date))->format('d M Y');
 
         $lotterySettings = LotterySetting::where('key', 'like', strtolower($draw) . '%')
             ->get();
@@ -64,19 +73,26 @@ class LotteryController extends Controller
 
             preg_match('~_(.*?)_~', $prize->key, $output);
 
+            $winning_number = LotteryDraw::where('draw_date', $draw_date)
+                ->where('draw_type', $draw)
+                ->where('active', 1)
+                ->first()->{$output[1]};
+
             $data['settings'][] = (object) [
                 'prize' => $output[1],
                 'abbr' =>  $nf->format($i) . ' Prize',
                 'value' => $prize->value,
+                'number' => $winning_number
+            ];
+
+            $player = LotteryPlayer::where('lottery_number', $winning_number)
+                ->first();
+
+            $data['winners'][$output[1]] = (object) [
+                'name' => !is_null($player) ? $player->name : '',
+                'telephone' => !is_null($player) ? $player->telephone: ''
             ];
         }
-
-        $data['draw_date'] = (new \DateTime(
-            LotterySetting::select('value')
-                ->where('key', 'draw_date')
-                ->first()
-                ->value
-        ))->format('d M Y');
 
         return View('admin.lottery.draw')->with($data);
     }
@@ -104,9 +120,49 @@ class LotteryController extends Controller
 
     public function updateDrawDate(Request $request)
     {
+        $lotteryDraw = LotteryDraw::where('active', 1)
+            ->update(['active' => 0]);
+
+        LotteryDraw::insert([ 
+            [
+                'draw_date' => $request->input('draw_date'),
+                'draw_type' => 'UK',
+                'active' => 1
+            ],
+            [
+                'draw_date' => $request->input('draw_date'),
+                'draw_type' => 'Local',
+                'active' => 1
+            ]
+        ]);
+
         $lotterySetting = LotterySetting::where('key', 'draw_date')
             ->update(['value' => $request->input('draw_date')]);
 
         return response()->json($lotterySetting, 200);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'results.*.winner'  => 'required|gt:0',
+        ],
+        [
+            'results.*.winner.required' => 'This field is required',
+        ]);
+
+        $draw_date = DateTime::createFromFormat('d M Y', $request->input('draw_date'));
+        $draw_date = $draw_date->format('Y-m-d');
+
+        $lotteryDraw = LotteryDraw::where('draw_date', $draw_date)
+            ->where('draw_type', $request->input('draw_type'))
+            ->where('active', 1)
+            ->first();
+
+        foreach($request->input('results') as $result) {
+            $lotteryDraw->{$result['prize']} = $result['winner'];
+        }
+
+        $lotteryDraw->save();
     }
 }
