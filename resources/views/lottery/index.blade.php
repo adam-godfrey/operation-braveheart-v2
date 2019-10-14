@@ -35,36 +35,18 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
             <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
             <div class="row">
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->first->winner }}</h6>
+                @foreach($lottery->UK as $draw)
+                    <div class="col">
+                        <div class="card lottery">
+                            <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
+                            <div class="lottery-number balls-{{ count($lottery->UK) }}">{{ $draw->number }}</div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->second->winner }}</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->third->winner }}</h6>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -74,36 +56,18 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
             <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
             <div class="row">
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->first->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->first->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->first->winner }}</h6>
+                @foreach($lottery->Local as $draw)
+                    <div class="col">
+                        <div class="card lottery">
+                            <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
+                            <div class="lottery-number balls-{{ count($lottery->Local) }}">{{ $draw->number }}</div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->second->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->second->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->second->winner }}</h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card lottery">
-                        <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
-                        <div class="lottery-number">{{ $lottery->prize->third->number }}</div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">&pound;{{ $lottery->prize->third->prize }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{ $lottery->prize->third->winner }}</h6>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
