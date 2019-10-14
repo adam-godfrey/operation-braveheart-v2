@@ -61,7 +61,6 @@ class LotteryController extends Controller
                 'title' => 'Lottery',
                 'description' => 'Have you won this month\'s lottery?'
             ],
-            'video_id' => '10153231379946729',
             'lottery' => (object) $result
         ];
 

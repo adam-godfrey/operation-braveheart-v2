@@ -1,75 +1,73 @@
 <template>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="form-group row">
-				<label class="col-sm-4 col-form-label">Current Draw</label>
-				<div class="col-sm-8">
-					<div class="input-group mb-3">
-						<div class="col negative-margin">
-							<datepicker @selected="drawChange" input-class="form-control" placeholder="Draw Date" v-model="draw_date" :disabled-dates="disabledDates"></datepicker>
+	<div>
+		<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Current Draw</label>
+			<div class="col-sm-8">
+				<div class="input-group mb-3">
+					<div class="col negative-margin">
+						<datepicker @selected="drawChange" input-class="form-control" placeholder="Draw Date" v-model="draw_date" :disabled-dates="disabledDates"></datepicker>
+					</div>
+					<div class="input-group-append">
+    					<button class="btn btn-outline-secondary" type="button" v-on:click="newDraw">New Draw</button>
+  					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Winning Numbers</label>
+			<div class="col-sm-8">
+				<div class="form-group row">
+					<div class="input-group col">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="">UK Draw</span>
 						</div>
+						<input type="number" min="1" max="4" class="form-control" v-model="uk_winners">
+						<div class="input-group-prepend input-group-append">
+							<span class="input-group-text" id="">Local Draw</span>
+						</div>
+						<input type="number" min="1" max="4" class="form-control" v-model="local_winners">
 						<div class="input-group-append">
-	    					<button class="btn btn-outline-secondary" type="button" v-on:click="newDraw">New Draw</button>
+	    					<button class="btn btn-outline-secondary" type="button" v-on:click="winningNumbers">Update</button>
 	  					</div>
 					</div>
+				</div>		
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-4 col-form-label">UK Lottery Balls</label>
+			<div class="col-sm-8">
+				<div class="input-group mb-3">
+  					<input type="text" class="form-control" v-model="uk_ball_count" readonly>
+  					<select ref="extra" class="custom-select" id="inputGroupSelect01" v-model="uk_extra_balls">
+					    <option value="0">Add more...</option>
+					    <option value="1">One</option>
+					    <option value="2">Two</option>
+					    <option value="3">Three</option>
+					    <option value="4">Four</option>
+					    <option value="5">Five</option>
+					</select>
+  					<div class="input-group-append">
+    					<button class="btn btn-outline-secondary" type="button" data-type="UK" v-on:click="lotteryBalls">Update</button>
+  					</div>
 				</div>
 			</div>
-			<div class="form-group row">
-				<label class="col-sm-4 col-form-label">Winning Numbers</label>
-				<div class="col-sm-8">
-					<div class="form-group row">
-						<div class="input-group col">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="">UK Draw</span>
-							</div>
-							<input type="number" min="1" max="4" class="form-control" v-model="uk_winners">
-							<div class="input-group-prepend input-group-append">
-								<span class="input-group-text" id="">Local Draw</span>
-							</div>
-							<input type="number" min="1" max="4" class="form-control" v-model="local_winners">
-							<div class="input-group-append">
-		    					<button class="btn btn-outline-secondary" type="button" v-on:click="winningNumbers">Update</button>
-		  					</div>
-						</div>
-					</div>		
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-4 col-form-label">UK Lottery Balls</label>
-				<div class="col-sm-8">
-					<div class="input-group mb-3">
-	  					<input type="text" class="form-control" v-model="uk_ball_count" readonly>
-	  					<select ref="extra" class="custom-select" id="inputGroupSelect01" v-model="uk_extra_balls">
-						    <option value="0">Add more...</option>
-						    <option value="1">One</option>
-						    <option value="2">Two</option>
-						    <option value="3">Three</option>
-						    <option value="4">Four</option>
-						    <option value="5">Five</option>
-						</select>
-	  					<div class="input-group-append">
-	    					<button class="btn btn-outline-secondary" type="button" data-type="UK" v-on:click="lotteryBalls">Update</button>
-	  					</div>
-					</div>
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-4 col-form-label">Local Lottery Balls</label>
-				<div class="col-sm-8">
-					<div class="input-group mb-3">
-	  					<input type="text" class="form-control" v-model="local_ball_count" readonly>
-	  					<select ref="extra" class="custom-select" id="inputGroupSelect01" v-model="local_extra_balls">
-						    <option value="0">Add more...</option>
-						    <option value="1">One</option>
-						    <option value="2">Two</option>
-						    <option value="3">Three</option>
-						    <option value="4">Four</option>
-						    <option value="5">Five</option>
-						</select>
-	  					<div class="input-group-append">
-	    					<button class="btn btn-outline-secondary" type="button" data-type="Local" v-on:click="lotteryBalls">Update</button>
-	  					</div>
-					</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Local Lottery Balls</label>
+			<div class="col-sm-8">
+				<div class="input-group mb-3">
+  					<input type="text" class="form-control" v-model="local_ball_count" readonly>
+  					<select ref="extra" class="custom-select" id="inputGroupSelect01" v-model="local_extra_balls">
+					    <option value="0">Add more...</option>
+					    <option value="1">One</option>
+					    <option value="2">Two</option>
+					    <option value="3">Three</option>
+					    <option value="4">Four</option>
+					    <option value="5">Five</option>
+					</select>
+  					<div class="input-group-append">
+    					<button class="btn btn-outline-secondary" type="button" data-type="Local" v-on:click="lotteryBalls">Update</button>
+  					</div>
 				</div>
 			</div>
 		</div>

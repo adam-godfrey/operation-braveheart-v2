@@ -23,17 +23,22 @@
 </header>
 
 <div class="container">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <div id="fb-root"></div>
-            <!-- Your embedded video player code -->
-            <div class="fb-video" data-href="https://www.facebook.com/facebook/videos/{{ $video_id }}/" data-width="1000" data-show-text="false"></div>
+            <video width="100%" controls ref="video">
+                <source src="/api/stream-video" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
         </div>
-    </div>
+    </div> -->
     <div class="row mt-3">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
-            <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
+            <p>Welcome to Operation Braveheart social club lottery page, here is where you can sign up and join in the fun of our fundraising lottery to help to fund the Memorial Gardens future and ongoing upkeep and our other forces projects that we need to keep funded.</p>
+
+            <p>We have two lotteries run under the same rules for both. One is a local Cullompton area draw and the other is for our UK Braveheart family.</p>
+
+            <p>They are monthly draws and they are drawn as close as possible to the end of the month.</p>
+            <h3 class="text-uppercase text-center mb-3">This month's UK winning numbers are...</h3>
             <div class="row">
                 @foreach($lottery->UK as $draw)
                     <div class="col">
@@ -53,8 +58,9 @@
 
     <div class="row mt-3">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
-            <h3 class="text-uppercase text-center mb-3">This month's winning numbers are...</h3>
+            <p>Each number costs &pound2.00 per month. There are no restrictions as to how many numbers you can hold in your name, the more numbers you have, the greater the chance of winning prizes.
+
+            <h3 class="text-uppercase text-center mb-3">This month's Local winning numbers are...</h3>
             <div class="row">
                 @foreach($lottery->Local as $draw)
                     <div class="col">
@@ -74,11 +80,12 @@
 
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+            <p>The draws are videoed from the <a href="{{ route('shop.index') }}">shop</a> and they are then uploaded to FACEBOOK for you to see the draws are done and who the winners are.</p>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
+            <p>A random number generator is used to select the winning numbers which are then entered into our system to find the winning number and name of the winner.</p> 
 
-            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
+            <p>Local winners are also notified by posters placed in the <a href="{{ route('shop.index') }}">Braveheart HQ shop</a> windows.</p>
+
         </div>
     </div>
     
@@ -94,7 +101,7 @@
 
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+             <p>You can join in either of our lotteries by clicking the link to the registration form here or <a href="{{ route('contact.index') }}">contact us</a> on Facebook or email to <a href="mailto:david&#64;operation-braveheart.org.uk">Email Us!</a></p>
         </div>
     </div>
 </div>

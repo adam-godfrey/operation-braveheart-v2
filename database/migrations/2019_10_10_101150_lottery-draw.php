@@ -16,6 +16,7 @@ class LotteryDraw extends Migration
         Schema::create('lottery-draws', function (Blueprint $table) {
             $table->integer('id')->autoIncrement();
             $table->date('draw_date')->nullable();
+            $table->enum('draw_type', ['UK', 'LOcal']);
             $table->integer('first')->nullable();
             $table->integer('second')->nullable();
             $table->integer('third')->nullable();

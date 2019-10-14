@@ -47,6 +47,12 @@ Route::prefix('lottery')->group(function () {
     Route::get('/play', 'LotteryController@payment')->name('lottery.payment');
 });
 
+Route::prefix('api')->group(function () {
+    Route::post('/upload', 'ActionsController@uploadFile');
+    Route::get('/file', 'ActionsController@readFile');
+    Route::get('/stream-video', 'ActionsController@streamVideo')->name('stream-video');
+});
+
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {

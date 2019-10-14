@@ -1,7 +1,7 @@
 <template>
 	<form @submit.prevent="submit">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				<div class="form-group row">
 					<label for="inputName" class="col-sm-4 col-form-label">Name</label>
 					<div class="col-sm-8">

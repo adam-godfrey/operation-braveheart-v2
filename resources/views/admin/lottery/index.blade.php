@@ -2,7 +2,18 @@
 
 @section('content')
 <h1 class="h3 mb-3 text-gray-800">Lottery Settings</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+<hr>
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+    	<h2 class="h3 mb-3 text-gray-800">Settings</h2>
+    	<lottery-settings :settings="{{ json_encode($settings) }}"></lottery-settings>
+	</div>
+</div>
 
-<lottery-settings :settings="{{ json_encode($settings) }}"></lottery-settings>
+<div class="row">
+	<div class="col-lg-8 col-md-10 mx-auto">
+		<h2 class="h3 mb-3 text-gray-800">Lottery Video</h2>
+		<file-upload />
+	</div>
+</div>
 @endsection
