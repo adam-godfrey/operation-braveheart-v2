@@ -75,19 +75,23 @@ export default {
             this.countyChange();
         },
         address1Change: function() {
+            delete this.errors.address1;
             this.$root.$emit('address1Change', this.fields.address1);
         },
         address2Change: function() {
+            delete this.errors.address2;
             this.$root.$emit('address2Change', this.fields.address2);
         },
         address3Change: function() {
-            
+            delete this.errors.address3;
             this.$root.$emit('address3Change', this.fields.address3);
         },
         townChange: function() {
+            delete this.errors.town;
             this.$root.$emit('townChange', this.fields.town);
         },
         countyChange: function() {
+            delete this.errors.county
             this.$root.$emit('countyChange', this.fields.county);
         },
     },

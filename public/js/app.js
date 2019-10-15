@@ -1914,18 +1914,23 @@ __webpack_require__.r(__webpack_exports__);
       this.countyChange();
     },
     address1Change: function address1Change() {
+      delete this.errors.address1;
       this.$root.$emit('address1Change', this.fields.address1);
     },
     address2Change: function address2Change() {
+      delete this.errors.address2;
       this.$root.$emit('address2Change', this.fields.address2);
     },
     address3Change: function address3Change() {
+      delete this.errors.address3;
       this.$root.$emit('address3Change', this.fields.address3);
     },
     townChange: function townChange() {
+      delete this.errors.town;
       this.$root.$emit('townChange', this.fields.town);
     },
     countyChange: function countyChange() {
+      delete this.errors.county;
       this.$root.$emit('countyChange', this.fields.county);
     }
   },
@@ -2008,6 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
         town: parsedObj[3],
         county: parsedObj[4]
       };
+      delete this.errors.postcode;
       this.$emit('populateAddress', this.selected);
     },
     lookup: function lookup(e) {
@@ -2036,6 +2042,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       this.spin = false;
+    },
+    postcodeChange: function postcodeChange() {
+      delete this.errors.postcode;
+      this.$root.$emit('postcodeChange', this.fields.postcode);
     }
   }
 });
@@ -2321,7 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
         address3: '',
         town: '',
         county: '',
-        post: '',
+        postcode: '',
         rank: '',
         name: '',
         dob: '',
@@ -2343,7 +2353,6 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.$root.$on('checkFormsValid', function (customer) {
-      console.log(customer);
       _this.errors = {};
       _this.fields.customer = customer;
       axios.post('/memorial-garden/send-request', _this.fields).then(function (response) {
@@ -2371,6 +2380,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.fields.county = county;
     });
     this.$root.$on('postcodeChange', function (postcode) {
+      console.log(postcode);
       _this.fields.postcode = postcode;
     });
     this.$root.$on('rankChange', function (rank) {
@@ -2394,6 +2404,17 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('messageChange', function (message) {
       _this.fields.message = message;
     });
+  },
+  methods: {
+    contactChange: function contactChange() {
+      delete this.errors.contact;
+    },
+    telephoneChange: function telephoneChange() {
+      delete this.errors.telephone;
+    },
+    emailChange: function emailChange() {
+      delete this.errors.email;
+    }
   }
 });
 
@@ -2460,7 +2481,8 @@ __webpack_require__.r(__webpack_exports__);
       dobFormatted: '',
       dodFormatted: '',
       errors: {},
-      maxCharacters: 35
+      maxCharacters: 35,
+      disabledDates: {}
     };
   },
   name: 'MemorialPlaqueForm',
@@ -2473,18 +2495,26 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('errors', function (errors) {
       _this.errors = errors;
     });
+    var today = new Date();
+    this.disabledDates = {
+      from: new Date()
+    };
   },
   methods: {
     rankChange: function rankChange() {
+      delete this.errors.rank;
       this.$root.$emit('rankChange', this.fields.rank);
     },
     nameChange: function nameChange() {
+      delete this.errors.name;
       this.$root.$emit('nameChange', this.fields.name);
     },
     dobChange: function dobChange() {
       var _this2 = this;
 
       this.$nextTick(function () {
+        delete _this2.errors.dob;
+
         _this2.$root.$emit('dobChange', _this2.fields.dob.getFullYear() + '-' + ("0" + (_this2.fields.dob.getMonth() + 1)).slice(-2) + '-' + ("0" + _this2.fields.dob.getDate()).slice(-2));
       });
     },
@@ -2492,16 +2522,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$nextTick(function () {
+        delete _this3.errors.dod;
+
         _this3.$root.$emit('dodChange', _this3.fields.dod.getFullYear() + '-' + ("0" + (_this3.fields.dod.getMonth() + 1)).slice(-2) + '-' + ("0" + _this3.fields.dod.getDate()).slice(-2));
       });
     },
     regimentChange: function regimentChange() {
+      delete this.errors.regiment;
       this.$root.$emit('regimentChange', this.fields.regiment);
     },
     locationChange: function locationChange() {
+      delete this.errors.location;
       this.$root.$emit('locationChange', this.fields.location);
     },
     messageChange: function messageChange() {
+      delete this.errors.message;
       this.$root.$emit('messageChange', this.fields.message);
     }
   },
@@ -52589,6 +52624,7 @@ var render = function() {
               attrs: { type: "text", placeholder: "Postcode", id: "postcode" },
               domProps: { value: _vm.fields.postcode },
               on: {
+                change: _vm.postcodeChange,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -53184,6 +53220,7 @@ var render = function() {
                     },
                     domProps: { value: _vm.fields.contact },
                     on: {
+                      change: _vm.contactChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53228,6 +53265,7 @@ var render = function() {
                     },
                     domProps: { value: _vm.fields.telephone },
                     on: {
+                      change: _vm.telephoneChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53268,6 +53306,7 @@ var render = function() {
                     attrs: { type: "email", placeholder: "Email", id: "email" },
                     domProps: { value: _vm.fields.email },
                     on: {
+                      change: _vm.emailChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53394,7 +53433,8 @@ var render = function() {
             attrs: {
               "input-class": "form-control text-right",
               name: "fields.dob",
-              placeholder: "DOB"
+              placeholder: "DOB",
+              "disabled-dates": _vm.disabledDates
             },
             on: { selected: _vm.dobChange },
             model: {
@@ -53423,7 +53463,8 @@ var render = function() {
             attrs: {
               "input-class": "form-control",
               name: "fields.dod",
-              placeholder: "D0D"
+              placeholder: "D0D",
+              "disabled-dates": _vm.disabledDates
             },
             on: { selected: _vm.dodChange },
             model: {

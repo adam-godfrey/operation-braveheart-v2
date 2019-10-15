@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="form-group floating-label-form-group controls">
                     <label>Postcode</label>
-                    <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode">
+                    <input type="text" class="form-control" placeholder="Postcode" id="postcode" v-model="fields.postcode" v-on:change="postcodeChange">
                     <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
                 </div>
             </div>
@@ -56,6 +56,7 @@ export default {
                 town: parsedObj[3],
                 county: parsedObj[4]
             };
+            delete this.errors.postcode;
             this.$emit('populateAddress', this.selected);
         },
         lookup: function(e) {
@@ -78,7 +79,11 @@ export default {
                 }
             });
             this.spin = false;
-        }
+        },
+        postcodeChange: function() {
+            delete this.errors.postcode;
+            this.$root.$emit('postcodeChange', this.fields.postcode);
+        },
     }
 }
 </script>

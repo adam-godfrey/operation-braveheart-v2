@@ -25,6 +25,22 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+            @if (session()->has('success_message'))
+                <div class="alert alert-success">
+                    {{ session()->get('success_message') }}
+                </div>
+            @endif
+
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <p>My heart goes out to you if you are bereaved family member reading this and would like to have your loved one remembered here in this lovely restful Memorial Garden and I know so well how you must be feeling and I will help you with filling in this form.</p>
 
             <p class="mb-5">In this section please fill in your contact details for me, your name, address, post code, email address and a contact telephone number.</p>
@@ -42,22 +58,6 @@
             <plaque-form></plaque-form>
             
             <p class="mb-5">IF YOU HAVE ANY PROBLEMS WITH FILLING IN THE FORM PLEASE <a href="{{ route('contact.index') }}">CONTACT ME</a></p>
-            
-            @if (session()->has('success_message'))
-                <div class="alert alert-success">
-                    {{ session()->get('success_message') }}
-                </div>
-            @endif
-
-            @if(count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
 
             <p>This is the final part for you to fill in which is the payment of your donation. The stainless steel Plaque itself IS FREE all I ask for is a donation of &pound;16.00 to cover the cost of engraving.</p>
         </div>

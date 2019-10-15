@@ -5,21 +5,21 @@
                 <div class="col-12">
                     <div class="form-group floating-label-form-group controls">
                         <label>Contact Name</label>
-                        <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact">
+                        <input type="text" class="form-control" placeholder="Contact Name" id="contact" v-model="fields.contact" v-on:change="contactChange">
                         <div v-if="errors && errors.contact" class="text-danger">{{ errors.contact[0] }}</div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group floating-label-form-group controls">
                         <label>Telephone</label>
-                        <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone">
+                        <input type="tel" class="form-control" placeholder="Telephone (optional)" id="telephone" v-model="fields.telephone" v-on:change="telephoneChange">
                         <div v-if="errors && errors.telephone" class="text-danger">{{ errors.telephone[0] }}</div>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="form-group floating-label-form-group controls">
                         <label>Email Address</label>
-                        <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email">
+                        <input type="email" class="form-control" placeholder="Email" id="email" v-model="fields.email" v-on:change="emailChange">
                         <div v-if="errors && errors.email" class="text-danger">{{ errors.email[0] }}</div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export default {
                 address3: '',
                 town: '',
                 county: '',
-                post: '',
+                postcode: '',
                 rank: '',
                 name: '',
                 dob: '',
@@ -59,8 +59,6 @@ export default {
     },
     mounted() {
         this.$root.$on('checkFormsValid', (customer) => {
-
-            console.log(customer);
             this.errors = {};
             this.fields.customer = customer;
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
@@ -88,6 +86,7 @@ export default {
             this.fields.county = county;
         });
         this.$root.$on('postcodeChange', postcode => {
+            console.log(postcode);
             this.fields.postcode = postcode;
         });
         this.$root.$on('rankChange', rank => {
@@ -111,6 +110,17 @@ export default {
         this.$root.$on('messageChange', message => {
             this.fields.message = message;
         });
+    },
+    methods: {
+        contactChange: function() {
+            delete this.errors.contact;
+        },
+        telephoneChange: function() {
+            delete this.errors.telephone;
+        },
+        emailChange: function() {
+            delete this.errors.email;
+        },
     }
 }
 </script>
