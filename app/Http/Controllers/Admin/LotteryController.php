@@ -165,4 +165,27 @@ class LotteryController extends Controller
 
         $lotteryDraw->save();
     }
+
+    public function updatePrizes(Request $request) 
+    {
+        $this->validate($request, [
+            'uk_first_prize' => 'required|gt:0',
+            'uk_second_prize' => 'required|gt:0',
+            'uk_third_prize' => 'required|gt:0',
+            'uk_fourth_prize' => 'sometimes|nullable|gt:0',
+            'local_first_prize' => 'required|gt:0',
+            'local_second_prize' => 'required|gt:0',
+            'local_third_prize' => 'required|gt:0',
+            'local_fourth_prize' => 'sometimes|nullable|gt:0',
+        ]);
+
+        $lotterySetting = LotterySetting::all();
+
+        foreach($request->all() as $key => $prize) {
+            $lotterySetting = LotterySetting::where('key', $key)
+                ->update(['value' => $prize]);
+        }
+
+        return response()->json([], 200);
+    }
 }

@@ -46,6 +46,13 @@ export default {
                         <a class="collapse-item" href="buttons.html">Add New</a>
                         <a class="collapse-item" href="cards.html">View All</a>`
                 }
+                ,
+                { 
+                    text: 'Messages',
+                    html: `<h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="buttons.html">Add New</a>
+                        <a class="collapse-item" href="cards.html">View All</a>`
+                }
             ],
             isActive: null
         }

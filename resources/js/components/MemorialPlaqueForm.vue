@@ -14,11 +14,11 @@
         </div>
         <div class="form-row">
             <div class="col">
-                <datepicker @selected="dobChange" input-class="form-control text-right" name="fields.dob" placeholder="DOB" v-model="fields.dob"></datepicker>
+                <datepicker @selected="dobChange" input-class="form-control text-right" name="fields.dob" placeholder="DOB" v-model="fields.dob" :disabled-dates="disabledDates"></datepicker>
                 <div v-if="errors && errors.dob" class="text-danger text-right small">{{ errors.dob[0] }}</div>
             </div>
             <div class="col">
-                <datepicker @selected="dodChange" input-class="form-control" name="fields.dod" placeholder="D0D" v-model="fields.dod"></datepicker>
+                <datepicker @selected="dodChange" input-class="form-control" name="fields.dod" placeholder="D0D" v-model="fields.dod" :disabled-dates="disabledDates"></datepicker>
                 <div v-if="errors && errors.dod" class="text-danger small">{{ errors.dod[0] }}</div>
             </div>
         </div>
@@ -51,6 +51,7 @@ export default {
             dodFormatted: '',
             errors: {},
             maxCharacters: 35,
+            disabledDates: {},
         }
     },
     name: 'MemorialPlaqueForm',
@@ -61,31 +62,44 @@ export default {
         this.$root.$on('errors', errors => {
             this.errors = errors;
         });
+
+        var today = new Date();
+
+        this.disabledDates = {
+            from: new Date()
+        }
     },
     methods: {
         rankChange: function() {
+         delete this.errors.rank;
             this.$root.$emit('rankChange', this.fields.rank);
         },
         nameChange: function() {
+            delete this.errors.name;
             this.$root.$emit('nameChange', this.fields.name);
         },
         dobChange: function() {
             this.$nextTick(() => {
+                delete this.errors.dob;
                 this.$root.$emit('dobChange', this.fields.dob.getFullYear() + '-' + ("0" + (this.fields.dob.getMonth()+1)).slice(-2) + '-' + ("0" + this.fields.dob.getDate()).slice(-2))
             });
         },
         dodChange: function() {
             this.$nextTick(() => {
+                delete this.errors.dod;
                 this.$root.$emit('dodChange', this.fields.dod.getFullYear() + '-' + ("0" + (this.fields.dod.getMonth()+1)).slice(-2) + '-' + ("0" + this.fields.dod.getDate()).slice(-2))
             });
         },
         regimentChange: function() {
+            delete this.errors.regiment;
             this.$root.$emit('regimentChange', this.fields.regiment);
         },
         locationChange: function() {
+            delete this.errors.location;
             this.$root.$emit('locationChange', this.fields.location);
         },
         messageChange: function() {
+            delete this.errors.message;
             this.$root.$emit('messageChange', this.fields.message);
         }
     },

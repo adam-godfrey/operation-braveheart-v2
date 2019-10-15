@@ -1907,20 +1907,30 @@ __webpack_require__.r(__webpack_exports__);
       this.fields.address3 = value.address3;
       this.fields.town = value.town;
       this.fields.county = value.county;
+      this.address1Change();
+      this.address2Change();
+      this.address3Change();
+      this.townChange();
+      this.countyChange();
     },
     address1Change: function address1Change() {
+      delete this.errors.address1;
       this.$root.$emit('address1Change', this.fields.address1);
     },
     address2Change: function address2Change() {
+      delete this.errors.address2;
       this.$root.$emit('address2Change', this.fields.address2);
     },
     address3Change: function address3Change() {
+      delete this.errors.address3;
       this.$root.$emit('address3Change', this.fields.address3);
     },
     townChange: function townChange() {
+      delete this.errors.town;
       this.$root.$emit('townChange', this.fields.town);
     },
     countyChange: function countyChange() {
+      delete this.errors.county;
       this.$root.$emit('countyChange', this.fields.county);
     }
   },
@@ -1965,61 +1975,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       address: '',
+      selected: {},
       fields: {
         postcode: ''
       },
       errors: {},
       items: [],
-      addresses: [],
-      toggle: false
+      toggle: false,
+      spin: false
     };
   },
   name: 'AddressLookup',
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('errors', function (errors) {
+      _this.errors = errors;
+    });
+  },
   methods: {
     // Define the method that emits data to the parent as the first parameter to `$emit()`.
     // This is referenced in the <template> call in the parent. The second parameter is the payload.
-    emitToParent: function emitToParent(event, i) {
-      this.address = event.target.dataset.address;
-      this.$emit('populateAddress', this.addresses[i]);
-      this.items = [];
-      this.addresses = [];
-      this.toggle = false;
+    emitToParent: function emitToParent(event) {
+      var parsedObj = JSON.parse(event.target.value);
+      this.selected = {
+        address1: parsedObj[0],
+        address2: parsedObj[1],
+        address3: parsedObj[2],
+        town: parsedObj[3],
+        county: parsedObj[4]
+      };
+      delete this.errors.postcode;
+      this.$emit('populateAddress', this.selected);
     },
     lookup: function lookup(e) {
-      var _this = this;
+      var _this2 = this;
 
       e.preventDefault();
       this.errors = {};
+      this.items = [];
+      this.spin = true;
       var $this = this;
       axios.post('/postcode-lookup', {
-        house: this.fields.house,
         postcode: this.fields.postcode
       }).then(function (response) {
         response.data.addresses.forEach(function (item) {
           $this.items.push({
+            formatted: JSON.stringify(item.formatted_address),
             address: item.formatted_address.filter(function (el) {
               return el;
             }).join(', ')
           });
-          var parsedobj = JSON.parse(JSON.stringify(item.formatted_address));
-          $this.addresses.push({
-            address1: parsedobj[0],
-            address2: parsedobj[1],
-            address3: parsedobj[2],
-            town: parsedobj[3],
-            county: parsedobj[4]
-          });
         });
-        _this.toggle = true;
+        _this2.toggle = true;
       })["catch"](function (error) {
         if (error.response.status === 422) {
-          _this.errors = error.response.data.errors || {};
+          _this2.errors = error.response.data.errors || {};
         }
       });
+      this.spin = false;
+    },
+    postcodeChange: function postcodeChange() {
+      delete this.errors.postcode;
+      this.$root.$emit('postcodeChange', this.fields.postcode);
     }
   }
 });
@@ -2300,13 +2326,20 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       fields: {
+        address1: '',
+        address2: '',
+        address3: '',
+        town: '',
+        county: '',
+        postcode: '',
         rank: '',
         name: '',
         dob: '',
         dod: '',
         regiment: '',
         location: '',
-        message: ''
+        message: '',
+        customer: ''
       },
       errors: {},
       maxCharacters: 100
@@ -2319,10 +2352,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    this.$root.$on('checkFormsValid', function () {
+    this.$root.$on('checkFormsValid', function (customer) {
       _this.errors = {};
+      _this.fields.customer = customer;
       axios.post('/memorial-garden/send-request', _this.fields).then(function (response) {
-        _this.$root.$emit('validated');
+        _this.$root.$emit('validated', response.data.customer);
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
@@ -2330,7 +2364,26 @@ __webpack_require__.r(__webpack_exports__);
           _this.$root.$emit('errors', _this.errors);
         }
       });
-    }), this.$root.$on('rankChange', function (rank) {
+    }), this.$root.$on('address1Change', function (address1) {
+      _this.fields.address1 = address1;
+    });
+    this.$root.$on('address2Change', function (address2) {
+      _this.fields.address2 = address2;
+    });
+    this.$root.$on('address3Change', function (address3) {
+      _this.fields.address3 = address3;
+    });
+    this.$root.$on('townChange', function (town) {
+      _this.fields.town = town;
+    });
+    this.$root.$on('countyChange', function (county) {
+      _this.fields.county = county;
+    });
+    this.$root.$on('postcodeChange', function (postcode) {
+      console.log(postcode);
+      _this.fields.postcode = postcode;
+    });
+    this.$root.$on('rankChange', function (rank) {
       _this.fields.rank = rank;
     });
     this.$root.$on('nameChange', function (name) {
@@ -2351,6 +2404,17 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('messageChange', function (message) {
       _this.fields.message = message;
     });
+  },
+  methods: {
+    contactChange: function contactChange() {
+      delete this.errors.contact;
+    },
+    telephoneChange: function telephoneChange() {
+      delete this.errors.telephone;
+    },
+    emailChange: function emailChange() {
+      delete this.errors.email;
+    }
   }
 });
 
@@ -2417,7 +2481,8 @@ __webpack_require__.r(__webpack_exports__);
       dobFormatted: '',
       dodFormatted: '',
       errors: {},
-      maxCharacters: 35
+      maxCharacters: 35,
+      disabledDates: {}
     };
   },
   name: 'MemorialPlaqueForm',
@@ -2430,18 +2495,26 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('errors', function (errors) {
       _this.errors = errors;
     });
+    var today = new Date();
+    this.disabledDates = {
+      from: new Date()
+    };
   },
   methods: {
     rankChange: function rankChange() {
+      delete this.errors.rank;
       this.$root.$emit('rankChange', this.fields.rank);
     },
     nameChange: function nameChange() {
+      delete this.errors.name;
       this.$root.$emit('nameChange', this.fields.name);
     },
     dobChange: function dobChange() {
       var _this2 = this;
 
       this.$nextTick(function () {
+        delete _this2.errors.dob;
+
         _this2.$root.$emit('dobChange', _this2.fields.dob.getFullYear() + '-' + ("0" + (_this2.fields.dob.getMonth() + 1)).slice(-2) + '-' + ("0" + _this2.fields.dob.getDate()).slice(-2));
       });
     },
@@ -2449,16 +2522,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$nextTick(function () {
+        delete _this3.errors.dod;
+
         _this3.$root.$emit('dodChange', _this3.fields.dod.getFullYear() + '-' + ("0" + (_this3.fields.dod.getMonth() + 1)).slice(-2) + '-' + ("0" + _this3.fields.dod.getDate()).slice(-2));
       });
     },
     regimentChange: function regimentChange() {
+      delete this.errors.regiment;
       this.$root.$emit('regimentChange', this.fields.regiment);
     },
     locationChange: function locationChange() {
+      delete this.errors.location;
       this.$root.$emit('locationChange', this.fields.location);
     },
     messageChange: function messageChange() {
+      delete this.errors.message;
       this.$root.$emit('messageChange', this.fields.message);
     }
   },
@@ -2619,6 +2697,7 @@ __webpack_require__.r(__webpack_exports__);
       cardCvcError: '',
       cardExpiryError: '',
       cardNumberError: '',
+      customer: '',
       loading: false
     };
   },
@@ -2627,7 +2706,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.setUpStripe();
-    this.$root.$on('validated', function () {
+    this.$root.$on('validated', function (customer) {
+      _this.customer = customer;
+
       _this.submitFormToCreateToken();
     });
   },
@@ -2722,6 +2803,12 @@ __webpack_require__.r(__webpack_exports__);
       hiddenInput.setAttribute('type', 'hidden');
       hiddenInput.setAttribute('name', 'stripeToken');
       hiddenInput.setAttribute('value', token);
+      this.$el.appendChild(hiddenInput); // var form = document.getElementById('payment-form');
+
+      hiddenInput = document.createElement('input');
+      hiddenInput.setAttribute('type', 'hidden');
+      hiddenInput.setAttribute('name', 'customer');
+      hiddenInput.setAttribute('value', this.customer);
       this.$el.appendChild(hiddenInput); // Submit the form
 
       this.$el.submit();
@@ -2742,7 +2829,7 @@ __webpack_require__.r(__webpack_exports__);
       this.clearCardErrors();
     },
     okToSend: function okToSend() {
-      this.$root.$emit('checkFormsValid');
+      this.$root.$emit('checkFormsValid', this.customer);
     }
   }
 });
@@ -52537,6 +52624,7 @@ var render = function() {
               attrs: { type: "text", placeholder: "Postcode", id: "postcode" },
               domProps: { value: _vm.fields.postcode },
               on: {
+                change: _vm.postcodeChange,
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -52563,7 +52651,20 @@ var render = function() {
             attrs: { id: "findAddress" },
             on: { click: _vm.lookup }
           },
-          [_vm._v("Find Address")]
+          [
+            _c("i", {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.spin,
+                  expression: "spin"
+                }
+              ],
+              staticClass: "fas fa-spinner fa-pulse"
+            }),
+            _vm._v("Find Address")
+          ]
         )
       ])
     ]),
@@ -52582,25 +52683,55 @@ var render = function() {
         staticClass: "col-sm-12"
       },
       [
-        _c(
-          "div",
-          { attrs: { id: "address-list" } },
-          _vm._l(_vm.items, function(item, i) {
-            return _c(
-              "div",
-              {
-                attrs: { "data-address": item.address },
-                on: {
-                  click: function($event) {
-                    return _vm.emitToParent($event, i)
-                  }
+        _c("div", { staticClass: "select-container" }, [
+          _c("span", { staticClass: "select-arrow fa fa-chevron-down" }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.address,
+                  expression: "address"
                 }
-              },
-              [_vm._v(_vm._s(item.address))]
-            )
-          }),
-          0
-        )
+              ],
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.address = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.emitToParent($event)
+                  }
+                ]
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [
+                _vm._v("Please select an address")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.items, function(item) {
+                return _c("option", { domProps: { value: item.formatted } }, [
+                  _vm._v(_vm._s(item.address))
+                ])
+              })
+            ],
+            2
+          )
+        ])
       ]
     )
   ])
@@ -53089,6 +53220,7 @@ var render = function() {
                     },
                     domProps: { value: _vm.fields.contact },
                     on: {
+                      change: _vm.contactChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53133,6 +53265,7 @@ var render = function() {
                     },
                     domProps: { value: _vm.fields.telephone },
                     on: {
+                      change: _vm.telephoneChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53173,6 +53306,7 @@ var render = function() {
                     attrs: { type: "email", placeholder: "Email", id: "email" },
                     domProps: { value: _vm.fields.email },
                     on: {
+                      change: _vm.emailChange,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -53299,7 +53433,8 @@ var render = function() {
             attrs: {
               "input-class": "form-control text-right",
               name: "fields.dob",
-              placeholder: "DOB"
+              placeholder: "DOB",
+              "disabled-dates": _vm.disabledDates
             },
             on: { selected: _vm.dobChange },
             model: {
@@ -53328,7 +53463,8 @@ var render = function() {
             attrs: {
               "input-class": "form-control",
               name: "fields.dod",
-              placeholder: "D0D"
+              placeholder: "D0D",
+              "disabled-dates": _vm.disabledDates
             },
             on: { selected: _vm.dodChange },
             model: {

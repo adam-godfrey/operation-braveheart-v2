@@ -63,7 +63,7 @@ export default {
     	colour: String,
     	draw_type: String,
     	draw_date: String
-  },
+ 	},
 	data: function() {
 		return {
 			// prizes: {

@@ -44,6 +44,8 @@ Vue.component('custom-select', require('./components/admin/CustomSelect.vue').de
 
 Vue.component('lottery-settings', require('./components/admin/LotterySettings.vue').default);
 
+Vue.component('file-upload', require('./components/admin/FileUpload.vue').default);
+
 const app = new Vue({
     el: '#app'
 });

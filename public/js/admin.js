@@ -1881,6 +1881,142 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'UploadForm',
+  data: function data() {
+    return {
+      progressBar: 0,
+      message: '',
+      isLoading: false,
+      file: '',
+      files: []
+    };
+  },
+  created: function created() {},
+  methods: {
+    fileUpload: function fileUpload(event) {
+      this.file = event.files[0];
+    },
+    uploadSubmit: function uploadSubmit() {
+      var _this = this;
+
+      var swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Upload lottery video?',
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(function (result) {
+        if (result.value) {
+          _this.isLoading = true;
+          _this.message = '';
+
+          _this.$snotify.async('Uploading video', 'Uploading', function () {
+            return new Promise(function (resolve, reject) {
+              var formData = new FormData();
+              formData.append('file', _this.file);
+              axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/upload', formData, {
+                headers: {
+                  'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: function (progressEvent) {
+                  this.progressBar = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+                }.bind(_this)
+              }).then(function (response) {
+                if (response.status === 200) {
+                  setTimeout(function () {
+                    return resolve({
+                      title: 'Success!!!',
+                      body: 'Lottery video uploaded!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, _this.message = response.data, _this.isLoading = false, _this.$refs.video.load(), _this.reset());
+                  }, 2000);
+                }
+              })["catch"](function (error) {
+                if (error.response.status === 422) {
+                  setTimeout(function () {
+                    return reject({
+                      title: 'Error!!!',
+                      body: 'Failed to upload video!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, _this.errors = error.response.data.errors || {});
+                  }, 1000);
+                }
+              });
+            });
+          });
+        }
+      });
+    },
+    //RESET FORM UPLOAD 
+    reset: function reset() {
+      this.$refs.file.value = '';
+      this.progressBar = 0;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/LotteryPlayerForm.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/LotteryPlayerForm.vue?vue&type=script&lang=js& ***!
@@ -2710,6 +2846,95 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['settings'],
@@ -2724,6 +2949,20 @@ __webpack_require__.r(__webpack_exports__);
       local_extra_balls: 0,
       disabledDates: {},
       draw_date_formatted: '',
+      prizes: {
+        uk: {
+          first: this.settings.uk_first_prize,
+          second: this.settings.uk_second_prize,
+          third: this.settings.uk_third_prize,
+          fourth: this.settings.uk_fourth_prize
+        },
+        local: {
+          first: this.settings.local_first_prize,
+          second: this.settings.local_second_prize,
+          third: this.settings.local_third_prize,
+          fourth: this.settings.local_fourth_prize
+        }
+      },
       errors: {}
     };
   },
@@ -2926,6 +3165,69 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    },
+    updatePrizes: function updatePrizes() {
+      var _this5 = this;
+
+      var swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Update prizes?',
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(function (result) {
+        if (result.value) {
+          _this5.$snotify.async('Saving prizes', 'Saving', function () {
+            return new Promise(function (resolve, reject) {
+              var update = {
+                uk_first_prize: _this5.prizes.uk.first,
+                uk_second_prize: _this5.prizes.uk.second,
+                uk_third_prize: _this5.prizes.uk.third,
+                uk_fourth_prize: _this5.prizes.uk.fourth,
+                local_first_prize: _this5.prizes.local.first,
+                local_second_prize: _this5.prizes.local.second,
+                local_third_prize: _this5.prizes.local.third,
+                local_fourth_prize: _this5.prizes.local.fourth
+              };
+              axios.put('/admin/lottery/update-prizes', update).then(function (response) {
+                if (response.status === 200) {
+                  setTimeout(function () {
+                    return resolve({
+                      title: 'Success!!!',
+                      body: 'Lottery prizes updated!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    });
+                  }, 2000);
+                }
+              })["catch"](function (error) {
+                if (error.response.status === 422) {
+                  setTimeout(function () {
+                    return reject({
+                      title: 'Error!!!',
+                      body: 'Failed to update lottery prizes!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, _this5.errors = error.response.data.errors || {});
+                  }, 1000);
+                }
+              });
+            });
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -3218,6 +3520,9 @@ __webpack_require__.r(__webpack_exports__);
         html: "<h6 class=\"collapse-header\">Lottery:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery\">Settings</a>\n                        <h6 class=\"collapse-header\">Draw Numbers:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/draw/uk\">UK</a>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/draw/local\">Local</a>\n                        <h6 class=\"collapse-header\">Lottery Players:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players/create\">Add New</a>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players\">View All</a>"
       }, {
         text: 'News',
+        html: "<h6 class=\"collapse-header\">Custom Components:</h6>\n                        <a class=\"collapse-item\" href=\"buttons.html\">Add New</a>\n                        <a class=\"collapse-item\" href=\"cards.html\">View All</a>"
+      }, {
+        text: 'Messages',
         html: "<h6 class=\"collapse-header\">Custom Components:</h6>\n                        <a class=\"collapse-item\" href=\"buttons.html\">Add New</a>\n                        <a class=\"collapse-item\" href=\"cards.html\">View All</a>"
       }],
       isActive: null
@@ -55791,6 +56096,167 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "form",
+          {
+            attrs: {
+              action: "javascript:void(0)",
+              enctype: "multipart/form-data",
+              method: "post"
+            },
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.uploadSubmit($event)
+              }
+            }
+          },
+          [
+            _c("input", {
+              ref: "file",
+              staticClass: "file",
+              attrs: { type: "file", name: "file", accept: "video/*" },
+              on: {
+                change: function($event) {
+                  return _vm.fileUpload($event.target)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group mb-3" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.file.name,
+                    expression: "file.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  disabled: "",
+                  placeholder: "Upload File",
+                  "aria-label": "Upload File",
+                  "aria-describedby": "basic-addon1"
+                },
+                domProps: { value: _vm.file.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.file, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "browse input-group-text btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$refs.file.click()
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-search" }), _vm._v(" Browse")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "upload input-group-text btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.uploadSubmit }
+                  },
+                  [
+                    _c("i", { staticClass: "fas fa-upload" }),
+                    _vm._v(
+                      " " + _vm._s(_vm.isLoading ? "Loading..." : "Upload")
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "progress" }, [
+          _c("div", {
+            staticClass: "progress-bar",
+            style: { width: _vm.progressBar + "%" },
+            attrs: {
+              role: "progressbar",
+              "aria-valuenow": _vm.progressBar,
+              "aria-valuemin": "0",
+              "aria-valuemax": "100"
+            }
+          })
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row mt-3" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("h3", { staticClass: "h4 mb-3 text-gray-800" }, [_vm._v("Preview")]),
+        _vm._v(" "),
+        _c("video", { ref: "video", attrs: { width: "100%", controls: "" } }, [
+          _c("source", {
+            attrs: { src: "/api/stream-video", type: "video/mp4" }
+          }),
+          _vm._v(
+            "\n\t    \t\tYour browser does not support HTML5 video.\n\t\t\t"
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c(
+        "span",
+        { staticClass: "input-group-text", attrs: { id: "basic-addon1" } },
+        [_c("i", { staticClass: "fas fa-paperclip" })]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/LotteryPlayerForm.vue?vue&type=template&id=2e7e1dda&":
 /*!**************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/LotteryPlayerForm.vue?vue&type=template&id=2e7e1dda& ***!
@@ -55818,7 +56284,7 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
+        _c("div", { staticClass: "col-md-8" }, [
           _c("div", { staticClass: "form-group row" }, [
             _c(
               "label",
@@ -56653,37 +57119,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-sm-4 col-form-label" }, [
-          _vm._v("Current Draw")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "input-group mb-3" }, [
-            _c(
-              "div",
-              { staticClass: "col negative-margin" },
-              [
-                _c("datepicker", {
-                  attrs: {
-                    "input-class": "form-control",
-                    placeholder: "Draw Date",
-                    "disabled-dates": _vm.disabledDates
+  return _c("div", [
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("Current Draw")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "input-group mb-3" }, [
+          _c(
+            "div",
+            { staticClass: "col negative-margin" },
+            [
+              _c("datepicker", {
+                attrs: {
+                  "input-class": "form-control",
+                  placeholder: "Draw Date",
+                  "disabled-dates": _vm.disabledDates
+                },
+                on: { selected: _vm.drawChange },
+                model: {
+                  value: _vm.draw_date,
+                  callback: function($$v) {
+                    _vm.draw_date = $$v
                   },
-                  on: { selected: _vm.drawChange },
-                  model: {
-                    value: _vm.draw_date,
-                    callback: function($$v) {
-                      _vm.draw_date = $$v
-                    },
-                    expression: "draw_date"
-                  }
-                })
+                  expression: "draw_date"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-append" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-secondary",
+                attrs: { type: "button" },
+                on: { click: _vm.newDraw }
+              },
+              [_vm._v("New Draw")]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("Winning Numbers")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "form-group row" }, [
+          _c("div", { staticClass: "input-group col" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.uk_winners,
+                  expression: "uk_winners"
+                }
               ],
-              1
-            ),
+              staticClass: "form-control",
+              attrs: { type: "number", min: "1", max: "4" },
+              domProps: { value: _vm.uk_winners },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.uk_winners = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.local_winners,
+                  expression: "local_winners"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "number", min: "1", max: "4" },
+              domProps: { value: _vm.local_winners },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.local_winners = $event.target.value
+                }
+              }
+            }),
             _vm._v(" "),
             _c("div", { staticClass: "input-group-append" }, [
               _c(
@@ -56691,267 +57227,499 @@ var render = function() {
                 {
                   staticClass: "btn btn-outline-secondary",
                   attrs: { type: "button" },
-                  on: { click: _vm.newDraw }
+                  on: { click: _vm.winningNumbers }
                 },
-                [_vm._v("New Draw")]
+                [_vm._v("Update")]
               )
             ])
           ])
         ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("UK Lottery Balls")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-sm-4 col-form-label" }, [
-          _vm._v("Winning Numbers")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "form-group row" }, [
-            _c("div", { staticClass: "input-group col" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.uk_winners,
-                    expression: "uk_winners"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", min: "1", max: "4" },
-                domProps: { value: _vm.uk_winners },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.uk_winners = $event.target.value
-                  }
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "input-group mb-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.uk_ball_count,
+                expression: "uk_ball_count"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.uk_ball_count },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              }),
-              _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.local_winners,
-                    expression: "local_winners"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { type: "number", min: "1", max: "4" },
-                domProps: { value: _vm.local_winners },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.local_winners = $event.target.value
-                  }
+                _vm.uk_ball_count = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.uk_extra_balls,
+                  expression: "uk_extra_balls"
                 }
-              }),
+              ],
+              ref: "extra",
+              staticClass: "custom-select",
+              attrs: { id: "inputGroupSelect01" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.uk_extra_balls = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Add more...")]),
               _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
+              _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "3" } }, [_vm._v("Three")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "4" } }, [_vm._v("Four")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "5" } }, [_vm._v("Five")])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-append" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-secondary",
+                attrs: { type: "button", "data-type": "UK" },
+                on: { click: _vm.lotteryBalls }
+              },
+              [_vm._v("Update")]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("Local Lottery Balls")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "input-group mb-3" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.local_ball_count,
+                expression: "local_ball_count"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", readonly: "" },
+            domProps: { value: _vm.local_ball_count },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.local_ball_count = $event.target.value
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.local_extra_balls,
+                  expression: "local_extra_balls"
+                }
+              ],
+              ref: "extra",
+              staticClass: "custom-select",
+              attrs: { id: "inputGroupSelect01" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.local_extra_balls = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Add more...")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "3" } }, [_vm._v("Three")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "4" } }, [_vm._v("Four")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "5" } }, [_vm._v("Five")])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "input-group-append" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-outline-secondary",
+                attrs: { type: "button", "data-type": "Local" },
+                on: { click: _vm.lotteryBalls }
+              },
+              [_vm._v("Update")]
+            )
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("Prizes")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.first,
+                          expression: "prizes.uk.first"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.first },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "first", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.second,
+                          expression: "prizes.uk.second"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.second },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "second", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.third,
+                          expression: "prizes.uk.third"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.third },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "third", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
-                  "button",
+                  "div",
                   {
-                    staticClass: "btn btn-outline-secondary",
-                    attrs: { type: "button" },
-                    on: { click: _vm.winningNumbers }
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.uk_winners == 4,
+                        expression: "uk_winners == 4"
+                      }
+                    ],
+                    staticClass: "form-group row"
                   },
-                  [_vm._v("Update")]
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.prizes.uk.fourth,
+                            expression: "prizes.uk.fourth"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", min: "1", max: "4" },
+                        domProps: { value: _vm.prizes.uk.fourth },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.prizes.uk,
+                              "fourth",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.first,
+                          expression: "prizes.local.first"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.first },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "first",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.second,
+                          expression: "prizes.local.second"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.second },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "second",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.third,
+                          expression: "prizes.local.third"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.third },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "third",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.local_winners == 4,
+                        expression: "local_winners == 4"
+                      }
+                    ],
+                    staticClass: "form-group row"
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.prizes.local.fourth,
+                            expression: "prizes.local.fourth"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", min: "1", max: "4" },
+                        domProps: { value: _vm.prizes.local.fourth },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.prizes.local,
+                              "fourth",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
                 )
               ])
             ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-sm-4 col-form-label" }, [
-          _vm._v("UK Lottery Balls")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "input-group mb-3" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.uk_ball_count,
-                  expression: "uk_ball_count"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", readonly: "" },
-              domProps: { value: _vm.uk_ball_count },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.uk_ball_count = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.uk_extra_balls,
-                    expression: "uk_extra_balls"
-                  }
-                ],
-                ref: "extra",
-                staticClass: "custom-select",
-                attrs: { id: "inputGroupSelect01" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.uk_extra_balls = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "0" } }, [
-                  _vm._v("Add more...")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [_vm._v("Three")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "4" } }, [_vm._v("Four")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "5" } }, [_vm._v("Five")])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-outline-secondary",
-                  attrs: { type: "button", "data-type": "UK" },
-                  on: { click: _vm.lotteryBalls }
-                },
-                [_vm._v("Update")]
-              )
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c("label", { staticClass: "col-sm-4 col-form-label" }, [
-          _vm._v("Local Lottery Balls")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "input-group mb-3" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.local_ball_count,
-                  expression: "local_ball_count"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", readonly: "" },
-              domProps: { value: _vm.local_ball_count },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.local_ball_count = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.local_extra_balls,
-                    expression: "local_extra_balls"
-                  }
-                ],
-                ref: "extra",
-                staticClass: "custom-select",
-                attrs: { id: "inputGroupSelect01" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.local_extra_balls = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "0" } }, [
-                  _vm._v("Add more...")
-                ]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "1" } }, [_vm._v("One")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "2" } }, [_vm._v("Two")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "3" } }, [_vm._v("Three")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "4" } }, [_vm._v("Four")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "5" } }, [_vm._v("Five")])
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group-append" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-outline-secondary",
-                  attrs: { type: "button", "data-type": "Local" },
-                  on: { click: _vm.lotteryBalls }
-                },
-                [_vm._v("Update")]
-              )
-            ])
-          ])
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary float-right",
+            attrs: { type: "button" },
+            on: { click: _vm.updatePrizes }
+          },
+          [_vm._v("Update")]
+        )
       ])
     ])
   ])
@@ -56980,6 +57748,102 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("b", [_vm._v("UK Draw")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("First")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Second")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Third")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Fourth")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("b", [_vm._v("Local Draw")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("First")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Second")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Third")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Fourth")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -73539,6 +74403,7 @@ Vue.component('lottery-player', __webpack_require__(/*! ./components/admin/Lotte
 Vue.component('news-admin', __webpack_require__(/*! ./components/admin/News.vue */ "./resources/js/components/admin/News.vue")["default"]);
 Vue.component('custom-select', __webpack_require__(/*! ./components/admin/CustomSelect.vue */ "./resources/js/components/admin/CustomSelect.vue")["default"]);
 Vue.component('lottery-settings', __webpack_require__(/*! ./components/admin/LotterySettings.vue */ "./resources/js/components/admin/LotterySettings.vue")["default"]);
+Vue.component('file-upload', __webpack_require__(/*! ./components/admin/FileUpload.vue */ "./resources/js/components/admin/FileUpload.vue")["default"]);
 var app = new Vue({
   el: '#app'
 });
@@ -73641,6 +74506,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomSelect_vue_vue_type_template_id_0e3b6490___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomSelect_vue_vue_type_template_id_0e3b6490___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/FileUpload.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/admin/FileUpload.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=template&id=7fd30d48& */ "./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48&");
+/* harmony import */ var _FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/FileUpload.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./FileUpload.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./FileUpload.vue?vue&type=template&id=7fd30d48& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
