@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Cartalyst\Stripe\Exception\CardErrorException;
+use App\Models\PlaqueOrder;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
         Route::put('additional-numbers', 'LotteryController@additionalNumbers');
         Route::put('update-total-winners', 'LotteryController@totalWinners');
         Route::put('update-draw-date', 'LotteryController@updateDrawDate');
+        Route::put('update-prizes', 'LotteryController@updatePrizes');
 
         Route::get('players/get', 'LotteryPlayerController@getPlayers');
         Route::post('available-numbers', 'LotteryPlayerController@getAvailableNumbers');
@@ -84,8 +86,8 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
 });
 
 Route::post('/checkout', function(Request $request) {
-    // dd($request->all());
     // validation
+
     try {
 
         Stripe::setApiKey(env('STRIPE_API_SECRET'));
@@ -94,19 +96,30 @@ Route::post('/checkout', function(Request $request) {
             'amount' => 16.00,
             'currency' => 'GBP',
             'source' => $request->stripeToken,
-            'description' => 'Description goes here',
-            'receipt_email' => $request->email,
-            'metadata' => [
-                'data1' => 'metadata 1',
-                'data2' => 'metadata 2',
-                'data3' => 'metadata 3',
-            ],
+            'statement_descriptor' => 'Memorial Plaque',
+            'description' => 'Memorial Plaque',
         ]);
+
+        PlaqueOrder::where('plaque_id', $request->customer)
+            ->update([
+                'charge_id' => $charge['id'],
+                'amount' => 16.00,
+                'paid' => 1
+            ]);
+
         // save this info to your database
         // SUCCESSFUL
         return back()->with('success_message', 'Thank you! Your payment has been accepted.');
     } catch (CardErrorException $e) {
         // save info to database for failed
+        PlaqueOrder::where('plaque_id', $request->customer)
+            ->update([
+                'plaque_id' => $request->customer,
+                'charge_id' => $charge['id'],
+                'amount' => 16.00,
+                'paid' => 0
+            ]);
+
         return back()->withErrors('Error! ' . $e->getMessage());
     }
 });

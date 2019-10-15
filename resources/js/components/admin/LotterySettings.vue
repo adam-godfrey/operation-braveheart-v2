@@ -71,6 +71,97 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Prizes</label>
+			<div class="col-sm-8">
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-header">
+							    <b>UK Draw</b>
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">First</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.uk.first">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Second</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.uk.second">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Third</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.uk.third">
+									</div>
+								</div>
+								<div class="form-group row" v-show="uk_winners == 4">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Fourth</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.uk.fourth">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="card">
+							<div class="card-header">
+							    <b>Local Draw</b>
+							</div>
+							<div class="card-body">
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">First</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.local.first">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Second</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.local.second">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Third</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.local.third">
+									</div>
+								</div>
+								<div class="form-group row" v-show="local_winners == 4">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="">Fourth</span>
+										</div>
+										<input type="number" min="1" max="4" class="form-control" v-model="prizes.local.fourth">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="btn btn-outline-secondary float-right" type="button" v-on:click="updatePrizes">Update</button>				
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -90,6 +181,20 @@ export default {
 			local_extra_balls: 0,
 			disabledDates: {},
 			draw_date_formatted: '',
+			prizes: {
+				uk: {
+					first: this.settings.uk_first_prize,
+					second: this.settings.uk_second_prize,
+					third: this.settings.uk_third_prize,
+					fourth: this.settings.uk_fourth_prize
+				},
+				local: {
+					first: this.settings.local_first_prize,
+					second: this.settings.local_second_prize,
+					third: this.settings.local_third_prize,
+					fourth: this.settings.local_fourth_prize
+				}
+			},
 			errors: {}
 		}
 	},
@@ -282,6 +387,66 @@ export default {
 	              	}
 	            });
         	}
+        },
+        updatePrizes: function() {
+
+    		const swalWithBootstrapButtons = this.$swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-secondary'
+                },
+                buttonsStyling: false
+            });
+
+            swalWithBootstrapButtons.fire({
+                title: 'Update prizes?',
+                type: 'warning',
+                showCloseButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+            }).then((result) => {
+                if (result.value) {
+	            	this.$snotify.async('Saving prizes', 'Saving', () => new Promise((resolve, reject) => {
+
+	            		let update = {
+	            			uk_first_prize: this.prizes.uk.first,
+	            			uk_second_prize: this.prizes.uk.second,
+	            			uk_third_prize: this.prizes.uk.third,
+	            			uk_fourth_prize: this.prizes.uk.fourth,
+	            			local_first_prize: this.prizes.local.first,
+	            			local_second_prize: this.prizes.local.second,
+	            			local_third_prize: this.prizes.local.third,
+	            			local_fourth_prize: this.prizes.local.fourth,
+	            		}
+
+	            		axios.put('/admin/lottery/update-prizes', update).then(response => {
+		            		if(response.status === 200) {
+		            			setTimeout(() => resolve({
+						       	 	title: 'Success!!!',
+						        	body: 'Lottery prizes updated!',
+						        	config: {
+						        		timeout: 2000,
+						          		closeOnClick: true
+						       	 	}}
+						      	), 2000);
+				            }
+			            }).catch(error => {
+			                if (error.response.status === 422) {
+			                	setTimeout(() => reject({
+					       	 		title: 'Error!!!',
+						        	body: 'Failed to update lottery prizes!',
+						        	config: {
+						        		timeout: 2000,
+						          		closeOnClick: true
+						       	 	}},
+						       	 	this.errors = error.response.data.errors || {}
+					      		), 1000);
+			                }
+			            });
+				    }));   
+              	}
+            });
         }
     },
     mounted() {

@@ -34,13 +34,20 @@ export default {
     data: function() {
         return {
             fields: {
+                address1: '',
+                address2: '',
+                address3: '',
+                town: '',
+                county: '',
+                post: '',
                 rank: '',
                 name: '',
                 dob: '',
                 dod: '',
                 regiment: '',
                 location: '',
-                message: ''
+                message: '',
+                customer: ''
             },
             errors: {},
             maxCharacters: 100,
@@ -51,10 +58,13 @@ export default {
         AddressForm,
     },
     mounted() {
-        this.$root.$on('checkFormsValid', () => {
+        this.$root.$on('checkFormsValid', (customer) => {
+
+            console.log(customer);
             this.errors = {};
+            this.fields.customer = customer;
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
-                this.$root.$emit('validated')
+                this.$root.$emit('validated', response.data.customer)
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
@@ -62,6 +72,24 @@ export default {
                 }
             });
         }),
+        this.$root.$on('address1Change', address1 => {
+            this.fields.address1 = address1;
+        });
+        this.$root.$on('address2Change', address2 => {
+            this.fields.address2 = address2;
+        });
+        this.$root.$on('address3Change', address3 => {
+            this.fields.address3 = address3;
+        });
+        this.$root.$on('townChange', town => {
+            this.fields.town = town;
+        });
+        this.$root.$on('countyChange', county => {
+            this.fields.county = county;
+        });
+        this.$root.$on('postcodeChange', postcode => {
+            this.fields.postcode = postcode;
+        });
         this.$root.$on('rankChange', rank => {
             this.fields.rank = rank;
         });

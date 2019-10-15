@@ -83,13 +83,16 @@
                 cardExpiryError: '',
                 cardNumberError: '',
 
+                customer: '',
+
                 loading: false,
             }
         },
         props: ['cost'],
         mounted() {
             this.setUpStripe();
-            this.$root.$on('validated', () => {
+            this.$root.$on('validated', (customer) => {
+                this.customer = customer;
                 this.submitFormToCreateToken();
             })
         },
@@ -192,6 +195,13 @@
                 hiddenInput.setAttribute('value', token);
                 this.$el.appendChild(hiddenInput);
 
+                // var form = document.getElementById('payment-form');
+                hiddenInput = document.createElement('input');
+                hiddenInput.setAttribute('type', 'hidden');
+                hiddenInput.setAttribute('name', 'customer');
+                hiddenInput.setAttribute('value', this.customer);
+                this.$el.appendChild(hiddenInput);
+
                 // Submit the form
                 this.$el.submit();
             },
@@ -213,7 +223,7 @@
                 this.clearCardErrors()
             },
             okToSend: function() {
-                this.$root.$emit('checkFormsValid')
+                this.$root.$emit('checkFormsValid', this.customer)
             }
         }
     }

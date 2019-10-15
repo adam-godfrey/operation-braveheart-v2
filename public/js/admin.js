@@ -2844,6 +2844,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['settings'],
@@ -2858,6 +2949,20 @@ __webpack_require__.r(__webpack_exports__);
       local_extra_balls: 0,
       disabledDates: {},
       draw_date_formatted: '',
+      prizes: {
+        uk: {
+          first: this.settings.uk_first_prize,
+          second: this.settings.uk_second_prize,
+          third: this.settings.uk_third_prize,
+          fourth: this.settings.uk_fourth_prize
+        },
+        local: {
+          first: this.settings.local_first_prize,
+          second: this.settings.local_second_prize,
+          third: this.settings.local_third_prize,
+          fourth: this.settings.local_fourth_prize
+        }
+      },
       errors: {}
     };
   },
@@ -3060,6 +3165,69 @@ __webpack_require__.r(__webpack_exports__);
           }
         });
       }
+    },
+    updatePrizes: function updatePrizes() {
+      var _this5 = this;
+
+      var swalWithBootstrapButtons = this.$swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-primary',
+          cancelButton: 'btn btn-secondary'
+        },
+        buttonsStyling: false
+      });
+      swalWithBootstrapButtons.fire({
+        title: 'Update prizes?',
+        type: 'warning',
+        showCloseButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+      }).then(function (result) {
+        if (result.value) {
+          _this5.$snotify.async('Saving prizes', 'Saving', function () {
+            return new Promise(function (resolve, reject) {
+              var update = {
+                uk_first_prize: _this5.prizes.uk.first,
+                uk_second_prize: _this5.prizes.uk.second,
+                uk_third_prize: _this5.prizes.uk.third,
+                uk_fourth_prize: _this5.prizes.uk.fourth,
+                local_first_prize: _this5.prizes.local.first,
+                local_second_prize: _this5.prizes.local.second,
+                local_third_prize: _this5.prizes.local.third,
+                local_fourth_prize: _this5.prizes.local.fourth
+              };
+              axios.put('/admin/lottery/update-prizes', update).then(function (response) {
+                if (response.status === 200) {
+                  setTimeout(function () {
+                    return resolve({
+                      title: 'Success!!!',
+                      body: 'Lottery prizes updated!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    });
+                  }, 2000);
+                }
+              })["catch"](function (error) {
+                if (error.response.status === 422) {
+                  setTimeout(function () {
+                    return reject({
+                      title: 'Error!!!',
+                      body: 'Failed to update lottery prizes!',
+                      config: {
+                        timeout: 2000,
+                        closeOnClick: true
+                      }
+                    }, _this5.errors = error.response.data.errors || {});
+                  }, 1000);
+                }
+              });
+            });
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -3352,6 +3520,9 @@ __webpack_require__.r(__webpack_exports__);
         html: "<h6 class=\"collapse-header\">Lottery:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery\">Settings</a>\n                        <h6 class=\"collapse-header\">Draw Numbers:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/draw/uk\">UK</a>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/draw/local\">Local</a>\n                        <h6 class=\"collapse-header\">Lottery Players:</h6>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players/create\">Add New</a>\n                        <a class=\"collapse-item\" href=\"/admin/lottery/players\">View All</a>"
       }, {
         text: 'News',
+        html: "<h6 class=\"collapse-header\">Custom Components:</h6>\n                        <a class=\"collapse-item\" href=\"buttons.html\">Add New</a>\n                        <a class=\"collapse-item\" href=\"cards.html\">View All</a>"
+      }, {
+        text: 'Messages',
         html: "<h6 class=\"collapse-header\">Custom Components:</h6>\n                        <a class=\"collapse-item\" href=\"buttons.html\">Add New</a>\n                        <a class=\"collapse-item\" href=\"cards.html\">View All</a>"
       }],
       isActive: null
@@ -57242,6 +57413,314 @@ var render = function() {
           ])
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c("label", { staticClass: "col-sm-4 col-form-label" }, [
+        _vm._v("Prizes")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.first,
+                          expression: "prizes.uk.first"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.first },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "first", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.second,
+                          expression: "prizes.uk.second"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.second },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "second", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.uk.third,
+                          expression: "prizes.uk.third"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.uk.third },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.prizes.uk, "third", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.uk_winners == 4,
+                        expression: "uk_winners == 4"
+                      }
+                    ],
+                    staticClass: "form-group row"
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.prizes.uk.fourth,
+                            expression: "prizes.uk.fourth"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", min: "1", max: "4" },
+                        domProps: { value: _vm.prizes.uk.fourth },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.prizes.uk,
+                              "fourth",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.first,
+                          expression: "prizes.local.first"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.first },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "first",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.second,
+                          expression: "prizes.local.second"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.second },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "second",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c("div", { staticClass: "input-group" }, [
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.prizes.local.third,
+                          expression: "prizes.local.third"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", min: "1", max: "4" },
+                      domProps: { value: _vm.prizes.local.third },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.prizes.local,
+                            "third",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.local_winners == 4,
+                        expression: "local_winners == 4"
+                      }
+                    ],
+                    staticClass: "form-group row"
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.prizes.local.fourth,
+                            expression: "prizes.local.fourth"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", min: "1", max: "4" },
+                        domProps: { value: _vm.prizes.local.fourth },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.prizes.local,
+                              "fourth",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary float-right",
+            attrs: { type: "button" },
+            on: { click: _vm.updatePrizes }
+          },
+          [_vm._v("Update")]
+        )
+      ])
     ])
   ])
 }
@@ -57269,6 +57748,102 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("b", [_vm._v("UK Draw")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("First")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Second")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Third")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Fourth")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("b", [_vm._v("Local Draw")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("First")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Second")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Third")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text", attrs: { id: "" } }, [
+        _vm._v("Fourth")
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -73940,15 +74515,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************************************!*\
   !*** ./resources/js/components/admin/FileUpload.vue ***!
   \******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FileUpload_vue_vue_type_template_id_7fd30d48___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=template&id=7fd30d48& */ "./resources/js/components/admin/FileUpload.vue?vue&type=template&id=7fd30d48&");
 /* harmony import */ var _FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FileUpload.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _FileUpload_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -73978,7 +74552,7 @@ component.options.__file = "resources/js/components/admin/FileUpload.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/admin/FileUpload.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

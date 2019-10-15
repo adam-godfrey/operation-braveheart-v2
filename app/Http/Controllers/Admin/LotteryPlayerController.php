@@ -51,7 +51,7 @@ class LotteryPlayerController extends Controller
             'email' => 'sometimes|email',
             'telephone' => ['sometimes', 'nullable', new Telephone],
             'lottery_number' => 'required|gt:0',
-            'draw_type' => 'required',            
+            'draw_type' => 'required',
         ],
             [ 'lottery_number.gt' => 'The :attribute is empty.'
         ]);

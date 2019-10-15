@@ -62,11 +62,17 @@ export default {
     },
     methods: {
         getAddress: function(value) {
-            this.fields.address1 = value.address1
-            this.fields.address2 = value.address2
-            this.fields.address3 = value.address3
-            this.fields.town = value.town
-            this.fields.county = value.county
+            this.fields.address1 = value.address1;
+            this.fields.address2 = value.address2;
+            this.fields.address3 = value.address3;
+            this.fields.town = value.town;
+            this.fields.county = value.county;
+
+            this.address1Change();
+            this.address2Change();
+            this.address3Change();
+            this.townChange();
+            this.countyChange();
         },
         address1Change: function() {
             this.$root.$emit('address1Change', this.fields.address1);
@@ -75,6 +81,7 @@ export default {
             this.$root.$emit('address2Change', this.fields.address2);
         },
         address3Change: function() {
+            
             this.$root.$emit('address3Change', this.fields.address3);
         },
         townChange: function() {
