@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class PlaqueOrder extends Migration
+class EmailAttachments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class PlaqueOrder extends Migration
      */
     public function up()
     {
-        Schema::create('plaque-orders', function (Blueprint $table) {
+        Schema::create('email-attachments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('plaque_id');
-            $table->string('charge_id', 50)->nullable();
-            $table->decimal('amount', 4, 2)->nullable();
-            $table->string('credit_card_brand')->nullable();
-            $table->integer('credit_card_last_four', 4))->nullable();
-            $table->tinyInteger('paid')->nullable()->default(1);
+            $table->string('uid')->nullable();
+            $table->string('attachmentid')->nullable();
+            $table->string('filename')->nullable();
+            $table->string('original')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
@@ -34,6 +32,6 @@ class PlaqueOrder extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plaque-orders');
+        Schema::dropIfExists('email-attachments');
     }
 }

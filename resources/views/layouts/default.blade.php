@@ -3,7 +3,7 @@
 @include('layouts.partials.head')
 <body>
 <div id="app">
-@include('layouts.partials.navbar')
+<navbar></navbar>
 @yield('content')
 @include('layouts.partials.footer')
 </div>

@@ -7,7 +7,7 @@ use Illuminate\View\View;
 class SiteComposer
 {
     protected $site;
-    protected $navbar;
+    
     /**
      * Create a new site composer.
      *
@@ -23,16 +23,6 @@ class SiteComposer
         $site->linkedin_username = 'test@test.com';
 
         $this->site = $site;
-
-        // $navbar = new \stdClass();
-
-        // $navbar->routes->home About
-        // $navbar->routes->about About 
-        // $navbar->routes->memorial-garden Memorial Garden 
-        // $navbar->routes->news News 
-        // $navbar->routes->lottery Lottery 
-        // $navbar->routes->shop Shop 
-        // $navbar->routes->contact Contact 
     }
 
     /**

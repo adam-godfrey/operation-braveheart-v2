@@ -141,6 +141,7 @@ return [
          * Package Service Providers...
          */
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+        Webklex\IMAP\Providers\LaravelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -200,5 +201,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => 'Carbon\Carbon',
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
+        'Client' => Webklex\IMAP\Facades\Client::class,
     ],
 ];
