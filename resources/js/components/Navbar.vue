@@ -36,7 +36,7 @@ export default {
     name: 'navbar',
     data() {
         return {
-            show: true 
+            show: false 
         }
     },
     methods: {

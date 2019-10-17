@@ -19,6 +19,7 @@ class EmailAttachments extends Migration
             $table->string('attachmentid')->nullable();
             $table->string('filename')->nullable();
             $table->string('original')->nullable();
+            $table->string('mime')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

@@ -19,6 +19,7 @@ class Emails extends Migration
             $table->string('from')->nullable();
             $table->string('subject')->nullable();
             $table->text('body')->nullable();
+            // $table->integer('attachments')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

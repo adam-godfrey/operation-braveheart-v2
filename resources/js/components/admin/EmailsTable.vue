@@ -1,5 +1,5 @@
 <template>
-    <div class="users-style">
+    <div class="emails-style">
     	<div class="row justify-content-between">
 		    <div class="col-4">
 		      	<div class="select-container">
@@ -31,19 +31,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="row" v-for="user in paginatedUsers" :key="user.id">
-                        <td class="col-md-2">{{user.name}}</td>
-                        <td class="col-md-2">{{user.telephone}}</td>
-                        <td class="col-md-2">{{user.email}}</td>
-                        <td class="col-md-2">{{user.lottery_number}}</td>
+                    <tr class="row" v-for="email in paginatedEmails" :key="email.id">
+                        <td class="col-md-4">{{email.from}}</td>
+                        <td class="col-md-4">{{email.subject}}</td>
+                        <td class="col-md-1">{{email.attachments_count}}</td>
+                        <td class="col-md-2">{{email.created_at}}</td>
                         <td class="col-md-1">
-                            <span class="badge badge-pill badge-primary" v-if="user.draw_type === 'UK'">{{user.draw_type}}</span>
-                            <span class="badge badge-pill badge-success" v-else>{{user.draw_type}}</span>
-                        </td>
-                        <td class="col-md-2">{{user.created_at}}</td>
-                        <td class="col-md-1">
-                            <a class="btn btn-primary btn-sm" v-bind:href="'/admin/lottery/players/' + user.id + '/edit'"><i class="fa fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm" href="#" @click="deleteUser(user.id)"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-primary btn-sm" v-bind:href="'/admin/emails/' + email.id"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-danger btn-sm" href="#" @click="deleteEmail(email.id)"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -67,8 +62,8 @@
             </nav>
             <nav class="pagination" v-else>
                 <span class="page-stats">
-                    {{pagination.from}} - {{pagination.to}} of {{filteredUsers.length}}
-                    <span v-if="`filteredUsers.length < pagination.total`"></span>
+                    {{pagination.from}} - {{pagination.to}} of {{filteredEmails.length}}
+                    <span v-if="`filteredEmails.length < pagination.total`"></span>
                 </span>
                 <a v-if="pagination.prevPage" class="btn btn-sm btn-primary pagination-previous" @click="--pagination.currentPage">
                     Prev
@@ -91,16 +86,16 @@
 
 export default {
     created() {
-        this.getUsers();
+        this.getEmails();
+
+        console.log(this.emails);
     },
     data() {
         let sortOrders = {};
         let columns = [
-            {label: 'Name', name: 'name', 'width': 'col-md-2'},
-            {label: 'Telephone', name: 'telephone', 'width': 'col-md-2'},
-            {label: 'Email', name: 'email', 'width': 'col-md-2'},
-            {label: 'Lottery Number', name: 'lottery_number', 'width': 'col-md-2'},
-            {label: 'Draw Type', name: 'type', 'width': 'col-md-1'},
+            {label: 'From', name: 'from', 'width': 'col-md-4'},
+            {label: 'Subject', name: 'subject', 'width': 'col-md-4'},
+            {label: 'Attachments', name: 'attachments_count', 'width': 'col-md-1'},
             {label: 'Date Added', name: 'created_at', 'width': 'col-md-2'},
         ];
         columns.forEach((column) => {
@@ -108,7 +103,7 @@ export default {
         });
         
         return {
-            users: [],
+            emails: [],
             columns: columns,
             sortKey: 'created_at',
             sortOrders: sortOrders,
@@ -128,7 +123,7 @@ export default {
         }
     },
     methods: {
-        deleteUser(id) {
+        deleteEmail(id) {
             const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
@@ -147,8 +142,8 @@ export default {
                 reverseButtons: true
             }).then((result) => {
                 if (result.value) {
-                    this.$snotify.async('Deleting the lottery player', 'Deleting', () => new Promise((resolve, reject) => {
-                        axios.delete(`/admin/lottery/player/${id}/delete`).then(response => {
+                    this.$snotify.async('Deleting the email', 'Deleting', () => new Promise((resolve, reject) => {
+                        axios.delete(`/admin/emails/${id}/delete`).then(response => {
                             if(response.status === 200) {
                                 setTimeout(() => resolve({
                                     title: 'Success!!!',
@@ -185,11 +180,12 @@ export default {
             });
         },
         
-        getUsers() {
-            axios.get('/admin/lottery/players/get', {params: this.tableShow})
+        getEmails() {
+            axios.get('/admin/emails/get', {params: this.tableShow})
                 .then(response => {
-                    this.users = response.data;
-                    this.pagination.total = this.users.length;
+                    console.log(response.data);
+                    this.emails = response.data;
+                    this.pagination.total = this.emails.length;
                 })
                 .catch(errors => {
                 });
@@ -216,10 +212,10 @@ export default {
         },
     },
     computed: {
-        filteredUsers() {
-            let users = this.users;
+        filteredEmails() {
+            let emails = this.emails;
             if (this.search) {
-                users = users.filter((row) => {
+                emails = emails.filter((row) => {
                     return Object.keys(row).some((key) => {
                         return String(row[key]).toLowerCase().indexOf(this.search.toLowerCase()) > -1;
                     })
@@ -228,7 +224,7 @@ export default {
             let sortKey = this.sortKey;
             let order = this.sortOrders[sortKey] || 1;
             if (sortKey) {
-                users = users.slice().sort((a, b) => {
+                emails = emails.slice().sort((a, b) => {
                     let index = this.getIndex(this.columns, 'name', sortKey);
                     a = String(a[sortKey]).toLowerCase();
                     b = String(b[sortKey]).toLowerCase();
@@ -241,10 +237,10 @@ export default {
                     }
                 });
             }
-            return users;
+            return emails;
         },
-        paginatedUsers() {
-            return this.paginate(this.filteredUsers, this.length, this.pagination.currentPage);
+        paginatedEmails() {
+            return this.paginate(this.filteredEmails, this.length, this.pagination.currentPage);
         }
     }
 };

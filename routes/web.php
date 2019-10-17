@@ -65,6 +65,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::group(['prefix' => 'lottery'], function() {
 
         Route::get('/', 'LotteryController@index');
+        Route::get('/settings', 'LotteryController@settings');
         Route::get('/draw/{draw}', 'LotteryController@draw');
         Route::post('get-winner', 'LotteryController@getWinner');
         Route::post('draw/save', 'LotteryController@store');
@@ -79,10 +80,13 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
         Route::resource('players', 'LotteryPlayerController');
     });
 
-    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+    Route::group(['prefix' => 'emails'], function() {
+        Route::get('get', 'EmailsController@getEmails');
+    });
 
-    Route::get('news/articles', 'NewsController@getNewsArticles');
-    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+    Route::name('admin.')->group(function () {
+        Route::resource('emails', 'EmailsController');
+    });
 
     Route::name('admin.')->group(function () {
         Route::resource('news', 'NewsController');

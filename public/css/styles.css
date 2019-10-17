@@ -91,15 +91,15 @@ img::-moz-selection {
 
 #mainNav .navbar-brand {
   font-weight: 800;
-  color: #343a40;
+  color: #212529;
 }
 
 #mainNav .navbar-toggler {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
   padding: 13px;
   text-transform: uppercase;
-  color: #343a40;
+  color: #212529;
 }
 
 #mainNav .navbar-nav > li.nav-item > a {
@@ -627,6 +627,10 @@ footer .copyright {
 .navbar-brand,
 .nav-item {
   font-family: "Poiret One", cursive;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: black;
 }
 
 .bg-blue {

@@ -142,6 +142,7 @@ return [
          */
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Webklex\IMAP\Providers\LaravelServiceProvider::class,
+        Vinkla\Hashids\HashidsServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -202,5 +203,6 @@ return [
         'Carbon' => 'Carbon\Carbon',
         'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
         'Client' => Webklex\IMAP\Facades\Client::class,
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class
     ],
 ];

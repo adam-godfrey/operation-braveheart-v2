@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\File;
 use Webklex\IMAP\Facades\Client;
 use App\Models\Email;
 use App\Models\EmailAttachment;
@@ -52,11 +53,10 @@ class ImportEmailJob implements ShouldQueue
         $oClient->connect();
         $oClient->setDefaultAttachmentMask(CustomAttachmentMask::class);
 
+        // $oFolder = $oClient->getFolder('INBOX.read');
+        // $aMessage = $oFolder->messages()->all()->get();
         // get all unseen messages from folder INBOX
-        // $aMessage = $oClient->getUnseenMessages($oClient->getFolder('INBOX'));
-
-        $oFolder = $oClient->getFolder('INBOX');
-        $aMessage = $oFolder->query()->all()->get();
+        $aMessage = $oClient->getUnseenMessages($oClient->getFolder('INBOX'));
  
         /** @var \Webklex\IMAP\Message $oMessage */
         foreach($aMessage as $oMessage){
@@ -84,7 +84,7 @@ class ImportEmailJob implements ShouldQueue
             
             // Move the current Message to 'INBOX.read'
             if($oMessage->moveToFolder('INBOX.read') == true){
-                echo 'Message has ben moved';
+                echo 'Message has been moved';
             }else{
                 echo 'Message could not be moved';
             }
@@ -101,15 +101,6 @@ class CustomAttachmentMask extends \Webklex\IMAP\Support\Masks\AttachmentMask {
 
         $token = implode('-', [$this->id, $this->getMessage()->getUid(), $this->name]);
 
-        $emailAttachment = new EmailAttachment();
-
-        $emailAttachment->uid = $this->getMessage()->getUid();
-        $emailAttachment->attachmentid = $this->id;
-        $emailAttachment->filename = $token;
-        $emailAttachment->original = $this->name;
-
-        $emailAttachment->save();
-
         return $token;
     }
     /**
@@ -117,9 +108,20 @@ class CustomAttachmentMask extends \Webklex\IMAP\Support\Masks\AttachmentMask {
      * @return bool
      */
     public function custom_save() {
-        $path = storage_path('app/test');
+        $path = storage_path('app/attachments');
         $filename = $this->token();
         $path = substr($path, -1) == DIRECTORY_SEPARATOR ? $path : $path.DIRECTORY_SEPARATOR;
-        return \Illuminate\Support\Facades\File::put($path.$filename, $this->getContent()) !== false;
+
+        $file =  File::put($path.$filename, $this->getContent()) !== false;
+
+        $emailAttachment = new EmailAttachment();
+
+        $emailAttachment->uid = $this->getMessage()->getUid();
+        $emailAttachment->attachmentid = $this->id;
+        $emailAttachment->filename = $filename = $this->token();
+        $emailAttachment->original = $this->name;
+        $emailAttachment->mime = \Storage::disk('attachments')->mimeType($filename);
+
+        $emailAttachment->save();
     }
 }

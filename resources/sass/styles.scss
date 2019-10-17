@@ -5,6 +5,10 @@
     font-family: 'Poiret One', cursive;
 }
 
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 1);
+}
+
 .bg-blue {
     background-color: $primary;
     color: #fff;

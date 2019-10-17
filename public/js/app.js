@@ -2595,7 +2595,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'navbar',
   data: function data() {
     return {
-      show: true
+      show: false
     };
   },
   methods: {
@@ -71563,6 +71563,7 @@ Vue.component('plaque-form', __webpack_require__(/*! ./components/MemorialPlaque
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
+  mode: 'history',
   routes: [{
     path: '/',
     name: 'home'
