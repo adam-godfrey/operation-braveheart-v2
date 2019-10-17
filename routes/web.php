@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Cartalyst\Stripe\Laravel\Facades\Stripe;
 use Cartalyst\Stripe\Exception\CardErrorException;
 use App\Models\PlaqueOrder;
+use App\Mail\PlaqueReceipt;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +19,8 @@ use App\Models\PlaqueOrder;
 */
 
 Auth::routes();
+
+Route::get('/test', 'ActionsController@test')->name('test');
 
 // Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -61,6 +65,7 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::group(['prefix' => 'lottery'], function() {
 
         Route::get('/', 'LotteryController@index');
+        Route::get('/settings', 'LotteryController@settings');
         Route::get('/draw/{draw}', 'LotteryController@draw');
         Route::post('get-winner', 'LotteryController@getWinner');
         Route::post('draw/save', 'LotteryController@store');
@@ -75,10 +80,13 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
         Route::resource('players', 'LotteryPlayerController');
     });
 
-    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+    Route::group(['prefix' => 'emails'], function() {
+        Route::get('get', 'EmailsController@getEmails');
+    });
 
-    Route::get('news/articles', 'NewsController@getNewsArticles');
-    Route::delete('users/{user}/delete', 'LotteryController@deleteUser');
+    Route::name('admin.')->group(function () {
+        Route::resource('emails', 'EmailsController');
+    });
 
     Route::name('admin.')->group(function () {
         Route::resource('news', 'NewsController');
@@ -88,38 +96,5 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
 Route::post('/checkout', function(Request $request) {
     // validation
 
-    try {
-
-        Stripe::setApiKey(env('STRIPE_API_SECRET'));
-
-        $charge = Stripe::charges()->create([
-            'amount' => 16.00,
-            'currency' => 'GBP',
-            'source' => $request->stripeToken,
-            'statement_descriptor' => 'Memorial Plaque',
-            'description' => 'Memorial Plaque',
-        ]);
-
-        PlaqueOrder::where('plaque_id', $request->customer)
-            ->update([
-                'charge_id' => $charge['id'],
-                'amount' => 16.00,
-                'paid' => 1
-            ]);
-
-        // save this info to your database
-        // SUCCESSFUL
-        return back()->with('success_message', 'Thank you! Your payment has been accepted.');
-    } catch (CardErrorException $e) {
-        // save info to database for failed
-        PlaqueOrder::where('plaque_id', $request->customer)
-            ->update([
-                'plaque_id' => $request->customer,
-                'charge_id' => $charge['id'],
-                'amount' => 16.00,
-                'paid' => 0
-            ]);
-
-        return back()->withErrors('Error! ' . $e->getMessage());
-    }
+   
 });

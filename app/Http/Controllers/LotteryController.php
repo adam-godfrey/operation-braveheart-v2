@@ -46,6 +46,7 @@ class LotteryController extends Controller
                     ->first()->{$output[1]};
 
                 $player = LotteryPlayer::where('lottery_number', $winning_number)
+                    ->where('draw_type', $draw_type)
                     ->first();
 
                 $result[$draw_type][$output[1]] = (object) [

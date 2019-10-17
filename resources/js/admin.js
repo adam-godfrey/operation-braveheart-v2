@@ -30,21 +30,23 @@ Vue.use(VueSweetalert2, {
   	cancelButtonColor: '#ff7674'
 });
 
+import ToggleSwitch from 'vuejs-toggle-switch'
+Vue.use(ToggleSwitch)
+
 Vue.component('admin-sidebar', require('./components/admin/Sidebar.vue').default);
 
+Vue.component('lottery-settings', require('./components/admin/LotterySettings.vue').default);
 Vue.component('lottery-results', require('./components/admin/LotteryResults.vue').default);
-
 Vue.component('lottery-players', require('./components/admin/LotteryPlayersTable.vue').default);
-
 Vue.component('lottery-player', require('./components/admin/LotteryPlayerForm.vue').default);
 
 Vue.component('news-admin', require('./components/admin/News.vue').default);
 
 Vue.component('custom-select', require('./components/admin/CustomSelect.vue').default);
 
-Vue.component('lottery-settings', require('./components/admin/LotterySettings.vue').default);
-
 Vue.component('file-upload', require('./components/admin/FileUpload.vue').default);
+
+Vue.component('emails', require('./components/admin/EmailsTable.vue').default);
 
 const app = new Vue({
     el: '#app'

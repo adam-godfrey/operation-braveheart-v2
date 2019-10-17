@@ -5,6 +5,10 @@
     font-family: 'Poiret One', cursive;
 }
 
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, 1);
+}
+
 .bg-blue {
     background-color: $primary;
     color: #fff;
@@ -15,6 +19,10 @@
         height: calc(1.5em + 0.75rem + 18px);
         margin-right: 10px;
     }
+}
+
+.bg-none {
+    backround-color: transparent !important;
 }
 
 .cta {

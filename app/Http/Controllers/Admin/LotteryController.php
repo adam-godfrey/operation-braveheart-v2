@@ -15,11 +15,6 @@ class LotteryController extends Controller
 {
     use LotteryTrait;
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $lotterySetting = LotterySetting::all();
@@ -31,6 +26,19 @@ class LotteryController extends Controller
         }
 
         return View('admin.lottery.index')->with(['settings' => $data]);
+    }
+
+    public function settings()
+    {
+        $lotterySetting = LotterySetting::all();
+
+        $data = [];
+
+        foreach($lotterySetting as $setting) {
+            $data[$setting->key] = $setting->value;
+        }
+
+        return View('admin.lottery.settings')->with(['settings' => $data]);
     }
 
     public function draw($draw)

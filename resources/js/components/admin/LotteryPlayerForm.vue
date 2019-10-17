@@ -51,6 +51,13 @@
 					</div>
 				</div>
 				<div class="form-group row">
+					<label for="inputNumber" class="col-sm-4 col-form-label">Player Active</label>
+					<div class="col-sm-8">
+						<toggle-switch :options="myOptions" :disabled="false" @change="updateMap($event.value)" v-model="player.active" />
+					</div>
+				</div>
+
+				<div class="form-group row">
 					<div class="col-sm-8">
 						<button type="submit" class="btn btn-primary">
 						<span v-if="this.action === 'add'">Create Player</span>
@@ -74,7 +81,8 @@
 	</form>
 </template>
 <script>
-import CustomSelect from './CustomSelect.vue'
+import CustomSelect from './CustomSelect.vue';
+
 export default {
 	props: {
 		action: {
@@ -93,9 +101,39 @@ export default {
         		email: '',
         		telephone: '',
         		draw_type: 'Local',
-        		lottery_number: ''
+        		lottery_number: '',
+        		active: 'Yes'
         	},
         	errors: {},
+        	myOptions: {
+			  	layout: {
+				    color: 'grey',
+				    backgroundColor: 'lightgray',
+				    selectedColor: 'white',
+				    selectedBackgroundColor: 'green',
+				    borderColor: 'grey',
+				    fontFamily: 'Arial',
+				    fontWeight: 'normal',
+				    fontWeightSelected: 'bold',
+				    squareCorners: false,
+				    noBorder: false
+			  	},
+			  	size: {
+				    fontSize: 1,
+				    height: 2.5,
+				    padding: 0.5,
+				    width: 6
+			  	},
+			  	items: {
+				    delay: .4,
+				    preSelected: 'unknown',
+				    disabled: false,
+				    labels: [
+						{name: 'No', color: 'white', backgroundColor: 'red'}, 
+						{name: 'Yes', color: 'white', backgroundColor: 'green'}
+			    	]
+			  	}
+			}
         }
     },
     components: {

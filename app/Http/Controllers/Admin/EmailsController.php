@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\News;
+use App\Models\Email;
 
-class NewsController extends Controller
+class EmailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        // $news = News::select('title', 'subtitle', 'content')
-        //     ->get();
-
-        // $data = [
-        //     'news' => $news
-        // ];
-
-        return View('admin.news.index');
+        return View('admin.emails.index');
     }
 
     /**
@@ -32,7 +25,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return View('admin.news.create');
+        //
     }
 
     /**
@@ -55,6 +48,8 @@ class NewsController extends Controller
     public function show($id)
     {
         //
+
+        dd('hello');
     }
 
     /**
@@ -91,29 +86,34 @@ class NewsController extends Controller
         //
     }
 
-    public function getNewsArticles(Request $request)
+    public function getEmails(Request $request)
     {
         if ( $request->input('showdata') ) {
-            return News::orderBy('created_at', 'desc')->get();
+            $email = Email::withCount('attachments')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return $email;
             
         }
-
-        $columns = ['title', 'subtitle', 'created_at'];
+        $columns = ['from', 'subject', 'created_at'];
         $length = $request->input('length');
         $column = $request->input('column'); 
         $search_input = $request->input('search');
-        $query = UsNewser::select('title', 'subtitle', 'created_at'); //->orderBy($columns[$column]);
+        $query = Email::withCount('attachments'); //->orderBy($columns[$column]);
 
         if ($search_input) {
             $query->where(function($query) use ($search_input) {
-                $query->where('title', 'like', '%' . $search_input . '%')
-                ->orWhere('subtitle', 'like', '%' . $search_input . '%')
+                $query->where('from', 'like', '%' . $search_input . '%')
+                ->orWhere('subject', 'like', '%' . $search_input . '%')
                 ->orWhere('created_at', 'like', '%' . $search_input . '%');
             });
         }
 
-        $news = $query->paginate($length);
+        $query->orderBy('created_at', 'desc');
 
-        return ['data' => $news];
+        $emails = $query->paginate($length);
+
+        return ['data' => $emails];
     }
 }

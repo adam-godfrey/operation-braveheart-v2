@@ -25,6 +25,7 @@ export default {
                     text: 'Memorial Garden',
                     html: `<h6 class="collapse-header">Lottery:</h6>
                         <a class="collapse-item" href="/admin/lottery">Dashboard</a>
+                        <a class="collapse-item" href="/admin/lottery/settings">Settings</a>
                         <h6 class="collapse-header">Lottery Players:</h6>
                         <a class="collapse-item" href="/admin/lottery/players/create">Add New</a>
                         <a class="collapse-item" href="/admin/lottery/players">View All</a>`
@@ -32,7 +33,8 @@ export default {
                 { 
                     text: 'Lottery',
                     html: `<h6 class="collapse-header">Lottery:</h6>
-                        <a class="collapse-item" href="/admin/lottery">Settings</a>
+                        <a class="collapse-item" href="/admin/lottery">Dashboard</a>
+                        <a class="collapse-item" href="/admin/lottery/settings">Settings</a>
                         <h6 class="collapse-header">Draw Numbers:</h6>
                         <a class="collapse-item" href="/admin/lottery/draw/uk">UK</a>
                         <a class="collapse-item" href="/admin/lottery/draw/local">Local</a>
@@ -43,15 +45,15 @@ export default {
                 { 
                     text: 'News',
                     html: `<h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Add New</a>
-                        <a class="collapse-item" href="cards.html">View All</a>`
+                        <a class="collapse-item" href="/admin/news/create">Add New</a>
+                        <a class="collapse-item" href="/admin/news">View All</a>`
                 }
                 ,
                 { 
-                    text: 'Messages',
+                    text: 'Emails',
                     html: `<h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="buttons.html">Add New</a>
-                        <a class="collapse-item" href="cards.html">View All</a>`
+                        <a class="collapse-item" href="/admin/emails">View All</a>`
                 }
             ],
             isActive: null

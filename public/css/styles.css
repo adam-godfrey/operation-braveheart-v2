@@ -91,15 +91,15 @@ img::-moz-selection {
 
 #mainNav .navbar-brand {
   font-weight: 800;
-  color: #343a40;
+  color: #212529;
 }
 
 #mainNav .navbar-toggler {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
   padding: 13px;
   text-transform: uppercase;
-  color: #343a40;
+  color: #212529;
 }
 
 #mainNav .navbar-nav > li.nav-item > a {
@@ -629,6 +629,10 @@ footer .copyright {
   font-family: "Poiret One", cursive;
 }
 
+.navbar-light .navbar-nav .nav-link {
+  color: black;
+}
+
 .bg-blue {
   background-color: #0085A1;
   color: #fff;
@@ -641,6 +645,10 @@ footer .copyright {
 .bg-blue .form-control {
   height: calc(1.5em + 0.75rem + 18px);
   margin-right: 10px;
+}
+
+.bg-none {
+  backround-color: transparent !important;
 }
 
 .cta {

@@ -1,4 +1,4 @@
-<!-- Navigation -->
+
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home.index') }}">{{ Config::get('app.name') }}</a>
