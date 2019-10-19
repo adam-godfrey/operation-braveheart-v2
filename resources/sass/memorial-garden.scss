@@ -3,7 +3,7 @@
     padding: 50px;
     &:before {
         opacity: 0.6;
-        background-image: url('/../images/lone-soldier.webp');
+        background-image: url('/../images/lone-soldier.jpg');
     }
     h3 {
         text-align: center;
@@ -26,7 +26,7 @@
 #plaque {
     position: relative;
     padding: 40px 10px 20px;
-    background-image: url('/../images/metallic-effect.webp');
+    background-image: url('/../images/metallic-effect.jpg');
     margin-bottom: 15px;
     .form-group {
         margin-bottom: 0;
@@ -39,7 +39,7 @@
     }
     .screw {
         position: absolute;
-        background-image: url('/../images/screw.webp');
+        background-image: url('/../images/screw.png');
         background-repeat: no-repeat;
         background-size: contain;
         opacity: 0.6;

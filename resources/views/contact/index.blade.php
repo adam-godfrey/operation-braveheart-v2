@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('images/bg-contact.webp') }}')">
+    <header class="masthead contact-banner">
 @else
     <header class="masthead">
 @endif
