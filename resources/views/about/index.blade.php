@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('images/daniel-coffey-memorial.webp') }}')">
+    <header class="masthead about-banner">
 @else
     <header class="masthead">
 @endif

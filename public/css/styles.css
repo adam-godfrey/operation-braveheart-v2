@@ -405,7 +405,7 @@ footer .copyright {
 
 .cta-memorial:before {
   opacity: 0.6;
-  background-image: url("/../images/lone-soldier.webp");
+  background-image: url("/../images/lone-soldier.jpg");
 }
 
 .cta-memorial h3 {
@@ -429,7 +429,7 @@ footer .copyright {
 #plaque {
   position: relative;
   padding: 40px 10px 20px;
-  background-image: url("/../images/metallic-effect.webp");
+  background-image: url("/../images/metallic-effect.jpg");
   margin-bottom: 15px;
 }
 
@@ -446,7 +446,7 @@ footer .copyright {
 
 #plaque .screw {
   position: absolute;
-  background-image: url("/../images/screw.webp");
+  background-image: url("/../images/screw.png");
   background-repeat: no-repeat;
   background-size: contain;
   opacity: 0.6;
@@ -536,7 +536,7 @@ footer .copyright {
 
 .cta-lottery:before {
   opacity: 0.6;
-  background-image: url("/../images/lottery-balls.webp");
+  background-image: url("/../images/lottery-balls.jpg");
 }
 
 .cta-lottery span {
@@ -587,12 +587,52 @@ footer .copyright {
     background-image: url("/../images/1980/lottery-1980x1311.jpg");
   }
 
+  .no-webp .news-banner {
+    background-image: url("/../images/1980/newspapers-1980x1311.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/1980/operation-braveheart-memorial-garden-1980x1311.jpg");
+  }
+
+  .no-webp .lottery-banner {
+    background-image: url("/../images/1980/lottery-1980x1311.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/1980/operation-braveheart-shop-1980x1311.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/1980/bg-contact-1980x1311.jpg");
+  }
+
   .webp .rifles-banner {
     background-image: url("/../images/1980/rifles-1980x1311.webp");
   }
 
   .webp .lottery-banner {
     background-image: url("/../images/1980/lottery-1980x1311.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/1980/newspapers-1980x1311.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/1980/operation-braveheart-memorial-garden-1980x1311.webp");
+  }
+
+  .webp .lottery-banner {
+    background-image: url("/../images/1980/lottery-1980x1311.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/1980/operation-braveheart-shop-1980x1311.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/1980/bg-contact-1980x1311.webp");
   }
 
   .lottery-number.balls-3 {
@@ -619,16 +659,56 @@ footer .copyright {
     background-image: url("/../images/1660/rifles-1660x1099.jpg");
   }
 
+  .no-webp .about-banner {
+    background-image: url("/../images/1660/daniel-coffey-memorial-1660x1099.jpg");
+  }
+
+  .no-webp .news-banner {
+    background-image: url("/../images/1660/newspapers-1660x1099.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/1660/operation-braveheart-memorial-garden-1660x1099.jpg");
+  }
+
   .no-webp .lottery-banner {
     background-image: url("/../images/1660/lottery-1660x1099.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/1660/operation-braveheart-shop-1660x1099.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/1660/bg-contact-1660x1099.jpg");
   }
 
   .webp .rifles-banner {
     background-image: url("/../images/1660/rifles-1660x1099.webp");
   }
 
+  .webp .about-banner {
+    background-image: url("/../images/1660/daniel-coffey-memorial-1660x1099.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/1660/newspapers-1660x1099.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/1660/operation-braveheart-memorial-garden-1660x1099.webp");
+  }
+
   .webp .lottery-banner {
     background-image: url("/../images/1660/lottery-1660x1099.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/1660/operation-braveheart-shop-1660x1099.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/1660/bg-contact-1660x1099.webp");
   }
 
   .fun {
@@ -647,16 +727,56 @@ footer .copyright {
     background-image: url("/../images/1440/rifles-1440x953.jpg");
   }
 
+  .no-webp .about-banner {
+    background-image: url("/../images/1440/daniel-coffey-memorial-1440x953.jpg");
+  }
+
+  .no-webp .news-banner {
+    background-image: url("/../images/1440/newspapers-1440x953.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/1440/operation-braveheart-memorial-garden-1440x953.jpg");
+  }
+
   .no-webp .lottery-banner {
     background-image: url("/../images/1440/lottery-1440x953.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/1440/operation-braveheart-shop-1440x953.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/1440/bg-contact-1440x953.jpg");
   }
 
   .webp .rifles-banner {
     background-image: url("/../images/1440/rifles-1440x953.webp");
   }
 
+  .webp .about-banner {
+    background-image: url("/../images/1440/daniel-coffey-memorial-1440x953.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/1440/newspapers-1440x953.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/1440/operation-braveheart-memorial-garden-1440x953.webp");
+  }
+
   .webp .lottery-banner {
-    background-image: url("/../images/1440/lottery-1440x953.jpg");
+    background-image: url("/../images/6144000/lottery-1440x953.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/1440/operation-braveheart-shop-1440x953.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/1440/bg-contact-1440x953.webp");
   }
 
   .lottery-number.balls-3 {
@@ -685,16 +805,56 @@ footer .copyright {
     background-image: url("/../images/1440/rifles-1440x953.jpg");
   }
 
+  .no-webp .about-banner {
+    background-image: url("/../images/1440/daniel-coffey-memorial-1440x953.jpg");
+  }
+
+  .no-webp .news-banner {
+    background-image: url("/../images/1440/newspapers-1440x953.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/1440/operation-braveheart-memorial-garden-1440x953.jpg");
+  }
+
   .no-webp .lottery-banner {
     background-image: url("/../images/1440/lottery-1440x953.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/1440/operation-braveheart-shop-1440x953.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/1440/bg-contact-1440x953.jpg");
   }
 
   .webp .rifles-banner {
     background-image: url("/../images/1440/rifles-1440x953.webp");
   }
 
+  .webp .about-banner {
+    background-image: url("/../images/1440/daniel-coffey-memorial-1440x953.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/1440/newspapers-1440x953.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/1440/operation-braveheart-memorial-garden-1440x953.webp");
+  }
+
   .webp .lottery-banner {
-    background-image: url("/../images/1440/lottery-1440x953.jpg");
+    background-image: url("/../images/6144000/lottery-1440x953.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/1440/operation-braveheart-shop-1440x953.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/1440/bg-contact-1440x953.webp");
   }
 
   .fun {
@@ -709,16 +869,56 @@ footer .copyright {
     background-image: url("/../images/600/rifles-600x397.jpg");
   }
 
+  .no-webp .about-banner {
+    background-image: url("/../images/600/daniel-coffey-memorial-600x397.jpg");
+  }
+
+  .no-webp .news-banner {
+    background-image: url("/../images/600/newspapers-600x397.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/600/operation-braveheart-memorial-garden-600x397.jpg");
+  }
+
   .no-webp .lottery-banner {
     background-image: url("/../images/600/lottery-600x397.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/600/operation-braveheart-shop-600x397.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/600/bg-contact-600x307.jpg");
   }
 
   .webp .rifles-banner {
     background-image: url("/../images/600/rifles-600x397.webp");
   }
 
+  .webp .about-banner {
+    background-image: url("/../images/600/daniel-coffey-memorial-600x397.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/600/newspapers-600x397.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/600/operation-braveheart-memorial-garden-600x397.webp");
+  }
+
   .webp .lottery-banner {
-    background-image: url("/../images/600/lottery-600x397.jpg");
+    background-image: url("/../images/600/lottery-600x397.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/600/operation-braveheart-shop-600x397.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/600/bg-contact-600x307.webp");
   }
 
   .fun {
@@ -733,16 +933,56 @@ footer .copyright {
     background-image: url("/../images/600/rifles-600x397.jpg");
   }
 
+  .no-webp .about-banner {
+    background-image: url("/../images/600/daniel-coffey-memorial-600x397.jpg");
+  }
+
+  .no-webp .news-banner {
+    background-image: url("/../images/600/newspapers-600x397.jpg");
+  }
+
+  .no-webp .memorial-banner {
+    background-image: url("/../images/600/operation-braveheart-memorial-garden-600x397.jpg");
+  }
+
   .no-webp .lottery-banner {
     background-image: url("/../images/600/lottery-600x397.jpg");
+  }
+
+  .no-webp .shop-banner {
+    background-image: url("/../images/600/operation-braveheart-shop-600x397.jpg");
+  }
+
+  .no-webp .contact-banner {
+    background-image: url("/../images/600/bg-contact-600x307.jpg");
   }
 
   .webp .rifles-banner {
     background-image: url("/../images/600/rifles-600x397.webp");
   }
 
+  .webp .about-banner {
+    background-image: url("/../images/600/daniel-coffey-memorial-600x397.webp");
+  }
+
+  .webp .news-banner {
+    background-image: url("/../images/600/newspapers-600x397.webp");
+  }
+
+  .webp .memorial-banner {
+    background-image: url("/../images/600/operation-braveheart-memorial-garden-600x397.webp");
+  }
+
   .webp .lottery-banner {
     background-image: url("/../images/600/lottery-600x397.webp");
+  }
+
+  .webp .shop-banner {
+    background-image: url("/../images/600/operation-braveheart-shop-600x397.webp");
+  }
+
+  .webp .contact-banner {
+    background-image: url("/../images/600/bg-contact-600x307.webp");
   }
 
   .fun {
