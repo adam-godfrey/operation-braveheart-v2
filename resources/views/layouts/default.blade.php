@@ -7,6 +7,7 @@
 @yield('content')
 @include('layouts.partials.footer')
 </div>
+<script src="{{ asset('js/modernizr-custom.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 @stack('scripts')
 <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>

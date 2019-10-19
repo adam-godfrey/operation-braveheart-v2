@@ -25,11 +25,20 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+            <p>Welcome to Braveheart HQ Support shop for our Forces. Our shop is the artery that supplies much of the blood that flows through the veins of Operation Braveheart. We depend on the shop to help to provide much of the funds that are needed to support our Forces support work, especially for our Bereaved <a href="{{ route('memorial-garden.index') }}">Families Memorial Garden</a>.
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex alias, earum consectetur quia natus ducimus voluptate explicabo, hic porro reprehenderit, quasi? Tenetur ipsum distinctio laboriosam perspiciatis officiis dolore, architecto id.</p>
+            <p>We depend entirely on the generosity and kindness of the public, family and friends of Operation Braveheart to give us donations which we can sell in our shop and of course we also need customers and visitors to the shop too to come in and say hello and hopefully buy our items to raise those funds to keep Operation Braveheart’s work alive.</p>
 
-            <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam inventore aspernatur repellendus incidunt adipisci modi voluptates recusandae iste eligendi, repudiandae corporis quod aut, optio! Explicabo quaerat unde voluptatem! Itaque, eum!</p>
+            <p>We can accept most things which are in good condition like householdware, CDs, DVDs computer games, game consoles and small electrical items but must be in good working order.</p>
+
+            <p>Our shop is....how can I put it? SMALL and compact and I don't like to turn things away but for me here, size is as they say a problem but having said that we do our best to accept most things including clothes and shoes if they are in good condition.</p>
+
+            <p>To help with our shop space problem, I have now taken on a storage unit where we will be able to keep some of our donated stock items in but it's an additional cost to what we have to bear before we can get into a position to be able to say we are making a profit.</p> 
+
+            <p>But my friends, I am thankful for those small mercies that come our way to support our forces and my bereaved forces <a href="{{ route('memorial-garden.index') }}">Families Memorial Garden</a>.</p>
+
+            <p class="mb-5">I thank you in advance if you can support the shop and become a beloved member of our forces Braveheart Family.</p>
+
         </div>
     </div>
 </div>

@@ -1,0 +1,183 @@
+@media (min-width: 1900px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/1980/rifles-1980x1311.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/1980/lottery-1980x1311.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/1980/rifles-1980x1311.webp');
+	 	}
+	 	.lottery-banner {
+	 		background-image: url('/../images/1980/lottery-1980x1311.webp');
+	 	}
+	}
+
+	.lottery-number {
+		&.balls-3 {
+	        font-size: 50px;
+	        max-height: 228px;
+	    }
+
+	    &.balls-4 {
+	        font-size: 32px;
+	        max-height: 165px;
+	    }
+	}
+
+	.fun {
+    	padding: 30px 0;
+    }
+
+    #plaque {
+	    padding: 30px 100px 20px;
+	}
+}
+
+@media (min-width: 1600px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/1660/rifles-1660x1099.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/1660/lottery-1660x1099.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/1660/rifles-1660x1099.webp');
+	 	}
+	 	.lottery-banner {
+	 		background-image: url('/../images/1660/lottery-1660x1099.webp');
+	 	}
+	}
+
+	.fun {
+    	padding: 25px 0;
+    }
+
+    #plaque {
+	    padding: 30px 100px 20px;
+	}
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/1440/rifles-1440x953.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/1440/lottery-1440x953.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/1440/rifles-1440x953.webp');
+	 	}
+	 	.lottery-banner {
+	  		background-image: url('/../images/1440/lottery-1440x953.jpg');
+	  	}
+	}
+
+	.lottery-number {
+		&.balls-3 {
+	        font-size: 50px;
+	        max-height: 228px;
+	    }
+
+	    &.balls-4 {
+	        font-size: 32px;
+	        max-height: 165px;
+	    }
+	}
+
+	.fun {
+    	padding: 25px 0;
+    }
+
+    #plaque {
+	    padding: 30px 100px 20px;
+	}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 1199px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/1440/rifles-1440x953.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/1440/lottery-1440x953.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/1440/rifles-1440x953.webp');
+	 	}
+	 	.lottery-banner {
+	  		background-image: url('/../images/1440/lottery-1440x953.jpg');
+	  	}
+	}
+
+	.fun {
+    	padding: 20px 0;
+    }
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/600/rifles-600x397.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/600/lottery-600x397.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/600/rifles-600x397.webp');
+	 	}
+	 	.lottery-banner {
+	  		background-image: url('/../images/600/lottery-600x397.jpg');
+	  	}
+	}
+
+	.fun {
+    	padding: 15px 0;
+    }
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+	.no-webp {
+		.rifles-banner {
+	  		background-image: url('/../images/600/rifles-600x397.jpg');
+	  	}
+	  	.lottery-banner {
+	  		background-image: url('/../images/600/lottery-600x397.jpg');
+	  	}
+	}
+
+	.webp {
+		.rifles-banner {
+	 		background-image: url('/../images/600/rifles-600x397.webp');
+	 	}
+	 	.lottery-banner {
+	  		background-image: url('/../images/600/lottery-600x397.webp');
+	  	}
+	}
+
+	.fun {
+    	padding: 10px 0;
+    }
+}
