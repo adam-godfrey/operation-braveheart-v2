@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('images/lottery.webp') }}'), radial-gradient(#fff,#fff);">
+    <header class="masthead lottery-banner">
 @else
     <header class="masthead">
 @endif
@@ -38,13 +38,13 @@
             <p>We have two lotteries run under the same rules for both. One is a local Cullompton area draw and the other is for our UK Braveheart family.</p>
 
             <p>They are monthly draws and they are drawn as close as possible to the end of the month.</p>
-            <h3 class="text-uppercase text-center mb-3">This month's UK winning numbers are...</h3>
+            <h3 class="h3 text-uppercase text-center mb-3">This month's UK winning numbers are...</h3>
+
             <div class="row">
                 @foreach($lottery->UK as $draw)
-                    <div class="col">
+                    <div class="col-6 col-sm-4">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-blue.png') }}" alt="Card image cap">
-                            <div class="lottery-number balls-{{ count($lottery->UK) }}">{{ $draw->number }}</div>
+                            <img class="card-img-top" src="{{ asset('images/ball-blue-' . $draw->image . '.jpg') }}" alt="Card image cap">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -60,13 +60,12 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Each number costs &pound2.00 per month. There are no restrictions as to how many numbers you can hold in your name, the more numbers you have, the greater the chance of winning prizes.
 
-            <h3 class="text-uppercase text-center mb-3">This month's Local winning numbers are...</h3>
+            <h3 class="h3 text-uppercase text-center mb-3">This month's Local winning numbers are...</h3>
             <div class="row">
                 @foreach($lottery->Local as $draw)
-                    <div class="col">
+                    <div class="col-6 col-sm-{{ count($lottery->Local) == 3 ? '4' : '3' }}">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-green.png') }}" alt="Card image cap">
-                            <div class="lottery-number balls-{{ count($lottery->Local) }}">{{ $draw->number }}</div>
+                            <img class="card-img-top" src="{{ asset('images/ball-green-' . $draw->image . '.jpg') }}" alt="Card image cap">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -91,11 +90,11 @@
     
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <call-to-action 
+            <!-- <call-to-action 
                 url="{{ route('lottery.payment') }}" 
                 class="cta cta-lottery"
                 html="<span>JOIN TODAY</span>">
-            </call-to-action>
+            </call-to-action> -->
         </div>
     </div>
 
@@ -108,12 +107,12 @@
 <div class="container-fluid fun">
     <div class="row">
         <div class="col mx-auto text-center">
-            <img src="{{ asset('images/fun.webp') }}">
+            <img srcset="{{ asset('images/600/fun.jpg') }} 320w, 
+                         {{ asset('images/600/fun.jpg') }} 480w, 
+                         {{ asset('images/1440/fun.jpg') }} 800w"
+                 sizes="(max-width: 320px) 300px, (max-width: 480px) 440px, 800px"
+                 src="{{ asset('images/1980/fun.jpg') }}" alt="Image">
         </div>
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
-@endpush

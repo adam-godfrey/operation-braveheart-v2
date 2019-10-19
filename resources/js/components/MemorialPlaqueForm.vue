@@ -8,7 +8,7 @@
                 <div v-if="errors && errors.rank" class="text-danger text-right small">{{ errors.rank[0] }}</div>
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Loved One's Name" id="name" v-model="fields.name" v-on:change="nameChange">
+                <input type="text" class="form-control" placeholder="Name" id="name" v-model="fields.name" v-on:change="nameChange">
                 <div v-if="errors && errors.name" class="text-danger small">{{ errors.name[0] }}</div>
             </div>
         </div>

@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('images/rifles.webp') }}')">
+    <header class="masthead rifles-banner">
 @else
     <header class="masthead">
 @endif
@@ -25,7 +25,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <h1>Welcome to {{ Config::get('app.name') }}</h1>
+            <h1 class="h1">Welcome to {{ Config::get('app.name') }}</h1>
 
             <p>This website is the online voice of forces support organisation Operation Braveheart of Cullompton, Devon.</p>
 
@@ -44,9 +44,9 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <article class="post-preview">
                 <a href="/startbootstrap-clean-blog-jekyll/2017/10/31/man-must-explore.html">
-                    <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
+                    <h2 class="h2 post-title">Man must explore, and this is exploration at its greatest</h2>
 
-                    <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
+                    <h3 class="h3 post-subtitle">Problems look mighty small from 150 miles up</h3>
 
                 </a>
                 <p class="post-meta">Posted by

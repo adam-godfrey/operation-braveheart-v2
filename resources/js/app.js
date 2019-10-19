@@ -7,10 +7,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
 Vue.component('navbar', require('./components/Navbar.vue').default);
-/* Register our new component: */
+
 Vue.component('contact-form', require('./components/ContactForm.vue').default);
 
 Vue.component('newsletter-form', require('./components/Newsletter.vue').default);
@@ -42,11 +40,11 @@ const router = new VueRouter({
     	},
     	{
 			path: '/lottery',
-			name: 'user',
+			name: 'lottery',
     	},
     	{
 			path: '/memorial-garden',
-			name: 'user',
+			name: 'memorial-garden',
     	},
     	{
 			path: '/news',
@@ -61,7 +59,7 @@ const router = new VueRouter({
 			name: 'contact',
     	},
   	]
-})
+});
 
 const app = new Vue({
     el: '#app',

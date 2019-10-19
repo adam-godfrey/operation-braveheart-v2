@@ -38,6 +38,9 @@ class LotteryController extends Controller
             foreach($prizes->take($winners->value) as $prize) {
                 $i++;
 
+                $locale = 'en_GB';
+                $nf = new \NumberFormatter($locale, \NumberFormatter::ORDINAL);
+
                 preg_match('~_(.*?)_~', $prize->key, $output);
 
                 $winning_number = LotteryDraw::where('draw_date', $draw_date)
@@ -52,7 +55,8 @@ class LotteryController extends Controller
                 $result[$draw_type][$output[1]] = (object) [
                     'winner' => ucwords(strtolower($player->name)),
                     'prize' => $prize->value,
-                    'number' => $winning_number
+                    'number' => $winning_number,
+                    'image' => $nf->format($i)
                 ];
             }
         }
@@ -64,8 +68,6 @@ class LotteryController extends Controller
             ],
             'lottery' => (object) $result
         ];
-
-        // dd($data);
 
         return View('lottery.index')->with($data);
     }

@@ -10,6 +10,7 @@ use App\Models\Admin\LotteryDraw;
 use App\Models\Admin\LotteryPlayer;
 use App\Http\Traits\LotteryTrait;
 use DateTime;
+use Image;
 
 class LotteryController extends Controller
 {
@@ -92,6 +93,18 @@ class LotteryController extends Controller
                 'value' => $prize->value,
                 'number' => $winning_number
             ];
+
+            $color = ($draw == 'uk') ? 'blue' : 'green';
+
+            $img = Image::make(\Storage::get('ball-' . $color . '.jpg'));  
+            $img->text($winning_number, 137, 141, function($font) {  
+                $font->file(public_path('fonts/open-sans.bold.ttf'));  
+                $font->size(50);  
+                $font->color('#212529');  
+                $font->align('center');  
+                $font->valign('center');  
+            });  
+            $img->save(public_path('images/ball-' . $color . '-' .  $nf->format($i) . '.jpg')); 
 
             $player = LotteryPlayer::where('lottery_number', $winning_number)
                 ->first();
