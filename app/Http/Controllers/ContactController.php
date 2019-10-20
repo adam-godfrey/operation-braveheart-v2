@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Event;
+use App\Events\SendContactFormAutoResponse;
+use App\Events\SendContactFormForwarder;
 
 class ContactController extends Controller
 {
@@ -29,9 +32,16 @@ class ContactController extends Controller
             'email' => 'required|email',
             'message' => 'required',
         ]);
-        /*
-          Add mail functionality here.
-        */
+        
+        $content = new \stdClass();
+        $content->name = $request->input('name');
+        $content->email = $request->input('email');
+        $content->message = $request->input('message');
+
+        event(new SendContactFormAutoResponse($content));
+
+        event(new SendContactFormForwarder($content));
+
         return response()->json(null, 200);
     }
 }

@@ -8,6 +8,10 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\SendPlaqueReceipt;
 use App\Listeners\SendPlaqueConfirmationEmail;
+use App\Events\SendContactFormAutoResponse;
+use App\Listeners\ReceiveContactFormAutoResponse;
+use App\Events\SendContactFormForwarder;
+use App\Listeners\SendContactFormForwarderEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         SendPlaqueReceipt::class => [
             SendPlaqueConfirmationEmail::class
+        ],
+        SendContactFormAutoResponse::class => [
+            SendContactFormAutoResponseEmail::class
+        ],
+        SendContactFormForwarder::class => [
+            SendContactFormForwarderEmail::class
         ],
     ];
 

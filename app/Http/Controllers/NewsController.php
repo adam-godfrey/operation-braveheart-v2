@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use Hashids;
 
 class NewsController extends Controller
 {
@@ -28,7 +29,7 @@ class NewsController extends Controller
 
     public function show($id)
     {
-        $item = News::where('id', $id)->first();
+        $item = News::where('id', Hashids::decode($id)[0])->first();
 
         $news = News::paginate(2);
 

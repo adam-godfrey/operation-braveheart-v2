@@ -28,7 +28,7 @@
             @if($news->count() > 0)
                 @foreach($news as $article)
                     <article class="post-preview">
-                        <a href="{{ route('news.show', $article->id) }}">
+                        <a href="{{ route('news.show', $article->hashid) }}">
                             <h2 class="post-title">{{ $article->title }}</h2>
                             @if($article->subtitle)
                             <h3 class="post-subtitle">{{ $article->subtitle }}</h3>
@@ -40,7 +40,7 @@
                             @if($article->author)
                             {{ $article->author }}
                             @else
-                            {{ $article->author }}
+                            David
                             @endif
                             on {{ $article->created_at->format('Y-m-d') }} &middot;
                         </p>

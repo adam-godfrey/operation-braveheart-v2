@@ -43,23 +43,14 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <article class="post-preview">
-                <a href="/startbootstrap-clean-blog-jekyll/2017/10/31/man-must-explore.html">
-                    <h2 class="h2 post-title">Man must explore, and this is exploration at its greatest</h2>
-
-                    <h3 class="h3 post-subtitle">Problems look mighty small from 150 miles up</h3>
-
+                <a href="{{ route('news.show', $news->hashid) }}">
+                    <h2 class="h2 post-title">{{ $news->title }}</h2>
+                    <h3 class="h3 post-subtitle">{{ $news->subtitle }}</h3>
                 </a>
-                <p class="post-meta">Posted by
-
-                    Start Bootstrap
-
-                    on
-                    October 31, 2017 · <span class="reading-time" title="Estimated read time">4 mins  read </span>
-
-                </p>
+                <p class="post-meta">Posted by David on {{ $news->created_at->format('d M Y') }} · <span class="reading-time" title="Estimated read time">4 mins read </span></p>
             </article>
             <p class="text-center">
-                <a href="{{ route('about.index') }}" class="btn btn-outline-primary">Read More</a>
+                <a href="{{ route('news.show', $news->hashid) }}" class="btn btn-outline-primary">Read More</a>
                 <a href="{{ route('news.index') }}" class="btn btn-outline-primary">Latest News</a>
             </p>
         </div>

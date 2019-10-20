@@ -40,8 +40,8 @@ return [
     'connections' => [
 
         'main' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
+            'salt' => '13C0ldH@b0ur',
+            'length' => '6',
         ],
 
         'alternative' => [
@@ -51,6 +51,11 @@ return [
 
         \App\Models\Email::class => [
             'salt' => \App\Models\Email::class.'7623e9b0009feff8e024a689d6ef59ce',
+            'length' => 5,
+        ],
+
+        \App\Models\News::class => [
+            'salt' => \App\Models\News::class.'7623e9b0009feff8e024a689d6ef59ce',
             'length' => 5,
         ],
 
