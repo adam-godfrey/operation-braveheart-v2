@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Event;
 use App\Events\SendPlaqueReceipt;
 use App\Listeners\SendPlaqueConfirmationEmail;
 use App\Events\SendContactFormAutoResponse;
-use App\Listeners\ReceiveContactFormAutoResponse;
+use App\Listeners\SendContactFormAutoResponseEmail;
 use App\Events\SendContactFormForwarder;
 use App\Listeners\SendContactFormForwarderEmail;
 

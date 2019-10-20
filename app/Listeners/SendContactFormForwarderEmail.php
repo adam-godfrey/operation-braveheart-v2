@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\SendContactFormForwarder;
 use App\Mail\ContactFormForwarder;
 
-class SendContactFormAutoResponseEmail
+class SendContactFormForwarderEmail
 {
     /**
      * Create the event listener.
@@ -27,7 +27,7 @@ class SendContactFormAutoResponseEmail
      */
     public function handle(SendContactFormForwarder $event)
     {
-        \Mail::to('david@operation-braveeart.org.uk')->send(
+        \Mail::to('david@operation-braveheart.org.uk')->send(
             new ContactFormForwarder($event->contact)
         );
     }

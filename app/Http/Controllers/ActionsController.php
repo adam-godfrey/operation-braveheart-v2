@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Mail;
 use Event;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use Mpdf\Mpdf;
+use Hashids;
 use App\Events\SendPlaqueReceipt;
 use App\Models\Plaque;
 use App\Models\Admin\LotterySetting;
@@ -27,11 +29,11 @@ class ActionsController extends Controller
 
     public function test()
     {
-        // $receipt = Plaque::with('order')
-        //     ->where('id', 1)
-        //     ->first();
+        $receipt = Plaque::with('order')
+            ->where('id', 1)
+            ->first();
  
-        // event(new SendPlaqueReceipt($receipt));
+        event(new SendPlaqueReceipt($receipt));
 
 
 
@@ -164,6 +166,59 @@ class ActionsController extends Controller
                 ]);
 
             return back()->withErrors('Error! ' . $e->getMessage());
+        }
+    }
+
+    public function createPDFReceipt($id)
+    {
+        if(!is_array($id)) {
+            return;
+        }
+        
+        $order = Plaque::with('order')
+            ->where('id', Hashids::connection('alternative')->decode($id)[0])
+            ->first();
+
+        if($order) {
+
+            $defaultConfig = (new\Mpdf\Config\ConfigVariables())->getDefaults();
+            $fontDirs = $defaultConfig['fontDir'];
+
+            $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+            $fontData = $defaultFontConfig['fontdata'];
+
+            $stylesheet = file_get_contents(public_path('css/pdf.css'));
+
+            $mpdf = new \Mpdf\Mpdf([
+                'mode' => 'en',
+                'default_font_size' => 10,
+                'fontDir' => array_merge($fontDirs, [
+                   public_path('fonts')
+                ]),
+                'fontdata' => $fontData + [
+                    'OpenSans' => [
+                       'R' => 'open-sans.regular.ttf',
+                       'B' => 'open-sans.bold.ttf'
+                    ],
+                    'MyriadProCondensed' => [
+                        'R' => 'myriad-pro-condensed.ttf',  
+                    ]
+                ],
+                'default_font' => 'OpenSans'
+            ]);
+
+            $view = \View::make('pdf.receipt', [
+                'data' => $order
+            ]);
+
+            $html = $view->render();
+
+
+            $mpdf->WriteHTML($stylesheet,\Mpdf\HTMLParserMode::HEADER_CSS);
+            $mpdf->WriteHTML($html,\Mpdf\HTMLParserMode::HTML_BODY);
+
+            // Output a PDF file directly to the browser
+            $mpdf->Output('receipt.pdf', \Mpdf\Output\Destination::DOWNLOAD);
         }
     }
 }

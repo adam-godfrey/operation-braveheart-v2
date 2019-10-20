@@ -93,8 +93,6 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     });
 });
 
-Route::post('/checkout', function(Request $request) {
-    // validation
+Route::post('/checkout', 'ActionsController@checkout');
 
-   
-});
+Route::get('download-receipt/{id}', 'ActionsController@createPDFReceipt');

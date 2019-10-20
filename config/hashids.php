@@ -40,23 +40,13 @@ return [
     'connections' => [
 
         'main' => [
-            'salt' => '13C0ldH@b0ur',
+            'salt' => env('HASH_IDS_SALT', 'your-salt-string'),
             'length' => '6',
         ],
 
         'alternative' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
-        ],
-
-        \App\Models\Email::class => [
-            'salt' => \App\Models\Email::class.'7623e9b0009feff8e024a689d6ef59ce',
-            'length' => 5,
-        ],
-
-        \App\Models\News::class => [
-            'salt' => \App\Models\News::class.'7623e9b0009feff8e024a689d6ef59ce',
-            'length' => 5,
+            'salt' => env('HASH_IDS_SALT', 'your-salt-string'),
+            'length' => '16',
         ],
 
     ],
