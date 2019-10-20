@@ -435,8 +435,8 @@
             <tr>
               <td class="email-masthead">
                 <a href="https://www.operation-braveheart.org.uk" class="f-fallback email-masthead_name">
-                <img alt="Operation Braveheart" src="https://www.operation-braveheart.org.uk/images/email-header.gif"/>
-              </a>
+                  Operation Braveheart
+                </a>
               </td>
             </tr>
             <!-- Email Body -->
@@ -449,7 +449,7 @@
                       <div class="f-fallback">
                         <h1>Hi {{$contact->name}},</h1>
                         <p>Thanks you for contacting Operation Braveheart. David will respond to your enquiry wihin 24 hours</p>
-                        <p>Here is a copy of our message</p>
+                        <p>Here is a copy of your message</p>
                         <p><i>{!! nl2br($contact->message) !!}<i></p>
                         <p>Cheers,
                           <br>The Operation Braveheart Team

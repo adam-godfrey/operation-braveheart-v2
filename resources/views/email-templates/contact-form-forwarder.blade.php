@@ -435,8 +435,8 @@
             <tr>
               <td class="email-masthead">
                 <a href="https://www.operation-braveheart.org.uk" class="f-fallback email-masthead_name">
-                <img alt="Operation Braveheart" src="https://www.operation-braveheart.org.uk/images/email-header.gif"/>
-              </a>
+                  Operation Braveheart
+                </a>
               </td>
             </tr>
             <!-- Email Body -->

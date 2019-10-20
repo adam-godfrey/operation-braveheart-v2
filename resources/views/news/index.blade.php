@@ -42,7 +42,7 @@
                             @else
                             David
                             @endif
-                            on {{ $article->created_at->format('Y-m-d') }} &middot;
+                            on {{ $article->created_at->format('d M Y') }} &middot;
                         </p>
                     </article>
                     <hr>
