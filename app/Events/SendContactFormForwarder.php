@@ -10,19 +10,19 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SendPlaqueReceipt
+class SendContactFormForwarder
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $receipt;
+    public $contact;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($receipt)
+    public function __construct($contact)
     {
-        $this->receipt = $receipt;
+        $this->contact = $contact;
     }
 }

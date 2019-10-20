@@ -7,7 +7,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Jobs\Upload;
 
-class UploadToFacebook
+class Upload
 {
     /**
      * The name of the connection the job should be sent to.

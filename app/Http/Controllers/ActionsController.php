@@ -11,8 +11,6 @@ use GuzzleHttp\Client;
 use App\Events\SendPlaqueReceipt;
 use App\Models\Plaque;
 use App\Models\Admin\LotterySetting;
-
-
 use Webklex\IMAP\Facades\Client as Imap;
 use App\Models\Email;
 use App\Models\EmailAttachment;
@@ -148,8 +146,8 @@ class ActionsController extends Controller
                 ]);
 
             $receipt = Plaque::with('order')
-            ->where('id', 1)
-            ->first();
+                ->where('id', 1)
+                ->first();
  
             event(new SendPlaqueReceipt($receipt));
             

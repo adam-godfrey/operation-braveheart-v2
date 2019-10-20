@@ -24,10 +24,6 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
-        Route::bind('email', function ($value, $route) {
-            return $this->getModel(\App\Models\Email::class, $value);
-        });
     }
 
     /**
