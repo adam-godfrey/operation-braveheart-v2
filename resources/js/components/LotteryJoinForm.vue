@@ -1,6 +1,12 @@
 <template>
     <form @submit.prevent="submit">
         <div class="card mb-4 border-0">
+            <div class="notice notice-success" v-show="success">
+                <strong>Success</strong> Lottery registration successful!!
+            </div>
+            <div class="notice notice-danger" v-show="errored">
+                <strong>Error</strong> There are errors in the form!!
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="form-group floating-label-form-group controls">
@@ -24,68 +30,45 @@
                     </div>
                 </div>
             </div>
-            <AddressForm></AddressForm>
+
+            <div class="row mt-4">
+                <div class="col-auto">
+                    I would like to join the:
+                </div>
+                <div class="col">
+                    <label for="uk" class="check ">UK lottery
+                        <input type="checkbox" id="uk" value="UK" v-model="fields.lotteries" v-on:change="checkboxChange">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label for="local" class="check ">Local lottery
+                        <input type="checkbox" id="local" value="Local" v-model="fields.lotteries" v-on:change="checkboxChange">
+                        <span class="checkmark"></span>
+                    </label>
+                    <div v-if="errors && errors.lotteries" class="text-danger small">{{ errors.lotteries[0] }}</div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 col-md-10 col-lg-8 mx-auto text-center">
+                    <button type="submit" class="btn btn-primary" id="joinLotteryButton" :disabled="isSending">Join Today</button>
+                </div>
+            </div>
         </div>
     </form>
 </template>
 <script>
-import AddressForm from './AddressForm.vue';
 export default {
     data: function() {
         return {
             fields: {
-                address1: '',
-                address2: '',
-                address3: '',
-                town: '',
-                county: '',
-                postcode: '',
-                confirm: '',
-                customer: ''
+                lotteries: [],
             },
             errors: {},
+            isSending: false,
+            errored: false,
+            success: false
         }
     },
     name: 'LotteryJoinForm',
-    components: {
-        AddressForm,
-    },
-    mounted() {
-        this.$root.$on('checkFormsValid', (customer) => {
-            this.errors = {};
-            this.fields.customer = customer;
-            axios.post('/lottery/send-request', this.fields).then(response => {
-                this.$root.$emit('validated', response.data.customer)
-            }).catch(error => {
-                if (error.response.status === 422) {
-                    this.errors = error.response.data.errors || {};
-                    this.$root.$emit('errors', this.errors)
-                }
-            });
-        }),
-        this.$root.$on('address1Change', address1 => {
-            this.fields.address1 = address1;
-        });
-        this.$root.$on('address2Change', address2 => {
-            this.fields.address2 = address2;
-        });
-        this.$root.$on('address3Change', address3 => {
-            this.fields.address3 = address3;
-        });
-        this.$root.$on('townChange', town => {
-            this.fields.town = town;
-        });
-        this.$root.$on('countyChange', county => {
-            this.fields.county = county;
-        });
-        this.$root.$on('postcodeChange', postcode => {
-            console.log(postcode);
-            this.fields.postcode = postcode;
-        });
-        this.$root.$on('confirmChange', confirm => {
-            this.fields.confirm = confirm;
-        });
-    },
     methods: {
         contactChange: function() {
             delete this.errors.contact;
@@ -95,6 +78,31 @@ export default {
         },
         emailChange: function() {
             delete this.errors.email;
+        },
+        checkboxChange: function(event) {
+            if(event.target.checked) {
+                delete this.errors.lotteries;
+            }
+        },
+        submit() {
+            this.errors = {};
+            this.isSending = true;
+            this.success = false;
+            this.errored = false;
+            axios.post('/lottery/send-request', this.fields).then(response => {
+                $this.fields.contact = '';
+                $this.fields.email = '';
+                $this.fields.telephone = '';
+                $this.fields.lotteries = [];
+                this.isSending = false;
+                this.success = true;
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors || {};
+                    this.isSending = false;
+                    this.errored = true;
+                }
+            });
         },
     }
 }

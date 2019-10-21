@@ -346,6 +346,7 @@ export default {
 		            		let current_total = type === 'UK' ? this.uk_ball_count : this.local_ball_count;
 		            		let update = {
 		            			new_total: parseInt(current_total) + parseInt(extra_balls),
+		            			extra_balls: parseInt(extra_balls),
 		            			type: type
 		            		}
 

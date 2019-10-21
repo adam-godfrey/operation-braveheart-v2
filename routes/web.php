@@ -24,12 +24,10 @@ Route::get('/test', 'ActionsController@test')->name('test');
 
 // Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', 'IndexController@index')->name('home.index');
-Route::get('/about', 'AboutController@index')->name('about.index');
+Route::get('about', 'AboutController@index')->name('about.index');
 
-Route::get('/shop', 'ShopController@index')->name('shop.index');
+Route::get('shop', 'ShopController@index')->name('shop.index');
 
 Route::prefix('news')->group(function () {
     Route::get('/', 'NewsController@index')->name('news.index');
@@ -43,13 +41,14 @@ Route::prefix('contact')->group(function () {
 
 Route::prefix('memorial-garden')->group(function () {
     Route::get('/', 'MemorialGardenController@index')->name('memorial-garden.index');
-    Route::get('/add-rememberance', 'MemorialGardenController@add')->name('memorial-garden.add');
+    Route::get('add-rememberance', 'MemorialGardenController@add')->name('memorial-garden.add');
     Route::post('send-request', 'MemorialGardenController@send')->name('memorial-garden.send');
 });
 
 Route::prefix('lottery')->group(function () {
     Route::get('/', 'LotteryController@index')->name('lottery.index');
-    Route::get('/join', 'LotteryController@join')->name('lottery.join');
+    Route::get('join', 'LotteryController@join')->name('lottery.join');
+    Route::post('send-request', 'LotteryController@send')->name('lottery.send');
 });
 
 Route::prefix('api')->group(function () {
@@ -65,8 +64,8 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::group(['prefix' => 'lottery'], function() {
 
         Route::get('/', 'LotteryController@index');
-        Route::get('/settings', 'LotteryController@settings');
-        Route::get('/draw/{draw}', 'LotteryController@draw');
+        Route::get('settings', 'LotteryController@settings');
+        Route::get('draw/{draw}', 'LotteryController@draw');
         Route::post('get-winner', 'LotteryController@getWinner');
         Route::post('draw/save', 'LotteryController@store');
         Route::put('additional-numbers', 'LotteryController@additionalNumbers');
@@ -93,6 +92,6 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     });
 });
 
-Route::post('/checkout', 'ActionsController@checkout');
+Route::post('checkout', 'ActionsController@checkout');
 
 Route::get('download-receipt/{id}', 'ActionsController@createPDFReceipt');
