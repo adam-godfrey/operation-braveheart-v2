@@ -12,13 +12,15 @@
                 <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress"> <i class="fas fa-spinner fa-pulse" v-show="spin"></i>Find Address</button>
             </div>
         </div>
-        <div class="col-sm-12" v-show="toggle">
-            <div class="select-container">
-                <span class="select-arrow fa fa-chevron-down"></span>
-                <select v-on:change="emitToParent($event)" v-model="address">
-                    <option value="">Please select an address</option>
-                    <option v-for="(item) in items" :value="item.formatted">{{ item.address }}</option>
-                </select>
+        <div class="row">
+            <div class="col" v-show="toggle">
+                <div class="select-container">
+                    <span class="select-arrow fa fa-chevron-down"></span>
+                    <select v-on:change="emitToParent($event)" v-model="address">
+                        <option value="">Please select an address</option>
+                        <option v-for="(item) in items" :value="item.formatted">{{ item.address }}</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>

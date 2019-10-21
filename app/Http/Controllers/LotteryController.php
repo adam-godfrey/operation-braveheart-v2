@@ -72,7 +72,7 @@ class LotteryController extends Controller
         return View('lottery.index')->with($data);
     }
 
-    public function payment()
+    public function join()
     {
         $data =  [
             'page' => (object) [
@@ -81,6 +81,6 @@ class LotteryController extends Controller
             ],
         ];
 
-        return View('lottery.payment')->with($data);
+        return View('lottery.join')->with($data);
     }
 }

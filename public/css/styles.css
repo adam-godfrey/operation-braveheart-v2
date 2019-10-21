@@ -1196,3 +1196,59 @@ footer .copyright {
   pointer-events: none;
 }
 
+/* The check */
+
+.check {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+  padding-right: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.check input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.check input:checked ~ .checkmark {
+  background-color: #fff;
+}
+
+.check input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.check .checkmark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border-color: #0085a1;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.check .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid;
+  border-color: #0085a1;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+

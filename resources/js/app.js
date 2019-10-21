@@ -23,6 +23,8 @@ Vue.component('payment-form', require('./components/StripePaymentForm.vue').defa
 
 Vue.component('plaque-form', require('./components/MemorialPlaqueForm.vue').default);
 
+Vue.component('lottery-form', require('./components/LotteryJoinForm.vue').default);
+
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)

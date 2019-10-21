@@ -3,7 +3,7 @@
 @section('content')
 
 @if($page->description)
-    <header class="masthead" style="background-image: url('{{ asset('images/lottery.webp') }}'), radial-gradient(#fff,#fff);">
+    <header class="masthead lottery-banner">
 @else
     <header class="masthead">
 @endif
@@ -26,6 +26,9 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>
+        </div>
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <lottery-form></lottery-form>
         </div>
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quisquam ut perspiciatis, repudiandae nulla animi iste vel, praesentium repellendus molestias aliquid consequatur, earum rem qui error voluptates eius enim consequuntur!</p>

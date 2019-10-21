@@ -20,7 +20,7 @@
                         width="1024"
                         height="300"
                         src="/images/memorial-garden-7.jpg"
-                        alt="image slot"
+                        alt="Memorial Garden"
                     >
                 </template>
             </b-carousel-slide>
@@ -31,7 +31,7 @@
                         width="1024"
                         height="300"
                         src="/images/memorial-garden-8.jpg"
-                        alt="image slot"
+                        alt="Memorial Garden"
                     >
                 </template>
             </b-carousel-slide>
@@ -42,7 +42,7 @@
                         width="1024"
                         height="300"
                         src="/images/memorial-garden-9.jpg"
-                        alt="image slot"
+                        alt="Memorial Garden"
                     >
                 </template>
             </b-carousel-slide>
@@ -53,7 +53,7 @@
                         width="1024"
                         height="300"
                         src="/images/memorial-garden-11.jpg"
-                        alt="image slot"
+                        alt="Memorial Garden"
                     >
                 </template>
             </b-carousel-slide>
@@ -64,7 +64,7 @@
                         width="1024"
                         height="300"
                         src="/images/memorial-garden-12.jpg"
-                        alt="image slot"
+                        alt="Memorial Garden"
                     >
                 </template>
             </b-carousel-slide>

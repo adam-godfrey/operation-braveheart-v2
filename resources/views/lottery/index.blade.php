@@ -33,7 +33,7 @@
     </div> -->
     <div class="row mt-3">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>Welcome to Operation Braveheart social club lottery page, here is where you can sign up and join in the fun of our fundraising lottery to help to fund the Memorial Gardens future and ongoing upkeep and our other forces projects that we need to keep funded.</p>
+            <p>Welcome to Operation Braveheart social club lottery page, here is where you can sign up and join in the fun of our fundraising lottery to help to fund the Memorial Garden's future and ongoing upkeep and our other forces projects that we need to keep funded.</p>
 
             <p>We have two lotteries run under the same rules for both. One is a local Cullompton area draw and the other is for our UK Braveheart family.</p>
 
@@ -44,7 +44,7 @@
                 @foreach($lottery->UK as $draw)
                     <div class="col-6 col-sm-4">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-blue-' . $draw->image . '.jpg') }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ asset('images/ball-blue-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -65,7 +65,7 @@
                 @foreach($lottery->Local as $draw)
                     <div class="col-6 col-sm-{{ count($lottery->Local) == 3 ? '4' : '3' }}">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-green-' . $draw->image . '.jpg') }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ asset('images/ball-green-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -79,9 +79,9 @@
 
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>The draws are videoed from the <a href="{{ route('shop.index') }}">shop</a> and they are then uploaded to FACEBOOK for you to see the draws are done and who the winners are.</p>
+            <p>The draws are videoed from the <a href="{{ route('shop.index') }}">shop</a> and they are then uploaded to FACEBOOK for you to see and who the winners are.</p>
 
-            <p>A random number generator is used to select the winning numbers which are then entered into our system to find the winning number and name of the winner.</p> 
+            <p>A random number generator is used to select the winning numbers which are then entered into our system to find the name of the winner.</p> 
 
             <p>Local winners are also notified by posters placed in the <a href="{{ route('shop.index') }}">Braveheart HQ shop</a> windows.</p>
 
@@ -91,7 +91,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             <call-to-action 
-                url="{{ route('lottery.payment') }}" 
+                url="{{ route('lottery.join') }}" 
                 class="cta cta-lottery"
                 html="<span>JOIN TODAY</span>">
             </call-to-action>
@@ -100,7 +100,7 @@
 
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-             <p>You can join in either of our lotteries by clicking the link to the registration form here or <a href="{{ route('contact.index') }}">contact us</a> on Facebook or email to <a href="mailto:david&#64;operation-braveheart.org.uk">Email Us!</a></p>
+             <p>You can join in either of our lotteries by clicking the link to the registration form above, <a href="{{ route('contact.index') }}">sending us a message</a>, contact us on Facebook or <a href="mailto:david&#64;operation-braveheart.org.uk">email us!</a></p>
         </div>
     </div>
 </div>
@@ -111,7 +111,7 @@
                          {{ asset('images/600/fun.jpg') }} 480w, 
                          {{ asset('images/1440/fun.jpg') }} 800w"
                  sizes="(max-width: 320px) 300px, (max-width: 480px) 440px, 800px"
-                 src="{{ asset('images/1980/fun.jpg') }}" alt="Image">
+                 src="{{ asset('images/1980/fun.jpg') }}" alt="When the fun stops, STOP">
         </div>
     </div>
 </div>

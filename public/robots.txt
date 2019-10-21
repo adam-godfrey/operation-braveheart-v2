@@ -1,2 +1,12 @@
+# Group 1
+User-agent: Googlebot
+Disallow: /admin/
+
 User-agent: *
-Disallow:
+Disallow: /admin/
+
+# Group 2
+User-agent: *
+Allow: /
+
+Sitemap: https://www.operation-braveheart.org.uk/sitemap.xml
