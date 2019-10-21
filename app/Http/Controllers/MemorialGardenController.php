@@ -58,7 +58,8 @@ class MemorialGardenController extends Controller
             'dod' => 'required',
             'regiment' => 'required|string',
             'location' => 'required|string',
-            'message' => 'required|string',   
+            'message' => 'required|string',
+            'confirm' => 'accepted'
         ]);
 
         if(is_null($request->input('customer'))) {

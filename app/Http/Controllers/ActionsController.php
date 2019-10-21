@@ -34,40 +34,6 @@ class ActionsController extends Controller
             ->first();
  
         event(new SendPlaqueReceipt($receipt));
-
-
-
-        $oClient = Imap::account('default');
-        $oClient->connect();
-        $oClient->setDefaultAttachmentMask(CustomAttachmentMask::class);
-
-        // get all unseen messages from folder INBOX
-        $aMessage = $oClient->getUnseenMessages($oClient->getFolder('INBOX'));
- 
-        /** @var \Webklex\IMAP\Message $oMessage */
-        foreach($aMessage as $oMessage){
-
-            $email = new Email();
-
-            $email->uid = $oMessage->getUid();
-            $email->from = $oMessage->getFrom()[0]->mail;
-            $email->subject = $oMessage->getSubject();
-            $email->body = $oMessage->getHTMLBody(true);
-
-            $email->save();
-
-            if($oMessage->getAttachments()->count() > 0) {
-                $attachments = $oMessage->getAttachments();
-
-                foreach($attachments as $attachment) {
-                    $masked_attachment = $attachment->mask();
-
-                    $masked_attachment->custom_save();
-                }
-            }
-        }
-
-
     }
 
     public function getAddresses(Request $request)
@@ -171,12 +137,14 @@ class ActionsController extends Controller
 
     public function createPDFReceipt($id)
     {
-        if(!is_array($id)) {
+        $decoded = Hashids::connection('alternative')->decode($id);
+
+        if(!is_array($decoded)) {
             return;
         }
         
         $order = Plaque::with('order')
-            ->where('id', Hashids::connection('alternative')->decode($id)[0])
+            ->where('id', $decoded[0])
             ->first();
 
         if($order) {
@@ -220,5 +188,17 @@ class ActionsController extends Controller
             // Output a PDF file directly to the browser
             $mpdf->Output('receipt.pdf', \Mpdf\Output\Destination::DOWNLOAD);
         }
+    }
+}
+
+/** @var \Webklex\IMAP\Message $oMessage */
+class CustomMessageMask extends \Webklex\IMAP\Support\Masks\MessageMask {
+
+    /**
+     * New custom method which can be called through a mask
+     * @return string
+     */
+    public function token(){
+        return implode('-', [$this->message_id, $this->uid, $this->message_no]);
     }
 }

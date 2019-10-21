@@ -1979,6 +1979,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2248,6 +2250,120 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressForm.vue */ "./resources/js/components/AddressForm.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      fields: {
+        address1: '',
+        address2: '',
+        address3: '',
+        town: '',
+        county: '',
+        postcode: '',
+        confirm: '',
+        customer: ''
+      },
+      errors: {}
+    };
+  },
+  name: 'LotteryJoinForm',
+  components: {
+    AddressForm: _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('checkFormsValid', function (customer) {
+      _this.errors = {};
+      _this.fields.customer = customer;
+      axios.post('/lottery/send-request', _this.fields).then(function (response) {
+        _this.$root.$emit('validated', response.data.customer);
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors || {};
+
+          _this.$root.$emit('errors', _this.errors);
+        }
+      });
+    }), this.$root.$on('address1Change', function (address1) {
+      _this.fields.address1 = address1;
+    });
+    this.$root.$on('address2Change', function (address2) {
+      _this.fields.address2 = address2;
+    });
+    this.$root.$on('address3Change', function (address3) {
+      _this.fields.address3 = address3;
+    });
+    this.$root.$on('townChange', function (town) {
+      _this.fields.town = town;
+    });
+    this.$root.$on('countyChange', function (county) {
+      _this.fields.county = county;
+    });
+    this.$root.$on('postcodeChange', function (postcode) {
+      console.log(postcode);
+      _this.fields.postcode = postcode;
+    });
+    this.$root.$on('confirmChange', function (confirm) {
+      _this.fields.confirm = confirm;
+    });
+  },
+  methods: {
+    contactChange: function contactChange() {
+      delete this.errors.contact;
+    },
+    telephoneChange: function telephoneChange() {
+      delete this.errors.telephone;
+    },
+    emailChange: function emailChange() {
+      delete this.errors.email;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MemorialContactForm.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MemorialContactForm.vue?vue&type=script&lang=js& ***!
@@ -2306,6 +2422,7 @@ __webpack_require__.r(__webpack_exports__);
         regiment: '',
         location: '',
         message: '',
+        confirm: '',
         customer: ''
       },
       errors: {},
@@ -2370,6 +2487,9 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.$root.$on('messageChange', function (message) {
       _this.fields.message = message;
+    });
+    this.$root.$on('confirmChange', function (confirm) {
+      _this.fields.confirm = confirm;
     });
   },
   methods: {
@@ -2438,12 +2558,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
-        message: ''
+        message: '',
+        confirm: ''
       },
       dobFormatted: '',
       dodFormatted: '',
@@ -2505,6 +2633,10 @@ __webpack_require__.r(__webpack_exports__);
     messageChange: function messageChange() {
       delete this.errors.message;
       this.$root.$emit('messageChange', this.fields.message);
+    },
+    confirmChange: function confirmChange(event) {
+      delete this.errors.confirm;
+      this.$root.$emit('confirmChange', event.target.checked);
     }
   },
   computed: {
@@ -52694,71 +52826,73 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.toggle,
-            expression: "toggle"
-          }
-        ],
-        staticClass: "col-sm-12"
-      },
-      [
-        _c("div", { staticClass: "select-container" }, [
-          _c("span", { staticClass: "select-arrow fa fa-chevron-down" }),
-          _vm._v(" "),
-          _c(
-            "select",
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        {
+          directives: [
             {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.address,
-                  expression: "address"
-                }
-              ],
-              on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.address = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  function($event) {
-                    return _vm.emitToParent($event)
+              name: "show",
+              rawName: "v-show",
+              value: _vm.toggle,
+              expression: "toggle"
+            }
+          ],
+          staticClass: "col"
+        },
+        [
+          _c("div", { staticClass: "select-container" }, [
+            _c("span", { staticClass: "select-arrow fa fa-chevron-down" }),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.address,
+                    expression: "address"
                   }
-                ]
-              }
-            },
-            [
-              _c("option", { attrs: { value: "" } }, [
-                _vm._v("Please select an address")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.items, function(item) {
-                return _c("option", { domProps: { value: item.formatted } }, [
-                  _vm._v(_vm._s(item.address))
-                ])
-              })
-            ],
-            2
-          )
-        ])
-      ]
-    )
+                ],
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.address = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    function($event) {
+                      return _vm.emitToParent($event)
+                    }
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "" } }, [
+                  _vm._v("Please select an address")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.items, function(item) {
+                  return _c("option", { domProps: { value: item.formatted } }, [
+                    _vm._v(_vm._s(item.address))
+                  ])
+                })
+              ],
+              2
+            )
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -52855,7 +52989,7 @@ var render = function() {
                         width: "1024",
                         height: "300",
                         src: "/images/memorial-garden-7.jpg",
-                        alt: "image slot"
+                        alt: "Memorial Garden"
                       }
                     })
                   ]
@@ -52877,7 +53011,7 @@ var render = function() {
                         width: "1024",
                         height: "300",
                         src: "/images/memorial-garden-8.jpg",
-                        alt: "image slot"
+                        alt: "Memorial Garden"
                       }
                     })
                   ]
@@ -52899,7 +53033,7 @@ var render = function() {
                         width: "1024",
                         height: "300",
                         src: "/images/memorial-garden-9.jpg",
-                        alt: "image slot"
+                        alt: "Memorial Garden"
                       }
                     })
                   ]
@@ -52921,7 +53055,7 @@ var render = function() {
                         width: "1024",
                         height: "300",
                         src: "/images/memorial-garden-11.jpg",
-                        alt: "image slot"
+                        alt: "Memorial Garden"
                       }
                     })
                   ]
@@ -52943,7 +53077,7 @@ var render = function() {
                         width: "1024",
                         height: "300",
                         src: "/images/memorial-garden-12.jpg",
-                        alt: "image slot"
+                        alt: "Memorial Garden"
                       }
                     })
                   ]
@@ -53141,6 +53275,183 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.submit($event)
+        }
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "card mb-4 border-0" },
+        [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group floating-label-form-group controls"
+                },
+                [
+                  _c("label", [_vm._v("Contact Name")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.contact,
+                        expression: "fields.contact"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Contact Name",
+                      id: "contact"
+                    },
+                    domProps: { value: _vm.fields.contact },
+                    on: {
+                      change: _vm.contactChange,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "contact", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.contact
+                    ? _c("div", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.contact[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group floating-label-form-group controls"
+                },
+                [
+                  _c("label", [_vm._v("Telephone")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.telephone,
+                        expression: "fields.telephone"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "tel",
+                      placeholder: "Telephone (optional)",
+                      id: "telephone"
+                    },
+                    domProps: { value: _vm.fields.telephone },
+                    on: {
+                      change: _vm.telephoneChange,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "telephone", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.telephone
+                    ? _c("div", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.telephone[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "form-group floating-label-form-group controls"
+                },
+                [
+                  _c("label", [_vm._v("Email Address")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fields.email,
+                        expression: "fields.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "email", placeholder: "Email", id: "email" },
+                    domProps: { value: _vm.fields.email },
+                    on: {
+                      change: _vm.emailChange,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.fields, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.email
+                    ? _c("div", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(_vm.errors.email[0]))
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("AddressForm")
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/MemorialContactForm.vue?vue&type=template&id=5abbe46d&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/MemorialContactForm.vue?vue&type=template&id=5abbe46d& ***!
@@ -53169,7 +53480,7 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "card mb-4" },
+        { staticClass: "card mb-4 border-0" },
         [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-12" }, [
@@ -53333,250 +53644,306 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "plaque" } }, [
-    _c("div", { staticClass: "screw top left" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "screw top right" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-row" }, [
-      _c("div", { staticClass: "col" }, [
+  return _c("div", [
+    _c("div", { attrs: { id: "plaque" } }, [
+      _c("div", { staticClass: "screw top left" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "screw top right" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.rank,
+                expression: "fields.rank"
+              }
+            ],
+            staticClass: "form-control text-right",
+            attrs: { type: "text", placeholder: "Rank", id: "rank" },
+            domProps: { value: _vm.fields.rank },
+            on: {
+              change: _vm.rankChange,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "rank", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.rank
+            ? _c("div", { staticClass: "text-danger text-right small" }, [
+                _vm._v(_vm._s(_vm.errors.rank[0]))
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.fields.name,
+                expression: "fields.name"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "Name", id: "name" },
+            domProps: { value: _vm.fields.name },
+            on: {
+              change: _vm.nameChange,
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.fields, "name", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors && _vm.errors.name
+            ? _c("div", { staticClass: "text-danger small" }, [
+                _vm._v(_vm._s(_vm.errors.name[0]))
+              ])
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-row" }, [
+        _c(
+          "div",
+          { staticClass: "col" },
+          [
+            _c("datepicker", {
+              attrs: {
+                "input-class": "form-control text-right",
+                name: "fields.dob",
+                placeholder: "DOB",
+                "disabled-dates": _vm.disabledDates
+              },
+              on: { selected: _vm.dobChange },
+              model: {
+                value: _vm.fields.dob,
+                callback: function($$v) {
+                  _vm.$set(_vm.fields, "dob", $$v)
+                },
+                expression: "fields.dob"
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.dob
+              ? _c("div", { staticClass: "text-danger text-right small" }, [
+                  _vm._v(_vm._s(_vm.errors.dob[0]))
+                ])
+              : _vm._e()
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col" },
+          [
+            _c("datepicker", {
+              attrs: {
+                "input-class": "form-control",
+                name: "fields.dod",
+                placeholder: "D0D",
+                "disabled-dates": _vm.disabledDates
+              },
+              on: { selected: _vm.dodChange },
+              model: {
+                value: _vm.fields.dod,
+                callback: function($$v) {
+                  _vm.$set(_vm.fields, "dod", $$v)
+                },
+                expression: "fields.dod"
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.dod
+              ? _c("div", { staticClass: "text-danger small" }, [
+                  _vm._v(_vm._s(_vm.errors.dod[0]))
+                ])
+              : _vm._e()
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
         _c("input", {
           directives: [
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.fields.rank,
-              expression: "fields.rank"
+              value: _vm.fields.regiment,
+              expression: "fields.regiment"
             }
           ],
-          staticClass: "form-control text-right",
-          attrs: { type: "text", placeholder: "Rank", id: "rank" },
-          domProps: { value: _vm.fields.rank },
+          staticClass: "form-control text-center",
+          attrs: { type: "text", placeholder: "Regiment", id: "regiment" },
+          domProps: { value: _vm.fields.regiment },
           on: {
-            change: _vm.rankChange,
+            change: _vm.regimentChange,
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.fields, "rank", $event.target.value)
+              _vm.$set(_vm.fields, "regiment", $event.target.value)
             }
           }
         }),
         _vm._v(" "),
-        _vm.errors && _vm.errors.rank
-          ? _c("div", { staticClass: "text-danger text-right small" }, [
-              _vm._v(_vm._s(_vm.errors.rank[0]))
+        _vm.errors && _vm.errors.regiment
+          ? _c("div", { staticClass: "text-danger text-center small" }, [
+              _vm._v(_vm._s(_vm.errors.regiment[0]))
             ])
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "form-group" }, [
         _c("input", {
           directives: [
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.fields.name,
-              expression: "fields.name"
+              value: _vm.fields.location,
+              expression: "fields.location"
             }
           ],
-          staticClass: "form-control",
-          attrs: { type: "text", placeholder: "Name", id: "name" },
-          domProps: { value: _vm.fields.name },
+          staticClass: "form-control text-center",
+          attrs: {
+            type: "text",
+            placeholder: "Location of death",
+            id: "location"
+          },
+          domProps: { value: _vm.fields.location },
           on: {
-            change: _vm.nameChange,
+            change: _vm.locationChange,
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.fields, "name", $event.target.value)
+              _vm.$set(_vm.fields, "location", $event.target.value)
             }
           }
         }),
         _vm._v(" "),
-        _vm.errors && _vm.errors.name
-          ? _c("div", { staticClass: "text-danger small" }, [
-              _vm._v(_vm._s(_vm.errors.name[0]))
+        _vm.errors && _vm.errors.location
+          ? _c("div", { staticClass: "text-danger text-center small" }, [
+              _vm._v(_vm._s(_vm.errors.location[0]))
             ])
           : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-row" }, [
-      _c(
-        "div",
-        { staticClass: "col" },
-        [
-          _c("datepicker", {
-            attrs: {
-              "input-class": "form-control text-right",
-              name: "fields.dob",
-              placeholder: "DOB",
-              "disabled-dates": _vm.disabledDates
-            },
-            on: { selected: _vm.dobChange },
-            model: {
-              value: _vm.fields.dob,
-              callback: function($$v) {
-                _vm.$set(_vm.fields, "dob", $$v)
-              },
-              expression: "fields.dob"
-            }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.dob
-            ? _c("div", { staticClass: "text-danger text-right small" }, [
-                _vm._v(_vm._s(_vm.errors.dob[0]))
-              ])
-            : _vm._e()
-        ],
-        1
-      ),
+      ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col" },
-        [
-          _c("datepicker", {
-            attrs: {
-              "input-class": "form-control",
-              name: "fields.dod",
-              placeholder: "D0D",
-              "disabled-dates": _vm.disabledDates
-            },
-            on: { selected: _vm.dodChange },
-            model: {
-              value: _vm.fields.dod,
-              callback: function($$v) {
-                _vm.$set(_vm.fields, "dod", $$v)
-              },
-              expression: "fields.dod"
+      _c("div", { staticClass: "form-group" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.fields.message,
+              expression: "fields.message"
             }
-          }),
-          _vm._v(" "),
-          _vm.errors && _vm.errors.dod
-            ? _c("div", { staticClass: "text-danger small" }, [
-                _vm._v(_vm._s(_vm.errors.dod[0]))
-              ])
-            : _vm._e()
-        ],
-        1
-      )
+          ],
+          staticClass: "form-control text-center",
+          attrs: {
+            type: "text",
+            maxlength: _vm.maxCharacters,
+            placeholder: "Message",
+            id: "message"
+          },
+          domProps: { value: _vm.fields.message },
+          on: {
+            change: _vm.messageChange,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.fields, "message", $event.target.value)
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm.errors && _vm.errors.message
+          ? _c("div", { staticClass: "text-danger text-center small" }, [
+              _vm._v(_vm._s(_vm.errors.message[0]))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("p", { staticClass: "remaining text-center" }, [
+          _vm._v(
+            "You have " +
+              _vm._s(_vm.charactersRemaining) +
+              " characters remaining."
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "screw bottom left" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "screw bottom right" })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
+    _c("label", { staticClass: "check " }, [
+      _vm._v("I confirm that the above details are correct\n        "),
       _c("input", {
         directives: [
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.fields.regiment,
-            expression: "fields.regiment"
+            value: _vm.fields.confirm,
+            expression: "fields.confirm"
           }
         ],
-        staticClass: "form-control text-center",
-        attrs: { type: "text", placeholder: "Regiment", id: "regiment" },
-        domProps: { value: _vm.fields.regiment },
-        on: {
-          change: _vm.regimentChange,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.fields, "regiment", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm.errors && _vm.errors.regiment
-        ? _c("div", { staticClass: "text-danger text-center small" }, [
-            _vm._v(_vm._s(_vm.errors.regiment[0]))
-          ])
-        : _vm._e()
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.fields.location,
-            expression: "fields.location"
-          }
-        ],
-        staticClass: "form-control text-center",
-        attrs: {
-          type: "text",
-          placeholder: "Location of death",
-          id: "location"
+        attrs: { type: "checkbox", name: "confirm" },
+        domProps: {
+          checked: Array.isArray(_vm.fields.confirm)
+            ? _vm._i(_vm.fields.confirm, null) > -1
+            : _vm.fields.confirm
         },
-        domProps: { value: _vm.fields.location },
         on: {
-          change: _vm.locationChange,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.fields, "location", $event.target.value)
-          }
+          change: [
+            function($event) {
+              var $$a = _vm.fields.confirm,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && _vm.$set(_vm.fields, "confirm", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.fields,
+                      "confirm",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
+              } else {
+                _vm.$set(_vm.fields, "confirm", $$c)
+              }
+            },
+            _vm.confirmChange
+          ]
         }
       }),
       _vm._v(" "),
-      _vm.errors && _vm.errors.location
-        ? _c("div", { staticClass: "text-danger text-center small" }, [
-            _vm._v(_vm._s(_vm.errors.location[0]))
-          ])
-        : _vm._e()
+      _c("span", { staticClass: "checkmark" })
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.fields.message,
-            expression: "fields.message"
-          }
-        ],
-        staticClass: "form-control text-center",
-        attrs: {
-          type: "text",
-          maxlength: _vm.maxCharacters,
-          placeholder: "Message",
-          id: "message"
-        },
-        domProps: { value: _vm.fields.message },
-        on: {
-          change: _vm.messageChange,
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.fields, "message", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _vm.errors && _vm.errors.message
-        ? _c("div", { staticClass: "text-danger text-center small" }, [
-            _vm._v(_vm._s(_vm.errors.message[0]))
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("p", { staticClass: "remaining text-center" }, [
-        _vm._v(
-          "You have " +
-            _vm._s(_vm.charactersRemaining) +
-            " characters remaining."
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "screw bottom left" }),
-    _vm._v(" "),
-    _c("div", { staticClass: "screw bottom right" })
+    _vm.errors && _vm.errors.confirm
+      ? _c("div", { staticClass: "text-danger small" }, [
+          _vm._v(_vm._s(_vm.errors.confirm[0]))
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -71477,6 +71844,7 @@ Vue.component('memorial-form', __webpack_require__(/*! ./components/MemorialCont
 Vue.component('carousel', __webpack_require__(/*! ./components/Carousel.vue */ "./resources/js/components/Carousel.vue")["default"]);
 Vue.component('payment-form', __webpack_require__(/*! ./components/StripePaymentForm.vue */ "./resources/js/components/StripePaymentForm.vue")["default"]);
 Vue.component('plaque-form', __webpack_require__(/*! ./components/MemorialPlaqueForm.vue */ "./resources/js/components/MemorialPlaqueForm.vue")["default"]);
+Vue.component('lottery-form', __webpack_require__(/*! ./components/LotteryJoinForm.vue */ "./resources/js/components/LotteryJoinForm.vue")["default"]);
 
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
@@ -71883,6 +72251,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ContactForm_vue_vue_type_template_id_76db242e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ContactForm_vue_vue_type_template_id_76db242e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryJoinForm.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/LotteryJoinForm.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LotteryJoinForm.vue?vue&type=template&id=060b145c& */ "./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c&");
+/* harmony import */ var _LotteryJoinForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LotteryJoinForm.vue?vue&type=script&lang=js& */ "./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _LotteryJoinForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/LotteryJoinForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryJoinForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryJoinForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryJoinForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryJoinForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c& ***!
+  \************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./LotteryJoinForm.vue?vue&type=template&id=060b145c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/LotteryJoinForm.vue?vue&type=template&id=060b145c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LotteryJoinForm_vue_vue_type_template_id_060b145c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

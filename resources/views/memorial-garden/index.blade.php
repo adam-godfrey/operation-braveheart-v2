@@ -27,9 +27,9 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>Welcome to the SUNSET MEMORIAL GARDEN the restful place to come to where you can sit, relax and remember someone you miss and love. Though this is an Armed Forces Memorial Garden the gate is an open invitation to you to come in and rest awhile to if you feel lonely or just want to close your eyes in thought.</p>
 
-            <p>The Memorial Garden is dedicated to the memory of RFN Daniel Lee Coffey a Son of this town of Cullompton dearly missed by his loving family and his Granddad, and we also remember all of his Brothers and Sisters in arms who gave the ultimate sacrifice in Iraq and Afghanistan from his Regiment the Rifles and all other Regiments.</p>
+            <p>The Memorial Garden is dedicated to the memory of RFN Daniel Lee Coffey a son of this town of Cullompton, dearly missed by his loving family and his Grandad, and we also remember all of his Brothers and Sisters in arms who gave the ultimate sacrifice in Iraq and Afghanistan from his regiment 'The Rifles' and all other Regiments.</p>
 
-            <p>We remember also all our Braveheart’s who have given that same Sacrifice in wars and conflicts since the end of WW2.</p>
+            <p>We remember also all our Braveheart's who have given that same sacrifice in wars and conflicts since the end of WW2.</p>
         </div>
     </div>
     <div class="row">
@@ -39,7 +39,7 @@
     </div>
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-            <p>We also respectfully remember in these recent years when this country has faced mindless acts of terrorism where many hundreds of innocent members of the public have become victims of these mindless acts of cowardice that have taken place in our major cities around the country. My heart breaks for these families and especially the children and families of Manchester in the Manchester arena NO ONE can justify this terrible carnage that took place there.</p>
+            <p>We also respectfully remember in these recent years when this country has faced mindless acts of terrorism where many hundreds of innocent members of the public have become victims of these mindless acts of cowardice that have taken place in our major cities around the country. My heart breaks for these families and especially the children and families of Manchester in the Manchester arena, NO ONE can justify this terrible carnage that took place there.</p>
 
             <p>If you have lost loved ones in such circumstances then please get in touch with me here as I would love to give you this beautiful garden where you can place a plaque so that others may share inn your loss and sorrow.</p>
         </div>

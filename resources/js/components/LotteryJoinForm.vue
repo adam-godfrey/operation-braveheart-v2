@@ -40,21 +40,13 @@ export default {
                 town: '',
                 county: '',
                 postcode: '',
-                rank: '',
-                name: '',
-                dob: '',
-                dod: '',
-                regiment: '',
-                location: '',
-                message: '',
                 confirm: '',
                 customer: ''
             },
             errors: {},
-            maxCharacters: 100,
         }
     },
-    name: 'MemorialContactForm',
+    name: 'LotteryJoinForm',
     components: {
         AddressForm,
     },
@@ -62,7 +54,7 @@ export default {
         this.$root.$on('checkFormsValid', (customer) => {
             this.errors = {};
             this.fields.customer = customer;
-            axios.post('/memorial-garden/send-request', this.fields).then(response => {
+            axios.post('/lottery/send-request', this.fields).then(response => {
                 this.$root.$emit('validated', response.data.customer)
             }).catch(error => {
                 if (error.response.status === 422) {
@@ -89,27 +81,6 @@ export default {
         this.$root.$on('postcodeChange', postcode => {
             console.log(postcode);
             this.fields.postcode = postcode;
-        });
-        this.$root.$on('rankChange', rank => {
-            this.fields.rank = rank;
-        });
-        this.$root.$on('nameChange', name => {
-            this.fields.name = name;
-        });
-        this.$root.$on('dobChange', dob => {
-            this.fields.dob = dob;
-        });
-        this.$root.$on('dodChange', dod => {
-            this.fields.dod = dod;
-        });
-        this.$root.$on('regimentChange', regiment => {
-            this.fields.regiment = regiment;
-        });
-        this.$root.$on('locationChange', location => {
-            this.fields.location = location;
-        });
-        this.$root.$on('messageChange', message => {
-            this.fields.message = message;
         });
         this.$root.$on('confirmChange', confirm => {
             this.fields.confirm = confirm;

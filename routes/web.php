@@ -49,7 +49,7 @@ Route::prefix('memorial-garden')->group(function () {
 
 Route::prefix('lottery')->group(function () {
     Route::get('/', 'LotteryController@index')->name('lottery.index');
-    Route::get('/play', 'LotteryController@payment')->name('lottery.payment');
+    Route::get('/join', 'LotteryController@join')->name('lottery.join');
 });
 
 Route::prefix('api')->group(function () {

@@ -1,4 +1,3 @@
-      border-left: 18px solid #FF6136;
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
@@ -16,9 +15,20 @@
       margin: 0;
       -webkit-text-size-adjust: none;
     }
+
+    u + #body a {
+      color: #0085a1;
+      text-decoration: none;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+  }
+
+/* ADD id="body" TO body TAG*/
     
     a {
-      color: #3869D4;
+      color: #0085a1;
     }
     
     a img {
@@ -111,9 +121,9 @@
       border-bottom: 10px solid #3869D4;
       border-left: 18px solid #3869D4;
       display: inline-block;
-      color: #FFF;
+      color: #FFFFFF !important;;
       text-decoration: none;
-      border-radius: 3px;
+      border-radius: 0px;
       box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
       -webkit-text-size-adjust: none;
       box-sizing: border-box;
@@ -133,7 +143,18 @@
       border-right: 18px solid #FF6136;
       border-bottom: 10px solid #FF6136;
     }
-    
+
+    .button--blue {
+      background-color: #0085a1;
+      color: #ffffff !important;
+      padding: 10px;
+      border-top: 1px solid #0085a1;
+      border-right: 1px solid #0085a1;
+      border-bottom: 1px solid #0085a1;
+      border-left: 1px solid #0085a1;
+    }
+
+  
     @media only screen and (max-width: 500px) {
       .button {
         width: 100% !important;
@@ -428,7 +449,7 @@
     </style>
   <![endif]-->
   </head>
-  <body>
+  <body id="body">
     <span class="preheader">This is a receipt for your recent purchase on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $receipt->order->created_at)->format('d M Y')  }}. No payment is due with this receipt.</span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
