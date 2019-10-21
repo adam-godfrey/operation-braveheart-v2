@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin\LotteryDraw;
+use App\Models\Admin\LotteryBall;
 use App\Models\Admin\LotterySetting;
 use App\Models\Admin\LotteryPlayer;
+use App\Rules\Telephone;
+use DB;
 
 class LotteryController extends Controller
 {
@@ -15,6 +18,7 @@ class LotteryController extends Controller
 
     public function index()
     {
+
         $lotteryDraw = LotteryDraw::where('active', 1)->get();
 
         $draw_date = LotterySetting::select('value')
@@ -82,5 +86,72 @@ class LotteryController extends Controller
         ];
 
         return View('lottery.join')->with($data);
+    }
+
+    public function send(Request $request)
+    {
+        $this->validate($request, [
+            'contact' => 'required|string',
+            'email' => 'required|email',
+            'telephone' => ['sometimes', new Telephone],
+            'lotteries' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            foreach($request->input('lotteries') as $draw_type) {
+                $lotteryPlayer = new LotteryPlayer();
+
+                $lotteryPlayer->name = $request->input('contact');
+                $lotteryPlayer->email = $request->input('email');
+                $lotteryPlayer->telephone = $request->input('telephone');
+                $lotteryPlayer->draw_type = $draw_type;
+
+                $lotteryPlayer->save();
+
+                $lotteryBall = LotteryBall::where('draw_type', $draw_type)
+                    ->whereNull('player_id')
+                    ->first();
+
+                // we've run out of available numbers
+                if(is_null($lotteryBall)) {
+
+                    $getNextNumber = LotteryBall::where('draw_type', $draw_type)
+                                        ->orderBy('lottery_number', 'desc')
+                                        ->first()
+                                        ->lottery_number + 1;
+
+                    $lotteryBall = new LotteryBall();
+
+                    $lotteryBall->lottery_number = $getNextNumber;
+                    $lotteryBall->draw_type = $draw_type;
+                    $lotteryBall->player_id = $lotteryPlayer->id;
+
+                    $lotteryBall->save();
+
+                    $lotterySettings = LotterySetting::where('key', strtolower($draw_type) . '_ball_count')
+                        ->update(['value' => DB::raw('value+1')]);
+
+                } else {
+                    $getNextNumber = $lotteryBall->lottery_number; 
+                    $lotteryBall->update(['player_id' => $lotteryPlayer->id]);
+                }
+
+                $lotteryPlayer->lottery_number = $getNextNumber;
+
+                $lotteryPlayer->save();
+
+                event(new SendLotteryRegistrationConfirmation($lotteryPlayer));
+
+                event(new SendLotteryRegistrationConfirmationAdmin($lotteryPlayer));
+            }
+            
+            DB::commit();
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return response()->json(['error' => $ex->getMessage()], 500);
+        }
+
+        return response()->json(['customer' => $lotteryPlayer->id], 200);
     }
 }

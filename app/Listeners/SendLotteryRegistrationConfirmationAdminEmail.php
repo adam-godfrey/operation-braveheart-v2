@@ -4,10 +4,10 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\SendContactFormAutoResponse;
-use App\Mail\ContactFormAutoResponse;
+use App\Events\SendLotteryRegistrationConfirmationAdmin;
+use App\Mail\LotteryRegistrationConfirmatioAdmin;
 
-class SendContactFormAutoResponseEmail
+class SendLotteryRegistrationConfirmationAdminEmail
 {
     /**
      * Create the event listener.
@@ -25,10 +25,10 @@ class SendContactFormAutoResponseEmail
      * @param  SendPlaqueReceipt  $event
      * @return void
      */
-    public function handle(SendContactFormAutoResponse $event)
+    public function handle(SendLotteryRegistrationConfirmationAdmin $event)
     {
-        \Mail::to($event->player->email)->send(
-            new ContactFormAutoResponse($event->player)
+        \Mail::to('david@operation-braveheart.org.uk')->send(
+            new LotteryRegistrationConfirmationAdmin($event->player)
         );
     }
 }

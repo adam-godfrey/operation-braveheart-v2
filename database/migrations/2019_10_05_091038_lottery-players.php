@@ -20,6 +20,7 @@ class LotteryPlayers extends Migration
             $table->string('email')->nullable();
             $table->integer('lottery_number')->nullable();
             $table->enum('draw_type', ['UK', 'Local']);
+            $table->tinyInteger('active', 1)->default(0)->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();

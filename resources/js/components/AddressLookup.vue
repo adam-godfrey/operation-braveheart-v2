@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="col-sm-auto pt-3 pr-4">
-                <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress"> <i class="fas fa-spinner fa-pulse" v-show="spin"></i>Find Address</button>
+                <button v-on:click="lookup" class="btn btn-primary mr-1" id="findAddress" :disabled="isSpin"> <i class="fas fa-spinner fa-pulse" v-show="spin"></i>Find Address</button>
             </div>
         </div>
         <div class="row">
@@ -75,12 +75,13 @@ export default {
                     });
                 });
                 this.toggle = true;
+                this.spin = false;
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
+                    this.spin = false;
                 }
             });
-            this.spin = false;
         },
         postcodeChange: function() {
             delete this.errors.postcode;

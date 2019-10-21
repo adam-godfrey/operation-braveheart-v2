@@ -269,3 +269,99 @@
   visibility: hidden;
   position: absolute;
 }
+
+/* The check */
+.check {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    padding-right: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        &:checked ~ .checkmark {
+            background-color: #fff  ;
+        }
+        &:checked ~ .checkmark:after {
+            display: block;
+        }
+    }
+    .checkmark {
+        position: absolute;
+        top: 3px;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        background-color: #fff ;
+        border-color:#4e73df;
+        border-style:solid;
+        border-width:2px;
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+             left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid ;
+            border-color:#4e73df;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }   
+    }
+}
+
+.notice {
+    padding: 15px;
+    background-color: #fafafa;
+    border-left: 6px solid #7f7f84;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+       -moz-box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+            box-shadow: 0 5px 8px -6px rgba(0,0,0,.2);
+    font-size: 90%;
+}
+.notice-sm {
+    padding: 10px;
+    font-size: 80%;
+}
+.notice-lg {
+    padding: 35px;
+    font-size: large;
+}
+.notice-success {
+    border-color: #80D651;
+}
+.notice-success>strong {
+    color: #80D651;
+}
+.notice-info {
+    border-color: #45ABCD;
+}
+.notice-info>strong {
+    color: #45ABCD;
+}
+.notice-warning {
+    border-color: #FEAF20;
+}
+.notice-warning>strong {
+    color: #FEAF20;
+}
+.notice-danger {
+    border-color: #d73814;
+}
+.notice-danger>strong {
+    color: #d73814;
+}

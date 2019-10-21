@@ -1,6 +1,9 @@
 <template>
     <form @submit.prevent="submit">
         <div class="card mb-4 border-0">
+            <div class="notice notice-danger" v-show="errored">
+                <strong>Error</strong> There are errors in the form!!
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="form-group floating-label-form-group controls">
@@ -52,6 +55,7 @@ export default {
             },
             errors: {},
             maxCharacters: 100,
+            errored: false,
         }
     },
     name: 'MemorialContactForm',
@@ -62,12 +66,15 @@ export default {
         this.$root.$on('checkFormsValid', (customer) => {
             this.errors = {};
             this.fields.customer = customer;
+            this.errored = false;
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
-                this.$root.$emit('validated', response.data.customer)
+                this.$root.$emit('validated', response.data.customer);
+                this.success = true;
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
-                    this.$root.$emit('errors', this.errors)
+                    this.$root.$emit('errors', this.errors);
+                    this.errored = true;
                 }
             });
         }),

@@ -18,6 +18,9 @@ class LotteryController extends Controller
 
     public function index()
     {
+
+        \Auth::logout();
+
         $lotterySetting = LotterySetting::all();
 
         $data = [];
@@ -121,9 +124,24 @@ class LotteryController extends Controller
     public function additionalNumbers(Request $request)
     {
         $key = strtolower($request->input('type')) . '_ball_count';
+        $draw_type = $request->input('type'); 
 
         $lotterySetting = LotterySetting::where('key', $key)
             ->update(['value' => $request->input('new_total')]);
+
+        for($i = 0; $i < $request->input('extra_balls'); $i++) {
+            $getNextNumber = LotteryBall::where('draw_type', $draw_type)
+                                ->orderBy('lottery_number', 'desc')
+                                ->first()
+                                ->lottery_number + 1;
+
+            $lotteryBall = new LotteryBall();
+
+            $lotteryBall->lottery_number = $getNextNumber;
+            $lotteryBall->draw_type = $draw_type;
+
+            $lotteryBall->save();
+        }
 
         return response()->json($lotterySetting, 200);
     }

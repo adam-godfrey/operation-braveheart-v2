@@ -31,6 +31,7 @@ trait LotteryTrait
 
         $lotteryPlayer = LotteryPlayer::where('draw_type', $request->input('draw_type'))
             ->where('lottery_number', $request->input('number'))
+            ->where('active', 1)
             ->first();
 
         return ['data' => $lotteryPlayer];

@@ -3445,6 +3445,7 @@ __webpack_require__.r(__webpack_exports__);
                 var current_total = type === 'UK' ? _this4.uk_ball_count : _this4.local_ball_count;
                 var update = {
                   new_total: parseInt(current_total) + parseInt(extra_balls),
+                  extra_balls: parseInt(extra_balls),
                   type: type
                 };
                 axios.put('/admin/lottery/additional-numbers', update).then(function (response) {

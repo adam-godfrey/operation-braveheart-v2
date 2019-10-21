@@ -2038,12 +2038,13 @@ __webpack_require__.r(__webpack_exports__);
           });
         });
         _this2.toggle = true;
+        _this2.spin = false;
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this2.errors = error.response.data.errors || {};
+          _this2.spin = false;
         }
       });
-      this.spin = false;
     },
     postcodeChange: function postcodeChange() {
       delete this.errors.postcode;
@@ -2222,12 +2223,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['test'],
   data: function data() {
     return {
       fields: {},
-      errors: {}
+      errors: {},
+      isSending: false,
+      errored: false,
+      success: false
     };
   },
   mounted: function mounted() {// Do something useful with the data in the template
@@ -2237,11 +2247,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.errors = {};
+      this.isSending = true, this.success = false;
+      this.errored = false;
       axios.post('/contact/submit', this.fields).then(function (response) {
-        alert('Message sent!');
+        $this.fields.name = '';
+        $this.fields.email = '';
+        $this.fields.message = '';
+        _this.success = true;
+        _this.isSending = false;
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
+          _this.errored = true;
+          _this.isSending = false;
         }
       });
     }
@@ -2259,7 +2277,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressForm.vue */ "./resources/js/components/AddressForm.vue");
 //
 //
 //
@@ -2290,65 +2307,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       fields: {
-        address1: '',
-        address2: '',
-        address3: '',
-        town: '',
-        county: '',
-        postcode: '',
-        confirm: '',
-        customer: ''
+        lotteries: []
       },
-      errors: {}
+      errors: {},
+      isSending: false,
+      errored: false,
+      success: false
     };
   },
   name: 'LotteryJoinForm',
-  components: {
-    AddressForm: _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$root.$on('checkFormsValid', function (customer) {
-      _this.errors = {};
-      _this.fields.customer = customer;
-      axios.post('/lottery/send-request', _this.fields).then(function (response) {
-        _this.$root.$emit('validated', response.data.customer);
-      })["catch"](function (error) {
-        if (error.response.status === 422) {
-          _this.errors = error.response.data.errors || {};
-
-          _this.$root.$emit('errors', _this.errors);
-        }
-      });
-    }), this.$root.$on('address1Change', function (address1) {
-      _this.fields.address1 = address1;
-    });
-    this.$root.$on('address2Change', function (address2) {
-      _this.fields.address2 = address2;
-    });
-    this.$root.$on('address3Change', function (address3) {
-      _this.fields.address3 = address3;
-    });
-    this.$root.$on('townChange', function (town) {
-      _this.fields.town = town;
-    });
-    this.$root.$on('countyChange', function (county) {
-      _this.fields.county = county;
-    });
-    this.$root.$on('postcodeChange', function (postcode) {
-      console.log(postcode);
-      _this.fields.postcode = postcode;
-    });
-    this.$root.$on('confirmChange', function (confirm) {
-      _this.fields.confirm = confirm;
-    });
-  },
   methods: {
     contactChange: function contactChange() {
       delete this.errors.contact;
@@ -2358,6 +2356,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     emailChange: function emailChange() {
       delete this.errors.email;
+    },
+    checkboxChange: function checkboxChange(event) {
+      if (event.target.checked) {
+        delete this.errors.lotteries;
+      }
+    },
+    submit: function submit() {
+      var _this = this;
+
+      this.errors = {};
+      this.isSending = true;
+      this.success = false;
+      this.errored = false;
+      axios.post('/lottery/send-request', this.fields).then(function (response) {
+        $this.fields.contact = '';
+        $this.fields.email = '';
+        $this.fields.telephone = '';
+        $this.fields.lotteries = [];
+        _this.isSending = false;
+        _this.success = true;
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors || {};
+          _this.isSending = false;
+          _this.errored = true;
+        }
+      });
     }
   }
 });
@@ -2374,6 +2399,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AddressForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressForm.vue */ "./resources/js/components/AddressForm.vue");
+//
+//
+//
 //
 //
 //
@@ -2426,7 +2454,8 @@ __webpack_require__.r(__webpack_exports__);
         customer: ''
       },
       errors: {},
-      maxCharacters: 100
+      maxCharacters: 100,
+      errored: false
     };
   },
   name: 'MemorialContactForm',
@@ -2439,13 +2468,18 @@ __webpack_require__.r(__webpack_exports__);
     this.$root.$on('checkFormsValid', function (customer) {
       _this.errors = {};
       _this.fields.customer = customer;
+      _this.errored = false;
       axios.post('/memorial-garden/send-request', _this.fields).then(function (response) {
         _this.$root.$emit('validated', response.data.customer);
+
+        _this.success = true;
       })["catch"](function (error) {
         if (error.response.status === 422) {
           _this.errors = error.response.data.errors || {};
 
           _this.$root.$emit('errors', _this.errors);
+
+          _this.errored = true;
         }
       });
     }), this.$root.$on('address1Change', function (address1) {
@@ -52805,7 +52839,7 @@ var render = function() {
           "button",
           {
             staticClass: "btn btn-primary mr-1",
-            attrs: { id: "findAddress" },
+            attrs: { id: "findAddress", disabled: _vm.isSpin },
             on: { click: _vm.lookup }
           },
           [
@@ -53126,6 +53160,44 @@ var render = function() {
       }
     },
     [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.success,
+              expression: "success"
+            }
+          ],
+          staticClass: "notice notice-success"
+        },
+        [
+          _c("strong", [_vm._v("Success")]),
+          _vm._v(" Lottery registration successful!!\n    ")
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.errored,
+              expression: "errored"
+            }
+          ],
+          staticClass: "notice notice-danger"
+        },
+        [
+          _c("strong", [_vm._v("Error")]),
+          _vm._v(" There are errors in the form!!\n    ")
+        ]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "control-group" }, [
         _c(
           "div",
@@ -53248,27 +53320,24 @@ var render = function() {
       _vm._v(" "),
       _c("div", { attrs: { id: "success" } }),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "form-group" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: {
+              type: "submit",
+              id: "sendMessageButton",
+              disabled: _vm.isSending
+            }
+          },
+          [_vm._v("Send")]
+        )
+      ])
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "submit", id: "sendMessageButton" }
-        },
-        [_vm._v("Send")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -53301,147 +53370,305 @@ var render = function() {
       }
     },
     [
-      _c(
-        "div",
-        { staticClass: "card mb-4 border-0" },
-        [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group floating-label-form-group controls"
-                },
-                [
-                  _c("label", [_vm._v("Contact Name")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.contact,
-                        expression: "fields.contact"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      placeholder: "Contact Name",
-                      id: "contact"
-                    },
-                    domProps: { value: _vm.fields.contact },
-                    on: {
-                      change: _vm.contactChange,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.fields, "contact", $event.target.value)
-                      }
+      _c("div", { staticClass: "card mb-4 border-0" }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.success,
+                expression: "success"
+              }
+            ],
+            staticClass: "notice notice-success"
+          },
+          [
+            _c("strong", [_vm._v("Success")]),
+            _vm._v(" Lottery registration successful!!\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.errored,
+                expression: "errored"
+              }
+            ],
+            staticClass: "notice notice-danger"
+          },
+          [
+            _c("strong", [_vm._v("Error")]),
+            _vm._v(" There are errors in the form!!\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c(
+              "div",
+              { staticClass: "form-group floating-label-form-group controls" },
+              [
+                _c("label", [_vm._v("Contact Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.contact,
+                      expression: "fields.contact"
                     }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.contact
-                    ? _c("div", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.contact[0]))
-                      ])
-                    : _vm._e()
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group floating-label-form-group controls"
-                },
-                [
-                  _c("label", [_vm._v("Telephone")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.telephone,
-                        expression: "fields.telephone"
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Contact Name",
+                    id: "contact"
+                  },
+                  domProps: { value: _vm.fields.contact },
+                  on: {
+                    change: _vm.contactChange,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "tel",
-                      placeholder: "Telephone (optional)",
-                      id: "telephone"
-                    },
-                    domProps: { value: _vm.fields.telephone },
-                    on: {
-                      change: _vm.telephoneChange,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.fields, "telephone", $event.target.value)
-                      }
+                      _vm.$set(_vm.fields, "contact", $event.target.value)
                     }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.telephone
-                    ? _c("div", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.telephone[0]))
-                      ])
-                    : _vm._e()
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c(
-                "div",
-                {
-                  staticClass: "form-group floating-label-form-group controls"
-                },
-                [
-                  _c("label", [_vm._v("Email Address")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.fields.email,
-                        expression: "fields.email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "email", placeholder: "Email", id: "email" },
-                    domProps: { value: _vm.fields.email },
-                    on: {
-                      change: _vm.emailChange,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.fields, "email", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors && _vm.errors.email
-                    ? _c("div", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(_vm.errors.email[0]))
-                      ])
-                    : _vm._e()
-                ]
-              )
-            ])
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.contact
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.contact[0]))
+                    ])
+                  : _vm._e()
+              ]
+            )
           ]),
           _vm._v(" "),
-          _c("AddressForm")
-        ],
-        1
-      )
+          _c("div", { staticClass: "col-12" }, [
+            _c(
+              "div",
+              { staticClass: "form-group floating-label-form-group controls" },
+              [
+                _c("label", [_vm._v("Telephone")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.telephone,
+                      expression: "fields.telephone"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "tel",
+                    placeholder: "Telephone (optional)",
+                    id: "telephone"
+                  },
+                  domProps: { value: _vm.fields.telephone },
+                  on: {
+                    change: _vm.telephoneChange,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "telephone", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.telephone
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.telephone[0]))
+                    ])
+                  : _vm._e()
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12" }, [
+            _c(
+              "div",
+              { staticClass: "form-group floating-label-form-group controls" },
+              [
+                _c("label", [_vm._v("Email Address")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fields.email,
+                      expression: "fields.email"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "email", placeholder: "Email", id: "email" },
+                  domProps: { value: _vm.fields.email },
+                  on: {
+                    change: _vm.emailChange,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.fields, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors && _vm.errors.email
+                  ? _c("div", { staticClass: "text-danger" }, [
+                      _vm._v(_vm._s(_vm.errors.email[0]))
+                    ])
+                  : _vm._e()
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row mt-4" }, [
+          _c("div", { staticClass: "col-auto" }, [
+            _vm._v("\n                I would like to join the:\n            ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col" }, [
+            _c("label", { staticClass: "check ", attrs: { for: "uk" } }, [
+              _vm._v("UK lottery\n                    "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.lotteries,
+                    expression: "fields.lotteries"
+                  }
+                ],
+                attrs: { type: "checkbox", id: "uk", value: "UK" },
+                domProps: {
+                  checked: Array.isArray(_vm.fields.lotteries)
+                    ? _vm._i(_vm.fields.lotteries, "UK") > -1
+                    : _vm.fields.lotteries
+                },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$a = _vm.fields.lotteries,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = "UK",
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.fields, "lotteries", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.fields,
+                              "lotteries",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.fields, "lotteries", $$c)
+                      }
+                    },
+                    _vm.checkboxChange
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "checkmark" })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "check ", attrs: { for: "local" } }, [
+              _vm._v("Local lottery\n                    "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.fields.lotteries,
+                    expression: "fields.lotteries"
+                  }
+                ],
+                attrs: { type: "checkbox", id: "local", value: "Local" },
+                domProps: {
+                  checked: Array.isArray(_vm.fields.lotteries)
+                    ? _vm._i(_vm.fields.lotteries, "Local") > -1
+                    : _vm.fields.lotteries
+                },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$a = _vm.fields.lotteries,
+                        $$el = $event.target,
+                        $$c = $$el.checked ? true : false
+                      if (Array.isArray($$a)) {
+                        var $$v = "Local",
+                          $$i = _vm._i($$a, $$v)
+                        if ($$el.checked) {
+                          $$i < 0 &&
+                            _vm.$set(_vm.fields, "lotteries", $$a.concat([$$v]))
+                        } else {
+                          $$i > -1 &&
+                            _vm.$set(
+                              _vm.fields,
+                              "lotteries",
+                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                            )
+                        }
+                      } else {
+                        _vm.$set(_vm.fields, "lotteries", $$c)
+                      }
+                    },
+                    _vm.checkboxChange
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "checkmark" })
+            ]),
+            _vm._v(" "),
+            _vm.errors && _vm.errors.lotteries
+              ? _c("div", { staticClass: "text-danger small" }, [
+                  _vm._v(_vm._s(_vm.errors.lotteries[0]))
+                ])
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row mt-4" }, [
+          _c(
+            "div",
+            { staticClass: "col-12 col-md-10 col-lg-8 mx-auto text-center" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: {
+                    type: "submit",
+                    id: "joinLotteryButton",
+                    disabled: _vm.isSending
+                  }
+                },
+                [_vm._v("Join Today")]
+              )
+            ]
+          )
+        ])
+      ])
     ]
   )
 }
@@ -53482,6 +53709,25 @@ var render = function() {
         "div",
         { staticClass: "card mb-4 border-0" },
         [
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.errored,
+                  expression: "errored"
+                }
+              ],
+              staticClass: "notice notice-danger"
+            },
+            [
+              _c("strong", [_vm._v("Error")]),
+              _vm._v(" There are errors in the form!!\n        ")
+            ]
+          ),
+          _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-12" }, [
               _c(
