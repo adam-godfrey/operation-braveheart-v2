@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@push('scripts')
+<script src="{{ asset('js/memorial-garden.js') }}" async></script>
+@endpush
+
 @section('content')
 
 @if($page->description)

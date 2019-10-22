@@ -1,7 +1,13 @@
 {
-    "/js/admin.js": "/js/admin.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
     "/css/styles.css": "/css/styles.css",
-    "/css/admin.css": "/css/admin.css"
+    "/css/admin.css": "/css/admin.css",
+    "/js/contact.js": "/js/contact.js",
+    "/js/index.js": "/js/index.js",
+    "/js/lottery.js": "/js/lottery.js",
+    "/js/lottery-form.js": "/js/lottery-form.js",
+    "/js/memorial-garden.js": "/js/memorial-garden.js",
+    "/js/memorial-garden-form.js": "/js/memorial-garden-form.js",
+    "/js/news.js": "/js/news.js",
+    "/js/shop.js": "/js/shop.js"
 }

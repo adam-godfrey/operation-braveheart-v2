@@ -1,5 +1,18 @@
 @extends('layouts.default')
 
+@push('scripts')
+<script src="{{ asset('js/lottery.js') }}" async></script>
+<script>
+    function init() {
+    var imgDefer = document.getElementsByTagName('img');
+    for (var i=0; i<imgDefer.length; i++) {
+    if(imgDefer[i].getAttribute('data-src')) {
+    imgDefer[i].setAttribute('src',imgDefer[i].getAttribute('data-src'));
+    } } }
+    window.onload = init;
+</script>
+@endpush
+
 @section('content')
 
 @if($page->description)
@@ -44,7 +57,7 @@
                 @foreach($lottery->UK as $draw)
                     <div class="col-6 col-sm-4">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-blue-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
+                            <img class="card-img-top" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ asset('images/ball-blue-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -65,7 +78,7 @@
                 @foreach($lottery->Local as $draw)
                     <div class="col-6 col-sm-{{ count($lottery->Local) == 3 ? '4' : '3' }}">
                         <div class="card lottery">
-                            <img class="card-img-top" src="{{ asset('images/ball-green-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
+                            <img class="card-img-top" src="data:image/png;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ asset('images/ball-green-' . $draw->image . '.jpg') }}" alt="Lottery prize winner">
                             <div class="card-body text-center">
                                 <h5 class="card-title">&pound;{{ $draw->prize }}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{ $draw->winner }}</h6>
@@ -107,11 +120,11 @@
 <div class="container-fluid fun">
     <div class="row">
         <div class="col mx-auto text-center">
-            <img srcset="{{ asset('images/600/fun.jpg') }} 320w, 
-                         {{ asset('images/600/fun.jpg') }} 480w, 
-                         {{ asset('images/1440/fun.jpg') }} 800w"
+            <img srcset="{{ asset('images/600/fun.png') }} 320w, 
+                         {{ asset('images/600/fun.png') }} 480w, 
+                         {{ asset('images/1440/fun.png') }} 800w"
                  sizes="(max-width: 320px) 300px, (max-width: 480px) 440px, 800px"
-                 src="{{ asset('images/1980/fun.jpg') }}" alt="When the fun stops, STOP">
+                 src="{{ asset('images/1980/png.jpg') }}" alt="When the fun stops, STOP">
         </div>
     </div>
 </div>
