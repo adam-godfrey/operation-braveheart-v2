@@ -18,9 +18,6 @@ class LotteryController extends Controller
 
     public function index()
     {
-
-        \Auth::logout();
-
         $lotterySetting = LotterySetting::all();
 
         $data = [];

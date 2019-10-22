@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@push('scripts')
+<script src="{{ asset('js/news.js') }}" async></script>
+@endpush
+
 @section('content')
 
 @if($page->description)

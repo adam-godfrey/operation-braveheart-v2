@@ -47,7 +47,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Renter Password" required autocomplete="new-password">
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Re-enter Password" required autocomplete="new-password">
                                     </div>
 
                                     <div class="form-group row mb-0">

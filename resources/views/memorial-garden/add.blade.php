@@ -1,5 +1,10 @@
 @extends('layouts.default')
 
+@push('scripts')
+<script src="{{ asset('js/require.js 2.3.6.js') }}"></script>
+<script src="{{ asset('js/require.config.js') }}"></script>
+@endpush
+
 @section('content')
 
 @if($page->description)

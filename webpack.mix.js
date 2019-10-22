@@ -12,9 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/admin.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css')
+   .js('resources/js/index.js', 'public/js')
+   .js('resources/js/lottery.js', 'public/js')
+   .js('resources/js/lottery-form.js', 'public/js')
+   .js('resources/js/memorial-garden.js', 'public/js')
+   .js('resources/js/memorial-garden-form.js', 'public/js')
+   .js('resources/js/news.js', 'public/js')
+   .js('resources/js/shop.js', 'public/js')
+   .js('resources/js/contact.js', 'public/js')
    .sass('resources/sass/styles.scss', 'public/css')
    .sass('resources/sass/admin.scss', 'public/css');
 
 mix.copy('resources/images/', 'public/images/', false);
+mix.copy('resources/fonts/', 'public/fonts/', false);
