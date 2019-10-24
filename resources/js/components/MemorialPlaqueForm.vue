@@ -1,6 +1,6 @@
 <template>
     <div>
-    	<div id="plaque">
+    	<div id="plaque" class="metal">
             <div class="screw top left"></div>
             <div class="screw top right"></div>
             <div class="form-row">

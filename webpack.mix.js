@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,8 +12,7 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .js('resources/js/index.js', 'public/js')
+mix.js('resources/js/index.js', 'public/js')
    .js('resources/js/lottery.js', 'public/js')
    .js('resources/js/lottery-form.js', 'public/js')
    .js('resources/js/memorial-garden.js', 'public/js')
@@ -21,7 +21,17 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/shop.js', 'public/js')
    .js('resources/js/contact.js', 'public/js')
    .sass('resources/sass/styles.scss', 'public/css')
+   .purgeCss({
+   		globs: [
+            path.join(__dirname, "resources/views/**/*.blade.php"),
+            path.join(__dirname, "resources/js/components/**/*.vue"),
+            path.join(__dirname, "resources/assets/js/**/*.js")
+        ],
+        extensions: ['html', 'js', 'php', 'vue'],
+        whitelistPatterns: [/carousel-.*/, /show/, /screw/, /metal/, /webp/, /no-webp/],
+    });
+
+mix.js('resources/js/admin.js', 'public/js')
    .sass('resources/sass/admin.scss', 'public/css');
 
 mix.copy('resources/images/', 'public/images/', false);
-mix.copy('resources/fonts/', 'public/fonts/', false);

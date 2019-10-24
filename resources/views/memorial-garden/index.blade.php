@@ -1,5 +1,9 @@
 @extends('layouts.default')
 
+@push('head')
+<link rel="preload" onload="this.rel = 'stylesheet'" as="style" href='https://fonts.googleapis.com/css?family=Satisfy&display=swap'>
+@endpush
+
 @push('scripts')
 <script src="{{ asset('js/memorial-garden.js') }}" async></script>
 @endpush
@@ -45,7 +49,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <p>We also respectfully remember in these recent years when this country has faced mindless acts of terrorism where many hundreds of innocent members of the public have become victims of these mindless acts of cowardice that have taken place in our major cities around the country. My heart breaks for these families and especially the children and families of Manchester in the Manchester arena, NO ONE can justify this terrible carnage that took place there.</p>
 
-            <p>If you have lost loved ones in such circumstances then please get in touch with me here as I would love to give you this beautiful garden where you can place a plaque so that others may share inn your loss and sorrow.</p>
+            <p>If you have lost loved ones in such circumstances then please get in touch with me here as I would love to give you this beautiful garden where you can place a plaque so that others may share in your loss and sorrow.</p>
         </div>
     </div>
     <div class="row">

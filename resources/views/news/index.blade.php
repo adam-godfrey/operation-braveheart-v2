@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @push('scripts')
-<script src="{{ asset('js/news.js') }}" async></script>
+<script src="{{ asset('js/news.js') }}" defer></script>
 @endpush
 
 @section('content')

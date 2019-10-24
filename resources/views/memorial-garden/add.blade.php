@@ -1,8 +1,12 @@
 @extends('layouts.default')
 
+@push('head')
+<link rel="dns-prefetch" href="//js.stripe.com" />
+@endpush
+
 @push('scripts')
-<script src="{{ asset('js/require.js 2.3.6.js') }}"></script>
-<script src="{{ asset('js/require.config.js') }}"></script>
+<script src="https://js.stripe.com/v3/" defer></script>
+<script src="{{ asset('js/memorial-garden-form.js') }}" defer></script>
 @endpush
 
 @section('content')

@@ -96,15 +96,25 @@ class LotteryController extends Controller
 
             $color = ($draw == 'uk') ? 'blue' : 'green';
 
-            $img = Image::make(\Storage::get('ball-' . $color . '.jpg'));  
-            $img->text($winning_number, 137, 141, function($font) {  
+            $jpg = Image::make(\Storage::get('ball-' . $color . '.jpg'));  
+            $jpg->text($winning_number, 137, 141, function($font) {  
                 $font->file(public_path('fonts/open-sans.bold.ttf'));  
                 $font->size(50);  
                 $font->color('#212529');  
                 $font->align('center');  
                 $font->valign('center');  
             });  
-            $img->save(public_path('images/ball-' . $color . '-' .  $nf->format($i) . '.jpg')); 
+            $jpg->save(public_path('images/ball-' . $color . '-' .  $nf->format($i) . '.jpg'));
+
+            $webp = Image::make(\Storage::get('ball-' . $color . '.webp'));  
+            $webp->text($winning_number, 137, 141, function($font) {  
+                $font->file(public_path('fonts/open-sans.bold.ttf'));  
+                $font->size(50);  
+                $font->color('#212529');  
+                $font->align('center');  
+                $font->valign('center');  
+            });  
+            $webp->save(public_path('images/ball-' . $color . '-' .  $nf->format($i) . '.webp')); 
 
             $player = LotteryPlayer::where('lottery_number', $winning_number)
                 ->first();

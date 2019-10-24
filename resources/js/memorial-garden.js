@@ -1,9 +1,10 @@
 window.Vue = require('vue');
 
-import BootstrapVue from 'bootstrap-vue';
+// import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-Vue.use(BootstrapVue);
+import { CarouselPlugin } from 'bootstrap-vue'
+Vue.use(CarouselPlugin)
 
 Vue.component('call-to-action', require('./components/CallToAction.vue').default);
 Vue.component('carousel', require('./components/Carousel.vue').default);
