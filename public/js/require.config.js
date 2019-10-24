@@ -2,11 +2,14 @@ requirejs.config({
     shim: {
         form: {
             deps: [ 'stripe' ]
+        },
+        stripe: {
+            exports: 'Stripe',
         }
     },
     paths: {
-    	stripe: 'https://js.stripe.com/v3/',
-        form: '/js/memorial-garden-form'
+    	'stripe': 'https://js.stripe.com/v3/?noext',
+        'form': '/js/memorial-garden-form'
     }
 });
 

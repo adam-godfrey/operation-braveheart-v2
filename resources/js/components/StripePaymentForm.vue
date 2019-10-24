@@ -14,7 +14,7 @@
                     </label>
                 </div>
                 <div class="col-md-4">
-                    <div class="ccards"></div>
+                    <div class="ccards lazy"></div>
                 </div>
             </div>
 

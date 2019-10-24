@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @push('scripts')
-<script src="{{ asset('js/lottery-form.js') }}" async></script>
+<script src="{{ asset('js/lottery-form.js') }}" defer></script>
 @endpush
 
 @section('content')
