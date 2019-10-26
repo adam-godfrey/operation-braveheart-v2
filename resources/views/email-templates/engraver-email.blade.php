@@ -15,20 +15,9 @@
       margin: 0;
       -webkit-text-size-adjust: none;
     }
-
-    u + #body a {
-      color: #0085a1;
-      text-decoration: none;
-      font-size: inherit;
-      font-family: inherit;
-      font-weight: inherit;
-      line-height: inherit;
-  }
-
-/* ADD id="body" TO body TAG*/
     
     a {
-      color: #0085a1;
+      color: #3869D4;
     }
     
     a img {
@@ -121,9 +110,9 @@
       border-bottom: 10px solid #3869D4;
       border-left: 18px solid #3869D4;
       display: inline-block;
-      color: #FFFFFF !important;;
+      color: #FFF;
       text-decoration: none;
-      border-radius: 0px;
+      border-radius: 3px;
       box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
       -webkit-text-size-adjust: none;
       box-sizing: border-box;
@@ -143,18 +132,7 @@
       border-right: 18px solid #FF6136;
       border-bottom: 10px solid #FF6136;
     }
-
-    .button--blue {
-      background-color: #0085a1;
-      color: #ffffff !important;
-      padding: 10px;
-      border-top: 1px solid #0085a1;
-      border-right: 1px solid #0085a1;
-      border-bottom: 1px solid #0085a1;
-      border-left: 1px solid #0085a1;
-    }
-
-  
+    
     @media only screen and (max-width: 500px) {
       .button {
         width: 100% !important;
@@ -449,8 +427,7 @@
     </style>
   <![endif]-->
   </head>
-  <body id="body">
-    <span class="preheader">This is a receipt for your recent purchase on {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $receipt->order->created_at)->format('dS M Y')  }}. No payment is due with this receipt.</span>
+  <body>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center">
@@ -470,72 +447,12 @@
                   <tr>
                     <td class="content-cell">
                       <div class="f-fallback">
-                        <h1>Hi {{$receipt->contact}},</h1>
-                        <p>Thanks for ordering a memorial garden plaque in memory of {{$receipt->name}}. This email is the receipt for your purchase. No payment is due.</p>
-                        <p>This purchase will appear as "Operation Braveheart" on your credit card statement for your {{$receipt->order->credit_card_brand}} ending in {{$receipt->order->credit_card_last_four}}.</p>
-                        <table class="purchase" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                          <tr>
-                            <td>
-                              <h3>Order: {{$receipt->order->orderid}}</h3></td>
-                            <td>
-                              <h3 class="align-right">{{\Carbon\Carbon::now()->format('dS M Y')}}</h3></td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <table class="purchase_content" width="100%" cellpadding="0" cellspacing="0">
-                                <tr>
-                                  <th class="purchase_heading" align="left">
-                                    <p class="f-fallback">Description</p>
-                                  </th>
-                                  <th class="purchase_heading" align="right">
-                                    <p class="f-fallback">Amount</p>
-                                  </th>
-                                </tr>
-                               
-                                <tr>
-                                  <td width="80%" class="purchase_item"><span class="f-fallback">Operation Braveheart Memorial Garden Plaque</span></td>
-                                  <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback">{{$receipt->order->amount}}</span></td>
-                                </tr>
-            
-                                <tr>
-                                  <td width="80%" class="purchase_footer" valign="middle">
-                                    <p class="f-fallback purchase_total purchase_total--label">Total</p>
-                                  </td>
-                                  <td width="20%" class="purchase_footer" valign="middle">
-                                    <p class="f-fallback purchase_total">&pound;{{$receipt->order->amount}}</p>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                        <p>If you have any questions about this receipt, simply reply to this email or reach out to our <a href="https://www.operation-braveheart.org.uk/contact">David</a> for help.</p>
+                        <h1>Hi Wendy,</h1>
+                        <p>Here is the info for the next plaque for you to do.</p>
+                        <p>Please send a draft to show the family to confirm we have all the details correct.</p>
                         <p>Cheers,
-                          <br>The Operation Braveheart Team</p>
-                          <!-- Action -->
-                        <table class="body-action" align="center" width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                          <tr>
-                            <td align="center">
-                              <!-- Border based button
-           https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" role="presentation">
-                                <tr>
-                                  <td align="center">
-                                    <a href="https://www.operation-braveheart.org.uk/download-receipt/{{$receipt->hashid}}" class="f-fallback button button--blue" target="_blank">Download as PDF</a>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                        <!-- Sub copy -->
-                        <table class="body-sub" role="presentation">
-                          <tr>
-                            <td>
-                              <p class="f-fallback sub">Need a printable copy for your records?</strong> You can <a href="https://www.operation-braveheart.org.uk/download-receipt/{{$receipt->hashid}}">download a PDF version</a>.</p>
-                            </td>
-                          </tr>
-                        </table>
+                          <br>David Godfrey
+                        </p>                        
                       </div>
                     </td>
                   </tr>

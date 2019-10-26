@@ -12,6 +12,18 @@ require('laravel-mix-purgecss');
  |
  */
 
+ mix.webpackConfig(webpack => {
+    return {
+        plugins: [
+            new webpack.EnvironmentPlugin (
+                ['MIX_STRIPE_KEY']
+            )
+        ]
+    };
+});
+
+ // mix.js('resources/js/memorial-garden-form.js', 'public/js');
+
 mix.js('resources/js/index.js', 'public/js')
    .js('resources/js/lottery.js', 'public/js')
    .js('resources/js/lottery-form.js', 'public/js')

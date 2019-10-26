@@ -22,4 +22,6 @@ class Plaque extends Model
 	{
 	    return \Hashids::connection('alternative')->encode($this->attributes['id']);
 	}
+
+    
 }

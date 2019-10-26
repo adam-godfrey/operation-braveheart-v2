@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submit">
+    <form id="contact-form" @submit.prevent="submit" ref="notice">
         <div class="card mb-4 border-0">
             <div class="notice notice-danger" v-show="errored">
                 <strong>Error</strong> There are errors in the form!!
@@ -67,14 +67,18 @@ export default {
             this.errors = {};
             this.fields.customer = customer;
             this.errored = false;
+
             axios.post('/memorial-garden/send-request', this.fields).then(response => {
                 this.$root.$emit('validated', response.data.customer);
-                this.success = true;
             }).catch(error => {
                 if (error.response.status === 422) {
                     this.errors = error.response.data.errors || {};
                     this.$root.$emit('errors', this.errors);
                     this.errored = true;
+                    
+                    this.$nextTick(() => {
+                        this.$refs.notice.scrollTop = 0;
+                    });
                 }
             });
         }),
@@ -94,7 +98,6 @@ export default {
             this.fields.county = county;
         });
         this.$root.$on('postcodeChange', postcode => {
-            console.log(postcode);
             this.fields.postcode = postcode;
         });
         this.$root.$on('rankChange', rank => {
@@ -131,7 +134,7 @@ export default {
         },
         emailChange: function() {
             delete this.errors.email;
-        },
+        }
     }
 }
 </script>

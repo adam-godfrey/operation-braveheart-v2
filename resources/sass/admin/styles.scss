@@ -231,9 +231,6 @@
 
 .btn {
     border-radius: 0;
-    i {
-        margin-right: 5px;
-    }
 }
 
 .negative-margin {
@@ -734,4 +731,96 @@ screen and (max-width:736px) and (orientation:landscape) {
 
 .cc-floating.cc-theme-edgeless .cc-btn+.cc-btn {
     margin-left: 0
+}
+
+#plaque {
+    position: relative;
+    padding: 40px 10px 20px;
+    margin-bottom: 15px;
+    background-image: url('/../images/metallic-effect.jpg');
+    .form-group {
+        margin-bottom: 0;
+    }
+    .form-control {
+        background: transparent;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: "Times New Roman", Times, serif;
+    }
+    .screw {
+        position: absolute;
+        background-image: url('/../images/screw.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        opacity: 0.6;
+        width: 30px;
+        height: 30px;
+        &.top {
+            top:5px;
+        }
+        &.bottom {
+            bottom: 5px;
+        }
+        &.left {
+            left: 5px;
+        }
+        &.right {
+            right: 5px;
+        }
+    }
+    .text-danger {
+        font-size: 70%;
+    }
+}
+
+.remaining {
+    color: $primary;
+    margin: 10px 0 0;
+}
+
+.select-container {
+    position: relative;
+    width: 100%;
+
+    select {
+        border: 2px solid #eee;
+        border-radius: 10px;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance:none;
+        width: 100%;
+        height: 35px;
+        line-height: 35px;
+        background: #FFF;
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        text-transform: uppercase;
+        outline:none;
+        padding-left: 15px;
+        box-shadow: 3px 3px 30px #eee;
+        transition: 0.2s;
+        &:focus, select:hover {
+            box-shadow: 3px 3px 10px #eee
+        }
+        &:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 #000;
+        }
+        &select::-ms-expand {
+            display: none;
+        }
+    }
+
+    .select-arrow {
+        color: #333;
+        right:0px;
+        top: 10px;
+        width:30px;
+        position:absolute;
+        display:block;
+        z-index: 10;
+        margin: 0 0 0 0;
+        pointer-events:none;
+    }
 }

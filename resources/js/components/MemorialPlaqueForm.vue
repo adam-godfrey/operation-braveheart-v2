@@ -19,7 +19,7 @@
                     <div v-if="errors && errors.dob" class="text-danger text-right small">{{ errors.dob[0] }}</div>
                 </div>
                 <div class="col">
-                    <datepicker @selected="dodChange" input-class="form-control" name="fields.dod" placeholder="D0D" v-model="fields.dod" :disabled-dates="disabledDates"></datepicker>
+                    <datepicker @selected="dodChange" input-class="form-control" name="fields.dod" placeholder="DOD" v-model="fields.dod" :disabled-dates="disabledDates"></datepicker>
                     <div v-if="errors && errors.dod" class="text-danger small">{{ errors.dod[0] }}</div>
                 </div>
             </div>

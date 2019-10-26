@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Cartalyst\Stripe\Laravel\Facades\Stripe;
-use Cartalyst\Stripe\Exception\CardErrorException;
 use App\Models\PlaqueOrder;
 use App\Mail\PlaqueReceipt;
 use Illuminate\Support\Facades\Mail;
@@ -60,6 +58,13 @@ Route::prefix('api')->group(function () {
 Route::post('postcode-lookup', 'ActionsController@getAddresses');
 
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
+
+    Route::group(['prefix' => 'memorial-garden'], function() {
+        Route::get('/plaque-orders', 'MemorialGardenController@index');
+        Route::get('/plaque-orders/{id}/edit', 'MemorialGardenController@edit');
+        Route::put('/plaque-orders/update', 'MemorialGardenController@update');
+        Route::post('/plaque-orders/send', 'MemorialGardenController@send');
+    });
 
     Route::group(['prefix' => 'lottery'], function() {
 

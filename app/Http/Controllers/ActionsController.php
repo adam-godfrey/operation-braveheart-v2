@@ -9,9 +9,12 @@ use Event;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Mpdf\Mpdf;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Cartalyst\Stripe\Exception\CardErrorException;
 use Hashids;
 use App\Events\SendPlaqueReceipt;
 use App\Models\Plaque;
+use App\Models\PlaqueOrder;
 use App\Models\Admin\LotterySetting;
 use Webklex\IMAP\Facades\Client as Imap;
 use App\Models\Email;
@@ -97,37 +100,37 @@ class ActionsController extends Controller
             Stripe::setApiKey(env('STRIPE_API_SECRET'));
 
             $charge = Stripe::charges()->create([
-                'amount' => 16.00,
+                'amount' => 15.50,
                 'currency' => 'GBP',
                 'source' => $request->stripeToken,
                 'statement_descriptor' => 'Memorial Plaque',
                 'description' => 'Memorial Plaque',
             ]);
 
-            PlaqueOrder::where('plaque_id', $request->customer)
+            $plaqueOrder = PlaqueOrder::where('plaque_id', $request->customer)
                 ->update([
                     'charge_id' => $charge['id'],
                     'credit_card_brand' => $charge['payment_method_details']['card']['brand'],
                     'credit_card_last_four' => $charge['payment_method_details']['card']['last4'],
-                    'amount' => 16.00,
+                    'amount' => 15.50,
                     'paid' => 1
                 ]);
 
             $receipt = Plaque::with('order')
-                ->where('id', 1)
+                ->where('id', $request->customer)
                 ->first();
  
             event(new SendPlaqueReceipt($receipt));
             
             // SUCCESSFUL
-            return back()->with('success_message', 'Thank you! Your payment has been accepted.');
+            return redirect()->route('memorial-garden.add')->with('success_message', 'Thank you! Your payment has been accepted.');
         } catch (CardErrorException $e) {
             // save info to database for failed
             PlaqueOrder::where('plaque_id', $request->customer)
                 ->update([
                     'plaque_id' => $request->customer,
                     'charge_id' => $charge['id'],
-                    'amount' => 16.00,
+                    'amount' => 15.50,
                     'paid' => 0
                 ]);
 

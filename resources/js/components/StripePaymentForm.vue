@@ -62,6 +62,7 @@
 
 <script>
     export default {
+        props: ['cost'],
         data() {
             return {
                 csrf: document.head.querySelector('meta[name="csrf-token"]').content,
@@ -84,11 +85,10 @@
                 cardNumberError: '',
 
                 customer: '',
-
+                apikey: process.env.MIX_STRIPE_KEY,
                 loading: false,
             }
         },
-        props: ['cost'],
         mounted() {
             this.setUpStripe();
             this.$root.$on('validated', (customer) => {
@@ -101,7 +101,7 @@
                 if (window.Stripe === undefined) {
                     alert('Stripe V3 library not loaded!');
                 } else {
-                    const stripe = window.Stripe('pk_test_lUYB8gRAticlrxYtMWMpdD3y00DfkDDdZh');
+                    const stripe = window.Stripe(this.apikey);
                     this.stripe = stripe;
 
                     const elements = stripe.elements();

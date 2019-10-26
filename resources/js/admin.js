@@ -48,6 +48,9 @@ Vue.component('file-upload', require('./components/admin/FileUpload.vue').defaul
 
 Vue.component('emails', require('./components/admin/EmailsTable.vue').default);
 
+Vue.component('plaque-form', require('./components/admin/PlaqueEditForm.vue').default);
+Vue.component('plaque-orders', require('./components/admin/PlaqueOrdersTable.vue').default);
+
 const app = new Vue({
     el: '#app'
 });
