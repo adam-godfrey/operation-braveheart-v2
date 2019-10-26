@@ -36,6 +36,7 @@ class PlaqueReceipt extends Mailable
     public function build()
     {
         return $this->from('memorialgarden@operation-braveheart')
+                    ->subject('Operation Braveheart Memorial Garden Plaque Receipt')
                     ->view('email-templates.order-confirmation');
     }
 }

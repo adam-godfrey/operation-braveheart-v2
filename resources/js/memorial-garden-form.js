@@ -8,7 +8,7 @@ Vue.component('navbar', require('./components/Navbar.vue').default);
 
 import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const router = new VueRouter({
     mode: 'history',

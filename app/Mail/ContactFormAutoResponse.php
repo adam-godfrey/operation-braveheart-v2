@@ -36,6 +36,7 @@ class ContactFormAutoResponse extends Mailable
     public function build()
     {
         return $this->from('no-reply@operation-braveheart.org.uk', 'Operation Braveheart')
+            ->subject('Your Message to Operation Braveheart')
             ->view('email-templates.contact-form-autoresponder');
     }
 }

@@ -49,7 +49,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-12 col-md-10 col-lg-8 mx-auto text-center">
-                    <button type="submit" class="btn btn-primary" id="joinLotteryButton" :disabled="isSending">Join Today</button>
+                    <button type="submit" class="btn btn-primary" id="joinLotteryButton" :disabled="isSending" ref="form">Join Today</button>
                 </div>
             </div>
         </div>

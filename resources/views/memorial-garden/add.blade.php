@@ -35,8 +35,8 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             @if (session()->has('success_message'))
-                <div class="alert alert-success">
-                    {{ session()->get('success_message') }}
+                <div class="notice notice-success">
+                    <strong>Success</strong> {{ session()->get('success_message') }}
                 </div>
             @endif
 
@@ -74,7 +74,7 @@
     <div class="row">
         <div class="col-lg-5 col-md-8 mx-auto">
             
-            <payment-form cost="16.00"></payment-form>
+            <payment-form cost="15.50" key="ssss"></payment-form>
 
             <p>Thank you for helping to remember the fallen</p>
         </div>

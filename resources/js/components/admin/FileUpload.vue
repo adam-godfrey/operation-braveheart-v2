@@ -10,8 +10,8 @@
 				      	</div>
 				      	<input type="text" class="form-control" v-model="file.name" disabled placeholder="Upload File" aria-label="Upload File" aria-describedby="basic-addon1">
 				      	<div class="input-group-append">
-				        	<button class="browse input-group-text btn btn-primary" type="button" @click="$refs.file.click()"><i class="fas fa-search"></i> Browse</button>
-				        	<button class="upload input-group-text btn btn-primary" type="button" @click="uploadSubmit"><i class="fas fa-upload"></i> {{ isLoading ? 'Loading...':'Upload' }}</button>
+				        	<button class="browse input-group-text btn btn-primary" type="button" @click="$refs.file.click()"><i class="fas fa-search mr-2"></i> Browse</button>
+				        	<button class="upload input-group-text btn btn-primary" type="button" @click="uploadSubmit"><i class="fas fa-upload mr-2"></i> {{ isLoading ? 'Loading...':'Upload' }}</button>
 				      	</div>
 				    </div>
 				</form>

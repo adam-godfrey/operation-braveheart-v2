@@ -36,6 +36,7 @@ class ContactFormForwarder extends Mailable
     public function build()
     {
         return $this->from('no-reply@operation-braveheart.org.uk', 'Operation Braveheart')
+            ->subject('New Message to Operation Braveheart')
             ->view('email-templates.contact-form-forwarder');
     }
 }

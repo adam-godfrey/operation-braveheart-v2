@@ -29,9 +29,9 @@
     </div>
 
     <div style="float: right; width: 20%;">
-        <p class="mt-10 mb-3 mr-2 text-right">1234</p>
-		<p class="mt-2 mb-3 mr-2 text-right">30th October 2019</p>
-		<p class="mt-2 mb-3 mr-2 text-right">30th October 2019</p>
+        <p class="mt-10 mb-3 mr-2 text-right">{{$data->order->orderid}}</p>
+		<p class="mt-2 mb-3 mr-2 text-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->order->created_at)->format('dS M Y')  }}</p>
+		<p class="mt-2 mb-3 mr-2 text-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $data->order->created_at)->format('dS M Y')  }}</p>
     </div>
 
     <div style="float: right; width: 20%;">

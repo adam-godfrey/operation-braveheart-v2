@@ -27,7 +27,7 @@ class SendPlaqueConfirmationEmail
      */
     public function handle(SendPlaqueReceipt $event)
     {
-        \Mail::to('adrock952@gmail.com')->send(
+        \Mail::to($event->receipt->email)->send(
             new PlaqueReceipt($event->receipt)
         );
     }

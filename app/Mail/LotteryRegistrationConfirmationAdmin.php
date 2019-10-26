@@ -36,6 +36,7 @@ class LotteryRegistrationConfirmationAdmin extends Mailable
     public function build()
     {
         return $this->from('no-reply@operation-braveheart.org.uk', 'Operation Braveheart')
+            ->subject('New Lottery Registration')
             ->view('email-templates.lottery-confirmation-admin');
     }
 }
