@@ -40,7 +40,7 @@
                         <td class="col-md-2">{{order.created_at}}</td>
                         <td class="col-md-1">{{order.order.status}}</td>
                         <td class="col-md-1">
-                            <a class="btn btn-primary btn-sm" v-bind:href="'/admin/memorial-garden/plaque-orders/' + order.id + '/edit'"><i class="fa fa-edit"></i></a>
+                            <a class="btn btn-secondary btn-sm" v-bind:href="'/admin/memorial-garden/plaque-orders/' + order.id + '/edit'"><i class="fa fa-edit"></i></a>
                             <a class="btn btn-success btn-sm" href="#" @click="sendToEngraver(order.id)"><i class="fa fa-hammer"></i></a>
                         </td>
                     </tr>
@@ -50,16 +50,16 @@
         <div>
             <nav class="pagination" v-if="!tableShow.showdata">
                 <span class="page-stats">{{pagination.from}} - {{pagination.to}} of {{pagination.total}}</span>
-                <a v-if="pagination.prevPageUrl" class="btn btn-sm btn-primary pagination-previous" @click="--pagination.currentPage">
+                <a v-if="pagination.prevPageUrl" class="btn btn-sm btn-secondary pagination-previous" @click="--pagination.currentPage">
                     Prev
                 </a>
-                <a class="btn btn-sm btn-primary pagination-previous" v-else disabled>
+                <a class="btn btn-sm btn-secondary pagination-previous" v-else disabled>
                 Prev
                 </a>
                 <a v-if="pagination.nextPageUrl" class="btn btn-sm pagination-next" @click="++pagination.currentPage">
                     Next
                 </a>
-                <a class="btn btn-sm btn-primary pagination-next" v-else disabled>
+                <a class="btn btn-sm btn-secondary pagination-next" v-else disabled>
                     Next
                 </a>
             </nav>
@@ -68,16 +68,16 @@
                     {{pagination.from}} - {{pagination.to}} of {{filteredorders.length}}
                     <span v-if="`filteredorders.length < pagination.total`"></span>
                 </span>
-                <a v-if="pagination.prevPage" class="btn btn-sm btn-primary pagination-previous" @click="--pagination.currentPage">
+                <a v-if="pagination.prevPage" class="btn btn-sm btn-secondary pagination-previous" @click="--pagination.currentPage">
                     Prev
                 </a>
-                <a class="btn btn-sm pagination-previous btn-primary" v-else disabled>
+                <a class="btn btn-sm pagination-previous btn-secondary" v-else disabled>
                 Prev
                 </a>
-                <a v-if="pagination.nextPage" class="btn btn-sm btn-primary pagination-next" @click="++pagination.currentPage">
+                <a v-if="pagination.nextPage" class="btn btn-sm btn-secondary pagination-next" @click="++pagination.currentPage">
                     Next
                 </a>
-                <a class="btn btn-sm pagination-next btn-primary"  v-else disabled>
+                <a class="btn btn-sm pagination-next btn-secondary"  v-else disabled>
                     Next
                 </a>
             </nav>

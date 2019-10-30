@@ -8,7 +8,7 @@ use App\Events\SendPlaqueToEngraver;
 use App\Mail\EngraverEmail;
 use App\Models\plaqueOrder;
 
-class SendContactFormAutoResponseEmail
+class SendPlaqueToEngraverEmail
 {
     /**
      * Create the event listener.

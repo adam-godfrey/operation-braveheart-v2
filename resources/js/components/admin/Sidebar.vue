@@ -1,66 +1,138 @@
 <template>
-    <div>
-        <li class="nav-item" v-for="(item, index) in items" @click="toggleItem(index)">
-            <a class="nav-link collapsed" href="#">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>{{item.text}}</span>
-            </a>
-
-            <transition name="slide">
-                <div v-if="isActive === index" class="item-active">
-                    <div class="bg-white py-2 rounded"v-html="item.html">  
-                    </div>
-                </div>
-            </transition>
-        </li>
-    </div>
+  <sidebar-menu :menu="menu" :showOneChild="true" @toggle-collapse="onToggleCollapse"/>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            items: [
-                { 
-                    text: 'Memorial Garden',
-                    html: `<h6 class="collapse-header">Memorial Garden:</h6>
-                        <a class="collapse-item" href="/admin/memorial-garden">Dashboard</a>
-                        <h6 class="collapse-header">Plaque Orders:</h6>
-                        <a class="collapse-item" href="/admin/memorial-garden/plaque-orders">View All</a>`
-                },
-                { 
-                    text: 'Lottery',
-                    html: `<h6 class="collapse-header">Lottery:</h6>
-                        <a class="collapse-item" href="/admin/lottery">Dashboard</a>
-                        <a class="collapse-item" href="/admin/lottery/settings">Settings</a>
-                        <h6 class="collapse-header">Draw Numbers:</h6>
-                        <a class="collapse-item" href="/admin/lottery/draw/uk">UK</a>
-                        <a class="collapse-item" href="/admin/lottery/draw/local">Local</a>
-                        <h6 class="collapse-header">Lottery Players:</h6>
-                        <a class="collapse-item" href="/admin/lottery/players/create">Add New</a>
-                        <a class="collapse-item" href="/admin/lottery/players">View All</a>`
-                },
-                { 
-                    text: 'News',
-                    html: `<h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="/admin/news/create">Add New</a>
-                        <a class="collapse-item" href="/admin/news">View All</a>`
-                }
-                ,
-                { 
-                    text: 'Emails',
-                    html: `<h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Add New</a>
-                        <a class="collapse-item" href="/admin/emails">View All</a>`
-                }
-            ],
-            isActive: null
-        }
-    },
-    methods: {
-        toggleItem(index) {
-            this.isActive = this.isActive === index ? null : index;
+    import { SidebarMenu } from 'vue-sidebar-menu'
+    export default {
+        data() {
+            return {
+                menu: [
+                    {
+                        header: true,
+                        title: 'Main Navigation',
+                        hiddenOnCollapse: true
+                    },
+                    {
+                        href: '/',
+                        title: 'Dashboard',
+                        icon: 'fa fa-user'
+                    },
+                    {
+                        title: 'Memorial Garden',
+                        icon: 'fas fa-dove',
+                        child: [
+                            {
+                                href: '/admin/memorial-garden',
+                                title: 'Dashboard'
+                            },
+                            {
+                                header: true,
+                                title: 'Plaque Orders',
+                                hiddenOnCollapse: true
+                            },
+                            {
+                                href: '/admin/memorial-garden/plaque-orders',
+                                title: 'View All'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Lottery',
+                        icon: 'fas fa-ticket-alt',
+                        child: [
+                            {
+                                href: '/admin/lottery',
+                                title: 'Dashboard'
+                            },
+                            {
+                                href: '/admin/lottery/settings',
+                                title: 'Settings'
+                            },
+                            {
+                                header: true,
+                                title: 'Draw Numbers',
+                                hiddenOnCollapse: true
+                            },
+                            {
+                                href: '/admin/lottery/draw/uk',
+                                title: 'UK'
+                            },
+                            {
+                                href: '/admin/lottery/draw/local',
+                                title: 'Local'
+                            },
+                            {
+                                header: true,
+                                title: 'Players',
+                                hiddenOnCollapse: true
+                            },
+                            {
+                                href: '/admin/lottery/players/create',
+                                title: 'Create New'
+                            },
+                            {
+                                href: '/admin/lottery/players',
+                                title: 'View All'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'News',
+                        icon: 'far fa-newspaper',
+                        child: [
+                            {
+                                href: '/admin/memorial-garden"',
+                                title: 'Dashboard'
+                            },
+                            {
+                                header: true,
+                                title: 'Plaque Orders',
+                                hiddenOnCollapse: true
+                            },
+                            {
+                                href: '/admin/memorial-garden/plaque-orders',
+                                title: 'View All'
+                            }
+                        ]
+                    },
+                    {
+                        title: 'Messaging',
+                        icon: 'far fa-envelope',
+                        child: [
+                            {
+                                href: '/admin/memorial-garden',
+                                title: 'Dashboard'
+                            },
+                            {
+                                header: true,
+                                title: 'Plaque Orders',
+                                hiddenOnCollapse: true
+                            },
+                            {
+                                href: '/admin/memorial-garden/plaque-orders',
+                                title: 'View All'
+                            }
+                        ]
+                    },
+                ]
+            }
         },
+        components: {
+            SidebarMenu
+        },
+        methods: {
+            onToggleCollapse(collapsed) {
+                console.log(collapsed)
+                var v = document.getElementById('app'); 
+                if(collapsed) {
+                    v.classList.add('collapsed');
+                }
+                else {
+                    v.classList.remove('collapsed');
+                }
+            },
+            
+        }
     }
-};
 </script>

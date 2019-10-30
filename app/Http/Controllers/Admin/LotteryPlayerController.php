@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\LotteryPlayer;
 use App\Models\Admin\LotteryBall;
+use App\Models\Admin\LotterySetting;
+use App\Models\Admin\LotteryPayment;
+use App\Models\Admin\LotteryDraw;
 use App\Http\Traits\LotteryTrait;
 use App\Rules\Telephone;
 
@@ -22,7 +25,13 @@ class LotteryPlayerController extends Controller
      */
     public function index()
     {
-        return View('admin.lottery.players.index');
+        $players = LotteryPlayer::orderBy('created_at', 'desc')->get();
+
+        $data = [
+            'players' => $players
+        ];
+
+        return View('admin.lottery.players.index')->with($data);
     }
 
     /**
@@ -72,6 +81,13 @@ class LotteryPlayerController extends Controller
         $lotteryBall->player_id = $lotteryPlayer->id;
 
         $lotteryBall->save();
+
+        $lotteryPayment = new LotteryPayment();
+
+        $lotteryPaymnent->player_id = $lotteryPlayer->id;
+        $lotteryPaymnent->paid = 0;
+
+        $lotteryPayment->save();
 
         return response()->json($request->all(), 200);
     }
@@ -186,5 +202,122 @@ class LotteryPlayerController extends Controller
             $player->delete();
         }
         return 'user deleted';
+    }
+
+    public function getPaidPlayers(Request $request)
+    {
+        if ( $request->input('showdata') ) {
+
+            $draw_date = $request->input('draw_date');
+
+            $lotteryPlayers = LotteryPlayer::join('lottery-payments', 'lottery-players.id' , '=', 'lottery-payments.player_id')
+                ->where('lottery-payments.draw_date', $draw_date)
+                ->where('lottery-players.active', true)
+                ->get();
+
+            $lotteryPlayers->each(function ($item, $key) {
+                $item->paid = $item->paid == 1 ? true : false;
+            });
+
+            return $lotteryPlayers;            
+        }
+
+        $columns = ['name', 'email', 'created_at'];
+        $length = $request->input('length');
+        $column = $request->input('column'); 
+        $search_input = $request->input('search');
+
+        $query = LotteryPlayer::join('lottery-payments', 'lottery-players.id' , '=', 'lottery-payments.player_id')
+                ->where('lottery-payments.draw_date', $draw_date)
+                ->where('lottery-players.active', true)
+                ->orderBy('name', 'asc'); 
+
+        if ($search_input) {
+            $query->where(function($query) use ($search_input) {
+                $query->where('name', 'like', '%' . $search_input . '%');
+            });
+        }
+
+        $query->orderBy('name', 'asc');
+
+        $users = $query->paginate($length);
+
+        return ['data' => $users];
+    }
+
+     public function updatePaidStatus(Request $request)
+    {
+        $player = $request->input('player');
+
+        $lotteryPayment = LotteryPayment::where('id', $player['id'])
+            ->update(['paid' => $player['paid'] === true ? 1 : 0]);
+
+        /*
+         * Income chart
+         */
+        $lotterySettings = LotterySetting::where('key', 'like', '%prize')
+            ->get();
+
+        $drawdates = LotteryDraw::select('draw_date')
+            ->distinct()
+            ->orderBy('draw_date', 'desc')
+            ->limit(3)
+            ->get();
+
+        // get the total prizes for UK
+        $uk_total_prize = $lotterySettings->filter(function($item) {
+            return substr($item->key, -5) === 'prize' && substr($item->key, 0, 2) === 'uk' && $item->value != null;
+        })->sum('value');
+        // get the total prizes for Local
+        $local_total_prize = $lotterySettings->filter(function($item) {
+            return substr($item->key, -5) === 'prize' && substr($item->key, 0, 5) === 'local' && $item->value != null;
+        })->sum('value');
+
+        $dates = $drawdates->take(3)->reverse();
+
+        $lotteryPayments = LotteryPayment::whereIn('draw_date', $dates->pluck('draw_date')->toArray())
+            ->where('paid', 1)
+            ->get();
+
+        $uk_incomes = [];
+        $local_incomes = [];
+
+        foreach($dates as $date) {
+            foreach(['UK', 'Local'] as $type) {
+                // get the total income for UK
+                ${strtolower($type) . '_income'}[] = $lotteryPayments->filter(function($item) use($date, $type) {
+                    return $item->draw_date == $date->draw_date && $item->draw_type == $type;
+                })->count() * 2;
+            }
+        }
+
+        $incomedatasets = [
+            (object) [
+                'label' => 'UK Income',
+                'backgroundColor' => '#4e73df',
+                'stack' => 'Stack 0',
+                'data' =>  [$uk_income[0], $uk_income[1], $uk_income[2]]
+            ],
+            (object) [
+                'label' => 'UK Prizes',
+                'backgroundColor' => '#2e59d9',
+                'stack' => 'Stack 0',
+                'data' =>  [ -$uk_total_prize,  -$uk_total_prize, -$uk_total_prize]
+            ],
+            (object) [
+                'label' => 'Local Income',
+                'backgroundColor' => '#1cc88a',
+                'stack' => 'Stack 1',
+                'data' =>  [$local_income[0], $local_income[1], $local_income[2]]
+            ],
+            (object) [
+                'label' => 'Local Prizes',
+                'backgroundColor' => '#17a673',
+                'stack' => 'Stack 1',
+                'data' =>  [-$local_total_prize, -$local_total_prize, -$local_total_prize]
+            ],
+        ];
+
+        return response()->json(['income' => $incomedatasets], 200);
     }
 }

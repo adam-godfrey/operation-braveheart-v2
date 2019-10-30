@@ -8,6 +8,7 @@ use App\Models\Admin\LotteryBall;
 use App\Models\Admin\LotterySetting;
 use App\Models\Admin\LotteryDraw;
 use App\Models\Admin\LotteryPlayer;
+use App\Models\Admin\LotteryPayment;
 use App\Http\Traits\LotteryTrait;
 use DateTime;
 use Image;
@@ -20,13 +21,150 @@ class LotteryController extends Controller
     {
         $lotterySetting = LotterySetting::all();
 
-        $data = [];
+        $draw_date = LotterySetting::select('value')
+                ->where('key', 'draw_date')
+                ->first()
+                ->value;
 
-        foreach($lotterySetting as $setting) {
-            $data[$setting->key] = $setting->value;
+        $drawdates = LotteryDraw::select('draw_date')
+            ->distinct()
+            ->orderBy('draw_date', 'desc')
+            ->limit(3)
+            ->get();
+
+        $lotteryPlayers = LotteryPlayer::join('lottery-payments', 'lottery-players.id' , '=', 'lottery-payments.player_id')
+            ->where('lottery-payments.draw_date', '2019-10-12')
+            ->get();
+
+        $lotteryPlayers->each(function ($item, $key) {
+            $item->paid = $item->paid == 1 ? true : false;
+        });
+
+        $uk = $lotteryPlayers->where('draw_type', 'UK')
+            ->where('active', true)
+            ->count();
+
+        $local = $lotteryPlayers->where('draw_type', 'Local')
+            ->where('active', true)
+            ->count();
+
+        $inactive = $lotteryPlayers->where('active', false)
+            ->count();
+
+        $playerlabels = ['UK', 'Local', 'Inactive'];
+        $playerdatasets = [
+            (object) [
+                'label' => 'Lottery Players',
+                'backgroundColor' => ['#4e73df', '#1cc88a', '#e74a3b'],
+                'hoverBackgroundColor' =>  ['#2e59d9', '#17a673','#e74a3b'],
+                'data' =>  [$uk, $local, $inactive]
+            ]
+        ];
+
+        /*
+         * Income chart
+         */
+        $lotterySettings = LotterySetting::where('key', 'like', '%prize')
+            ->get();
+
+        // get the total prizes for UK
+        $uk_total_prize = $lotterySettings->filter(function($item) {
+            return substr($item->key, -5) === 'prize' && substr($item->key, 0, 2) === 'uk' && $item->value != null;
+        })->sum('value');
+        // get the total prizes for Local
+        $local_total_prize = $lotterySettings->filter(function($item) {
+            return substr($item->key, -5) === 'prize' && substr($item->key, 0, 5) === 'local' && $item->value != null;
+        })->sum('value');
+
+        $dates = $drawdates->take(3)->reverse();
+
+        $lotteryPayments = LotteryPayment::whereIn('draw_date', $dates->pluck('draw_date')->toArray())
+            ->where('paid', 1)
+            ->get();
+
+        $uk_incomes = [];
+        $local_incomes = [];
+
+        foreach($dates as $date) {
+            foreach(['UK', 'Local'] as $type) {
+                // get the total income for UK
+                ${strtolower($type) . '_income'}[] = $lotteryPayments->filter(function($item) use($date, $type) {
+                    return $item->draw_date == $date->draw_date && $item->draw_type == $type;
+                })->count() * 2;
+            }
         }
 
-        return View('admin.lottery.index')->with(['settings' => $data]);
+        $incomelabels = [];
+
+        foreach($dates as $date) {
+            $incomelabels[] = \Carbon::createFromFormat('Y-m-d', $date->draw_date)->format('M');
+        }
+
+        $incomedatasets = [
+            (object) [
+                'label' => 'UK Income',
+                'backgroundColor' => '#4e73df',
+                'stack' => 'Stack 0',
+                'data' =>  [$uk_income[0], $uk_income[1], $uk_income[2]]
+            ],
+            (object) [
+                'label' => 'UK Prizes',
+                'backgroundColor' => '#2e59d9',
+                'stack' => 'Stack 0',
+                'data' =>  [ -$uk_total_prize,  -$uk_total_prize, -$uk_total_prize]
+            ],
+            (object) [
+                'label' => 'Local Income',
+                'backgroundColor' => '#1cc88a',
+                'stack' => 'Stack 1',
+                'data' =>  [$local_income[0], $local_income[1], $local_income[2]]
+            ],
+            (object) [
+                'label' => 'Local Prizes',
+                'backgroundColor' => '#17a673',
+                'stack' => 'Stack 1',
+                'data' =>  [-$local_total_prize, -$local_total_prize, -$local_total_prize]
+            ],
+        ];
+
+        $incomeoptions = new \stdClass();
+
+        $incomeoptions->tooltips = (object) [
+            'mode' => 'index',
+            'intersect' => false
+        ];
+
+        $incomeoptions->responsive = true;
+        $incomeoptions->maintainAspectRatio = true;
+
+        $incomeoptions->scales = (object) [
+            'xAxes' => [
+                (object) [
+                    'stacked' => true,
+                ]
+            ],
+            'yAxes' => [
+                (object) [
+                    'stacked' => true
+                ]
+            ],
+        ];
+
+        $data = [
+            'uk' => $uk,
+            'local' => $local,
+            'inactive' => $inactive,
+            'playerlabels' => $playerlabels,
+            'playerdatasets' => $playerdatasets,
+            'playeroptions' => json_encode([]),
+            'incomelabels' => $incomelabels,
+            'incomedatasets' => $incomedatasets,
+            'incomeoptions' => json_encode($incomeoptions),
+            'players' => collect($lotteryPlayers->where('active', true)->all()),
+            'dates' => json_encode($drawdates),
+        ];
+
+        return View('admin.lottery.index')->with($data);
     }
 
     public function settings()

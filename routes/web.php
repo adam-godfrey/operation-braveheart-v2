@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Mail;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/test', 'ActionsController@test')->name('test');
 
@@ -60,7 +60,8 @@ Route::post('postcode-lookup', 'ActionsController@getAddresses');
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
 
     Route::group(['prefix' => 'memorial-garden'], function() {
-        Route::get('/plaque-orders', 'MemorialGardenController@index');
+        Route::get('/', 'MemorialGardenController@index');
+        Route::get('/plaque-orders', 'MemorialGardenController@orders');
         Route::get('/plaque-orders/{id}/edit', 'MemorialGardenController@edit');
         Route::put('/plaque-orders/update', 'MemorialGardenController@update');
         Route::post('/plaque-orders/send', 'MemorialGardenController@send');
@@ -80,6 +81,9 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
 
         Route::get('players/get', 'LotteryPlayerController@getPlayers');
         Route::post('available-numbers', 'LotteryPlayerController@getAvailableNumbers');
+        Route::get('players/paid', 'LotteryPlayerController@getPaidPlayers');
+        Route::put('players/update-paid', 'LotteryPlayerController@updatePaidStatus');
+        
         
         Route::resource('players', 'LotteryPlayerController');
     });

@@ -53,13 +53,21 @@
 				<div class="form-group row">
 					<label for="inputNumber" class="col-sm-4 col-form-label">Player Active</label>
 					<div class="col-sm-8">
-						<toggle-switch :options="myOptions" :disabled="false" @change="updateMap($event.value)" v-model="player.active" />
+						<toggle-button 
+                            :value="false"
+                            :sync="true"
+                            :labels="{checked: 'Yes', unchecked: 'No'}" 
+                            v-model="player.active"
+                            :color="{checked: '#858796', unchecked: '#e74a3b', disabled: '#CCCCCC'}"
+                            :width="65"
+                            @change="onChangeEventHandler">
+                        </toggle-button>
 					</div>
 				</div>
 
 				<div class="form-group row">
 					<div class="col-sm-8">
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-secondary">
 						<span v-if="this.action === 'add'">Create Player</span>
 						<span v-else>Update Player</span>
 						</button>
@@ -102,38 +110,8 @@ export default {
         		telephone: '',
         		draw_type: 'Local',
         		lottery_number: '',
-        		active: 'Yes'
         	},
-        	errors: {},
-        	myOptions: {
-			  	layout: {
-				    color: 'grey',
-				    backgroundColor: 'lightgray',
-				    selectedColor: 'white',
-				    selectedBackgroundColor: 'green',
-				    borderColor: 'grey',
-				    fontFamily: 'Arial',
-				    fontWeight: 'normal',
-				    fontWeightSelected: 'bold',
-				    squareCorners: false,
-				    noBorder: false
-			  	},
-			  	size: {
-				    fontSize: 1,
-				    height: 2.5,
-				    padding: 0.5,
-				    width: 6
-			  	},
-			  	items: {
-				    delay: .4,
-				    preSelected: 'unknown',
-				    disabled: false,
-				    labels: [
-						{name: 'No', color: 'white', backgroundColor: 'red'}, 
-						{name: 'Yes', color: 'white', backgroundColor: 'green'}
-			    	]
-			  	}
-			}
+        	errors: {}
         }
     },
     components: {
@@ -169,7 +147,7 @@ export default {
 
             const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false
@@ -247,13 +225,10 @@ export default {
 		            }    
               	}
             });
-
-            
         },
-        getChangeDataResponse: function() {
-        	let status = true;
-        	return status;
-        }
+        onChangeEventHandler: function () {
+        	console.log(this.player.active);
+        },
     },
     created(){
   		if(this.action === 'edit'){
@@ -262,7 +237,7 @@ export default {
   		}
   	},
     mounted() {
-
+    	console.log(this.player);
     }
 };
 </script>
