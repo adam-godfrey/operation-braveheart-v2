@@ -39,7 +39,7 @@
 				</table>
 				<div class="form-group row">
 					<div class="col-sm-8">
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-secondary">
 							Save Results
 						</button>
 					</div>
@@ -121,7 +121,7 @@ export default {
         submit: function() {
         	const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false

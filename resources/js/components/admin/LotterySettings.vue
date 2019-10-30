@@ -8,7 +8,7 @@
 						<datepicker @selected="drawChange" input-class="form-control" placeholder="Draw Date" v-model="draw_date" :disabled-dates="disabledDates"></datepicker>
 					</div>
 					<div class="input-group-append">
-    					<button class="btn btn-outline-secondary" type="button" v-on:click="newDraw">New Draw</button>
+    					<button class="btn btn-secondary" type="button" v-on:click="newDraw">New Draw</button>
   					</div>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 						</div>
 						<input type="number" min="1" max="4" class="form-control" v-model="local_winners">
 						<div class="input-group-append">
-	    					<button class="btn btn-outline-secondary" type="button" v-on:click="winningNumbers">Update</button>
+	    					<button class="btn btn-secondary" type="button" v-on:click="winningNumbers">Update</button>
 	  					</div>
 					</div>
 				</div>		
@@ -47,7 +47,7 @@
 					    <option value="5">Five</option>
 					</select>
   					<div class="input-group-append">
-    					<button class="btn btn-outline-secondary" type="button" data-type="UK" v-on:click="lotteryBalls">Update</button>
+    					<button class="btn btn-secondary" type="button" data-type="UK" v-on:click="lotteryBalls">Update</button>
   					</div>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 					    <option value="5">Five</option>
 					</select>
   					<div class="input-group-append">
-    					<button class="btn btn-outline-secondary" type="button" data-type="Local" v-on:click="lotteryBalls">Update</button>
+    					<button class="btn btn-secondary" type="button" data-type="Local" v-on:click="lotteryBalls">Update</button>
   					</div>
 				</div>
 			</div>
@@ -159,7 +159,7 @@
 						</div>
 					</div>
 				</div>
-				<button class="btn btn-outline-secondary float-right" type="button" v-on:click="updatePrizes">Update</button>				
+				<button class="btn btn-secondary float-right" type="button" v-on:click="updatePrizes">Update</button>				
 			</div>
 		</div>
 	</div>
@@ -213,7 +213,7 @@ export default {
 
         	const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false
@@ -267,7 +267,7 @@ export default {
 
         	const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false
@@ -325,7 +325,7 @@ export default {
         	if(extra_balls > 0) {
         		const swalWithBootstrapButtons = this.$swal.mixin({
 	                customClass: {
-	                    confirmButton: 'btn btn-primary',
+	                    confirmButton: 'btn btn-secondary',
 	                    cancelButton: 'btn btn-secondary'
 	                },
 	                buttonsStyling: false
@@ -393,7 +393,7 @@ export default {
 
     		const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false

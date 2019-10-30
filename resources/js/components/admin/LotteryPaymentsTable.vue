@@ -12,6 +12,15 @@
 		            </label>
 		        </div>
 		    </div>
+            <div class="col-4">
+                <div>
+                    <label class="dropdown">
+                        <select v-model="selectedDate" @change="getPaidPlayers($event.target)">
+                            <option v-for="(date, index) in dates" :key="index" :value="date.draw_date">{{ date.formattedDate }}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
 		    <div class="col-3">
 		      	<div class="form-group">
 		      		<input class="form-control" type="text" v-model="search" placeholder="Search..." @input="resetPagination()">
@@ -25,25 +34,28 @@
                         <th :class="column.width" v-for="column in columns" :key="column.name" @click="sortBy(column.name)"
                             
                             style="cursor:pointer;">
-                           <span :class="sortKey === column.name ? (sortOrders[column.name] > 0 ? 'sorting_asc' : 'sorting_desc') : 'sorting'">{{column.label}}</span>
+                           <span :class="sortKey === column.name ? (sortPlayers[column.name] > 0 ? 'sorting_asc' : 'sorting_desc') : 'sorting'">{{column.label}}</span>
                         </th>
-                        <th class="col-md-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="row" v-for="user in paginatedUsers" :key="user.id">
-                        <td class="col-md-2">{{user.name}}</td>
-                        <td class="col-md-2">{{user.telephone}}</td>
-                        <td class="col-md-2">{{user.email}}</td>
-                        <td class="col-md-2">{{user.lottery_number}}</td>
-                        <td class="col-md-1">
-                            <span class="badge badge-pill badge-primary" v-if="user.draw_type === 'UK'">{{user.draw_type}}</span>
-                            <span class="badge badge-pill badge-success" v-else>{{user.draw_type}}</span>
+                    <tr class="row" v-for="(player, i) in paginatedPlayers" :key="player.id">
+                        <td class="col-md-5">{{player.name}}</td>
+                        <td class="col-md-3">
+                            <span class="badge badge-pill badge-primary" v-if="player.draw_type === 'UK'">{{player.draw_type}}</span>
+                            <span class="badge badge-pill badge-success" v-else>{{player.draw_type}}</span>
                         </td>
-                        <td class="col-md-2">{{user.created_at}}</td>
-                        <td class="col-md-1">
-                            <a class="btn btn-secondary btn-sm" v-bind:href="'/admin/lottery/players/' + user.id + '/edit'"><i class="fa fa-edit"></i></a>
-                            <a class="btn btn-danger btn-sm" href="#" @click="deleteUser(user.id)"><i class="fa fa-trash"></i></a>
+                        <td class="col-md-4">
+                            <toggle-button 
+                                :value="player.paid"
+                                :sync="true"
+                                :labels="{checked: 'Paid', unchecked: 'Unpaid'}" 
+                                v-model="player.paid"
+                                :color="{checked: '#858796', unchecked: '#e74a3b', disabled: '#CCCCCC'}"
+                                :width="65"
+                                :key="i"
+                                @change="updateStatus(player.id)">
+                            </toggle-button>
                         </td>
                     </tr>
                 </tbody>
@@ -67,8 +79,8 @@
             </nav>
             <nav class="pagination" v-else>
                 <span class="page-stats">
-                    {{pagination.from}} - {{pagination.to}} of {{filteredUsers.length}}
-                    <span v-if="`filteredUsers.length < pagination.total`"></span>
+                    {{pagination.from}} - {{pagination.to}} of {{filteredPlayers.length}}
+                    <span v-if="`filteredPlayers.length < pagination.total`"></span>
                 </span>
                 <a v-if="pagination.prevPage" class="btn btn-sm btn-secondary pagination-previous" @click="--pagination.currentPage">
                     Prev
@@ -92,36 +104,37 @@
 export default {
     props: {
         result: {
+            type: Object
+        },
+        dates: {
             type: Array
         }
     },
     created() {
-        // this.getUsers();
-        this.users = this.result;
+        this.players =  Object.keys(this.result).map(item => this.result[item]);
     },
     data() {
-        let sortOrders = {};
+        let sortPlayers = {};
         let columns = [
-            {label: 'Name', name: 'name', 'width': 'col-md-2'},
-            {label: 'Telephone', name: 'telephone', 'width': 'col-md-2'},
-            {label: 'Email', name: 'email', 'width': 'col-md-2'},
-            {label: 'Lottery Number', name: 'lottery_number', 'width': 'col-md-2'},
-            {label: 'Draw Type', name: 'type', 'width': 'col-md-1'},
-            {label: 'Date Added', name: 'created_at', 'width': 'col-md-2'},
+            {label: 'Name', name: 'name', 'width': 'col-md-5'},
+            {label: 'Draw Type', name: 'telephone', 'width': 'col-md-3'},
+            {label: 'Status', name: 'status', 'width': 'col-md-4'},
         ];
         columns.forEach((column) => {
-           sortOrders[column.name] = -1;
+           sortPlayers[column.name] = -1;
         });
         
         return {
-            users: [],
+            players: [],
+            draw_dates: this.dates,
             columns: columns,
-            sortKey: 'created_at',
-            sortOrders: sortOrders,
+            sortKey: 'name',
+            sortPlayers: sortPlayers,
             length: 10,
             search: '',
             tableShow: {
                 showdata: true,
+                draw_date: ''
             },
             pagination: {
                 currentPage: 1,
@@ -131,71 +144,30 @@ export default {
                 from: '',
                 to: ''
             },
+            selectedDate: ''
         }
     },
+    mounted() {
+        this.selectedDate = this.draw_dates[0].draw_date
+    },
     methods: {
-        deleteUser(id) {
-            const swalWithBootstrapButtons = this.$swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            });
-
-            swalWithBootstrapButtons.fire({
-                title: 'Delete this player?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, delete it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    this.$snotify.async('Deleting the lottery player', 'Deleting', () => new Promise((resolve, reject) => {
-                        axios.delete(`/admin/lottery/player/${id}/delete`).then(response => {
-                            if(response.status === 200) {
-                                setTimeout(() => resolve({
-                                    title: 'Success!!!',
-                                    body: 'Email successfully deleted!',
-                                    config: {
-                                        timeout: 2000,
-                                        closeOnClick: true
-                                    }}, 
-                                    this.getEmails()
-                                ), 2000);
-                               
-                            }
-                        }).catch(error => {
-                            if (error.response.status === 422) {
-                                setTimeout(() => reject({
-                                    title: 'Error!!!',
-                                    body: 'There was a problem deleting the email!',
-                                    config: {
-                                        timeout: 2000,
-                                        closeOnClick: true
-                                    }},
-                                    this.errors = error.response.data.errors || {}
-                                ), 1000);
-                            }
-                        });
-                    }));
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // swalWithBootstrapButtons.fire(
-                    //     'Cancelled',
-                    //     'Your imaginary file is safe :)',
-                    //     'error'
-                    // )
+        updateStatus(index) {
+            axios.put(`/admin/lottery/players/update-paid`, {player: this.players.find(x => x.id === index), date: this.selectedDate}).then(response => {
+                if(response.status === 200) {
+                    this.$root.$emit('chart-update', response.data);                
                 }
-            });
+            }).catch(error => {
+                if (error.response.status === 422) {
+                    
+                }
+            }); 
         },
-        
-        getUsers() {
-            axios.get('/admin/lottery/players/get', {params: this.tableShow})
+        getPaidPlayers(event) {
+            this.tableShow.draw_date = this.selectedDate;
+            axios.get('/admin/lottery/players/paid', {params: this.tableShow })
                 .then(response => {
-                    this.users = response.data;
-                    this.pagination.total = this.users.length;
+                    this.players = response.data;
+                    this.pagination.total = this.players.length;
                 })
                 .catch(errors => {
                 });
@@ -215,26 +187,26 @@ export default {
         sortBy(key) {
             this.resetPagination();
             this.sortKey = key;
-            this.sortOrders[key] = this.sortOrders[key] * -1;
+            this.sortPlayers[key] = this.sortPlayers[key] * -1;
         },
         getIndex(array, key, value) {
             return array.findIndex(i => i[key] == value)
         },
     },
     computed: {
-        filteredUsers() {
-            let users = this.users;
+        filteredPlayers() {
+            let players = this.players;
             if (this.search) {
-                users = users.filter((row) => {
+                players = players.filter((row) => {
                     return Object.keys(row).some((key) => {
                         return String(row[key]).toLowerCase().indexOf(this.search.toLowerCase()) > -1;
                     })
                 });
             }
             let sortKey = this.sortKey;
-            let order = this.sortOrders[sortKey] || 1;
+            let order = this.sortPlayers[sortKey] || 1;
             if (sortKey) {
-                users = users.slice().sort((a, b) => {
+                players = players.slice().sort((a, b) => {
                     let index = this.getIndex(this.columns, 'name', sortKey);
                     a = String(a[sortKey]).toLowerCase();
                     b = String(b[sortKey]).toLowerCase();
@@ -247,10 +219,10 @@ export default {
                     }
                 });
             }
-            return users;
+            return players;
         },
-        paginatedUsers() {
-            return this.paginate(this.filteredUsers, this.length, this.pagination.currentPage);
+        paginatedPlayers() {
+            return this.paginate(this.filteredPlayers, this.length, this.pagination.currentPage);
         }
     }
 };

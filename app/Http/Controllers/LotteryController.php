@@ -7,6 +7,7 @@ use App\Models\Admin\LotteryDraw;
 use App\Models\Admin\LotteryBall;
 use App\Models\Admin\LotterySetting;
 use App\Models\Admin\LotteryPlayer;
+use App\Models\Admin\LotteryPayment;
 use App\Rules\Telephone;
 use DB;
 
@@ -140,6 +141,13 @@ class LotteryController extends Controller
                 $lotteryPlayer->lottery_number = $getNextNumber;
 
                 $lotteryPlayer->save();
+
+                $lotteryPayment = new LotteryPayment();
+
+                $lotteryPaymnent->player_id = $lotteryPlayer->id;
+                $lotteryPaymnent->paid = 0
+
+                $lotteryPayment->save();
 
                 event(new SendLotteryRegistrationConfirmation($lotteryPlayer));
 

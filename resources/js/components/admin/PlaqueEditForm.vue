@@ -68,7 +68,7 @@
                 <div class="col-sm-8 input-group">
                     <input type="text" class="form-control" id="postcode" v-model="fields.postcode" v-on:change="postcodeChange">
                     <div class="input-group-append">
-                        <button v-on:click="lookup" class="btn btn-primary" id="findAddress" :disabled="spin"><i class="fas fa-spinner fa-pulse mr-2" v-show="spin"></i> Find Address</button>
+                        <button v-on:click="lookup" class="btn btn-secondary" id="findAddress" :disabled="spin"><i class="fas fa-spinner fa-pulse mr-2" v-show="spin"></i> Find Address</button>
                       </div>
                     <div v-if="errors && errors.postcode" class="text-danger">{{ errors.postcode[0] }}</div>
                 </div>
@@ -133,7 +133,7 @@
         <div v-if="errors && errors.confirm" class="text-danger small">{{ errors.confirm[0] }}</div>
         <div class="form-group row mt-4">
             <div class="col-sm-8">
-                <button type="submit" class="btn btn-primary">Update Plaque</button>
+                <button type="submit" class="btn btn-secondary">Update Plaque</button>
             </div>
         </div>
     </form>
@@ -321,7 +321,7 @@ export default {
         submit: function() {
             const swalWithBootstrapButtons = this.$swal.mixin({
                 customClass: {
-                    confirmButton: 'btn btn-primary',
+                    confirmButton: 'btn btn-secondary',
                     cancelButton: 'btn btn-secondary'
                 },
                 buttonsStyling: false

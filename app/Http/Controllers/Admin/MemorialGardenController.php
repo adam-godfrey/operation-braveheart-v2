@@ -6,14 +6,47 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DateTime;
 use Mpdf\Mpdf;
-use App\Events\SendPlaqueToEngraver
+use App\Events\SendPlaqueToEngraver;
 use App\Rules\Postcode;
 use App\Rules\Telephone;
 use App\Models\Plaque;
+use App\Models\PlaqueOrder;
 
 class MemorialGardenController extends Controller
 {
     public function index()
+    {
+        $orders = PlaqueOrder::all();
+
+        $new = $orders->where('status', 0)->count();
+        $awaiting = $orders->where('status', 1)->count();
+        $engraver = $orders->where('status', 2)->count();
+        $complete = $orders->where('status', 3)->count();
+
+        $labels = ['New', 'Awaiting', 'With Engraver', 'Complete'];
+        $datasets = [
+            (object) [
+                'label' => 'Plaque Orders',
+                'backgroundColor' => ['#4e73df', '#858796', '#36b9cc', '#1cc88a'],
+                'hoverBackgroundColor' =>  ['#2e59d9', '#6e707e','#2c9faf', '#17a673'],
+                'data' =>  [$new, $awaiting, $engraver, $complete]
+            ]
+        ];
+
+         $data = [
+            'new' => $new,
+            'awaiting' => $awaiting,
+            'engraver' => $engraver,
+            'complete' => $complete,
+            'labels' => $labels,
+            'datasets' => $datasets,
+            'options' => json_encode([])
+        ];
+
+        return View('admin.memorial-garden.index')->with($data);
+    }
+
+    public function orders()
     {
         $orders = Plaque::with('order')->get();
 
@@ -21,8 +54,7 @@ class MemorialGardenController extends Controller
             'orders' => $orders
         ];
 
-
-        return View('admin.memorial-garden.index')->with($data);
+        return View('admin.memorial-garden.orders')->with($data);
     }
 
     public function edit($id)
