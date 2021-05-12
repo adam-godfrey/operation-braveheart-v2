@@ -30,7 +30,7 @@
     "dependencies": {
         "@tinymce/tinymce-vue": "^3.0.1",
         "bootstrap-vue": "^2.0.2",
-        "chart.js": "^2.9.0",
+        "chart.js": "^2.9.4",
         "sweetalert2": "^8.18.3",
         "v-datatable-light": "^0.8.0",
         "vue-chartjs": "^3.4.2",
